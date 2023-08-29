@@ -115,10 +115,10 @@ Table 1 provides an overview of all fields defined by this document.
 
 
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
-Location: 'R' - the field is located in the root of the JSON object, 'RT' - the field may be located in either the root or a track object, "S" - the field is located in the Selection Properties object. 
+Location: 'R' - the field is located in the root of the JSON object, 'RT' - the field may be located in either the root or a track object, "S" - the field is located in the Selection Properties object.
 
 ### Streaming format {#streamingformat}
-A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {#iana} for additional details. 
+A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {#iana} for additional details.
 
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies.The structure of the version string is defined by the streaming format.
@@ -306,7 +306,6 @@ medium definition qualities, along with an audio track.
   "gr": 1,
   "tracks":[
     {
-     
       "n": "hd",
       "sp": {"wd":1920,"ht":1080,"br":5000000,"fr":30},
       "alt":1
