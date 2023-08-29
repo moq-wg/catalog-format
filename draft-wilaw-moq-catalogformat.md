@@ -86,7 +86,6 @@ Table 1 provides an overview of all fields defined by this document.
 | Streaming format version| v      |  yes     |   R       |  String    | See {{streamingformatversion}} |
 | Tracks                  | tracks |  yes     |   R       |  Array     | See {{tracks}}                 |
 | Parent sequence number  | psn    |  opt     |   R       |  Array     | See {{parentsequencenumber}}   |
-| Layered                 | ly     |  opt     |   R       |  Array     | See {{layered}}                |
 | Track namespace         | ns     |  yes     |   RT      |  String    | See {{tracknamespace}}         |
 | Track name              | n      |  yes     |   RT      |  String    | See {{trackname}}              |
 | Packaging               | p      |  yes     |   RT      |  String    | See {{packaging}}              |
@@ -151,7 +150,7 @@ Table 2: Allowed packaging values
 
 
 
-### Track operations {#operations}
+### Track operations {#trackoperations}
 
 Each track description can specify an optional operation value that identifies
 the catalog producer's intent.Track operation is a enumeration of values
