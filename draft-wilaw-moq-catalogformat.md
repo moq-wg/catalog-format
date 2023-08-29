@@ -52,7 +52,7 @@ informative:
 
 --- abstract
 
-Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. This specification defines an interoperable Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. The Catalog describes the content made available by a publisher, including information necessary for track selection, subscription and initialization.
+This specification defines an common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The Catalog describes the content made available by a publisher, including information necessary for track selection, subscription and initialization.
 
 
 --- middle
@@ -69,7 +69,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Catalog {#catalog}
 
-A Catalog is a MOQT Object that provides information about tracks from a given publisher. A Catalog is used by publishers for advertising their output and for subscribers to consume that output. The payload of the Catalog object is opaque to Relays and can be end-to-end encrypted. The Catalog provides the names and namespaces of the tracks being produced, along with the relationship between tracks, properties of the tracks that consumers may use for selection and any relevant initialization data.
+A Catalog is a MOQT Object that provides information about tracks from a given publisher. A Catalog is used by publishers for advertising their output and for subscribers in consuming that output. The payload of the Catalog object is opaque to Relays and can be end-to-end encrypted. The Catalog provides the names and namespaces of the tracks being produced, along with the relationship between tracks, properties of the tracks that consumers may use for selection and any relevant initialization data.
 
 ## Catalog Fields
 
@@ -79,56 +79,56 @@ A parser MUST ignore fields it does not understand.
 
 Table 1 provides an overview of all fields defined by this document.
 
-| Field                   |  Name  | Required |  Location |  JSON type |           Definition          |
-|:========================|:=======|:=========|:==========|:===========|:==============================|
-| Streaming format        | f      |  yes     |   R       |  Number    | See {{streamingformat}}        |
-| Streaming format version| v      |  yes     |   R       |  String    | See {{streamingformatversion}} |
-| Tracks                  | tracks |  yes     |   R       |  Array     | See {{tracks}}                 |
-| Parent sequence number  | psn    |  opt     |   R       |  Array     | See {{parentsequencenumber}}   |
-| Track namespace         | ns     |  yes     |   RT      |  String    | See {{tracknamespace}}         |
-| Track name              | n      |  yes     |   RT      |  String    | See {{trackname}}              |
-| Packaging               | p      |  yes     |   RT      |  String    | See {{packaging}}              |
-| Track operation         | op     |  yes     |   RT      |  Number    | See {{trackoperations}}        |
-| Track priority          | p      |  opt     |   RT      |  Number    | See {{trackpriority}}          |
-| Track label             | lb     |  opt     |   RT      |  String    | See {{tracklabel}}             |
-| Render group            | gr     |  opt     |   RT      |  Number    | See {{rendergroup}}            |
-| Alternate group         | alt    |  opt     |   RT      |  Number    | See {{altgroup}}}              |
-| Dependencies            | alt    |  opt     |   RT      |  Array     | See {{dependencies}}}          |
-| Initialization data     | ind    |  opt     |   RT      |  String    | See {{initdata}}               |
-| Initialization track    | init   |  opt     |   RT      |  String    | See {{inittrack}}              |
-| Temporal ID             | tid    |  opt     |   RT      |  Number    | See {{temporalid}}             |
-| Spatial ID              | sid    |  opt     |   RT      |  Number    | See {{spatialid}}              |
-| Selection parameters    | sp     |  opt     |   RT      |  Object    | See {{selectionparameters}}    |
-| Codec                   | c      |  opt     |   S       |  String    | See {{codec}}                  |
-| Mime type               | mt     |  opt     |   S       |  String    | See {{mimetype}}               |
-| Framerate               | fr     |  opt     |   S       |  Number    | See {{framerate}}              |
-| Bitrate                 | br     |  opt     |   S       |  Number    | See {{bitrate}}                |
-| Width                   | wd     |  opt     |   S       |  Number    | See {{width}}                  |
-| Height                  | ht     |  opt     |   S       |  Number    | See {{height}}                 |
-| Audio sample rate       | sr     |  opt     |   S       |  Number    | See {{audiosamplerate}}        |
-| Channel configuration   | cc     |  opt     |   S       |  String    | See {{channelconfiguration}}   |
-| Display width           | dw     |  opt     |   S       |  Number    | See {{displaywidth}}           |
-| Display height          | dh     |  opt     |   S       |  Number    | See {{displayheight}}          |
-| Language                | la     |  opt     |   S       |  String    | See {{language}}               |
+| Field                   |  Name  | Required |  Location |  JSON type |           Definition       |
+|:========================|:=======|:=========|:==========|:===========|:===========================|
+| Streaming format        | f      |  yes     |   R       |  Number    | {{streamingformat}}        |
+| Streaming format version| v      |  yes     |   R       |  String    | {{streamingformatversion}} |
+| Tracks                  | tracks |  yes     |   R       |  Array     | {{tracks}}                 |
+| Parent sequence number  | psn    |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
+| Track namespace         | ns     |  yes     |   RT      |  String    | {{tracknamespace}}         |
+| Track name              | n      |  yes     |   RT      |  String    | {{trackname}}              |
+| Packaging               | p      |  yes     |   RT      |  String    | {{packaging}}              |
+| Track operation         | op     |  yes     |   RT      |  Number    | {{trackoperations}}        |
+| Track label             | lb     |  opt     |   RT      |  String    | {{tracklabel}}             |
+| Render group            | gr     |  opt     |   RT      |  Number    | {{rendergroup}}            |
+| Alternate group         | alt    |  opt     |   RT      |  Number    | {{altgroup}}              |
+| Dependencies            | alt    |  opt     |   RT      |  Array     | {{dependencies}}          |
+| Initialization data     | ind    |  opt     |   RT      |  String    | {{initdata}}               |
+| Initialization track    | init   |  opt     |   RT      |  String    | {{inittrack}}              |
+| Temporal ID             | tid    |  opt     |   RT      |  Number    | {{temporalid}}             |
+| Spatial ID              | sid    |  opt     |   RT      |  Number    | {{spatialid}}              |
+| Selection parameters    | sp     |  opt     |   RT      |  Object    | {{selectionparameters}}    |
+| Codec                   | c      |  opt     |   S       |  String    | {{codec}}                  |
+| Mime type               | mt     |  opt     |   S       |  String    | {{mimetype}}               |
+| Framerate               | fr     |  opt     |   S       |  Number    | {{framerate}}              |
+| Bitrate                 | br     |  opt     |   S       |  Number    | {{bitrate}}                |
+| Width                   | wd     |  opt     |   S       |  Number    | {{width}}                  |
+| Height                  | ht     |  opt     |   S       |  Number    | {{height}}                 |
+| Audio sample rate       | sr     |  opt     |   S       |  Number    | {{audiosamplerate}}        |
+| Channel configuration   | cc     |  opt     |   S       |  String    | {{channelconfiguration}}   |
+| Display width           | dw     |  opt     |   S       |  Number    | {{displaywidth}}           |
+| Display height          | dh     |  opt     |   S       |  Number    | {{displayheight}}          |
+| Language                | la     |  opt     |   S       |  String    | {{language}}               |
 
 
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
+
 Location: 'R' - the field is located in the root of the JSON object, 'RT' - the field may be located in either the root or a track object, "S" - the field is located in the Selection Properties object.
 
 ### Streaming format {#streamingformat}
-A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {#iana} for additional details.
+A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {{iana}} for additional details.
 
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
 ### Tracks {#tracks}
-An array of track objects {#trackobject}
+An array of track objects {{trackobject}}.
 
 ### Tracks object {#trackobject}
 A track object is a collection of fields whose location is specified as 'RT' in Table 1.
 
 ### Parent sequence number {#parentsequencenumber}
-A number specifying the moq-transport object number from which this catalog represents a delta update. See {#deltaupdate} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
+A number specifying the moq-transport object number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
 
 ### Track namespace {#tracknamespace}
@@ -138,7 +138,7 @@ The name space under which the track name is defined. See section 2.3 of {{MoQTr
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}
 
 ### Packaging {#packaging}
-A string defining the type of payload encapsulation.Allowed values are strings as defined in Table 2.
+A string defining the type of payload encapsulation. Allowed values are strings as defined in Table 2.
 
 Table 2: Allowed packaging values
 
@@ -174,11 +174,9 @@ Table 3: Allowed track operations
 
 The default track operation is 'Add'. This value does not need to be declared in the track object.
 
-### Track priority {#trackpriority}
-A number indicating the relative priority of the track. See section X.X of {{MoQTransport}}.
 
 ### Track label {#tracklabel}
-A string defining a human-readable label for the track. Examples might be "Overhead camera view" or "Deutscher Kommentar". Note that {{JSON}} spec requires UTF-8 support by decoders.
+A string defining a human-readable label for the track. Examples might be "Overhead camera view" or "Deutscher Kommentar". Note that the {{JSON}} spec requires UTF-8 support by decoders.
 
 ### Render group {#rendergroup}
 An integer specifying a group of tracks which are designed to be rendered together. Tracks with the same group number SHOULD be rendered simultaneously and are designed to accompany one another. A common example would be tying together audio and video tracks.
@@ -187,7 +185,7 @@ An integer specifying a group of tracks which are designed to be rendered togeth
 An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties.Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber SHOULD only subscribe to one track from a set of tracks specifying the same alternate group number. A common example would be a video tracks of the same content offered in alternate bitrates.
 
 ### Dependencies {#dependencies}
-Certain tracks may depend on other tracks for decoding.Dependencies holds an array of track names {{trackname}} on which the current track is dependent. Since only the track name is signaled, the namespace of the dependencies is assumed to match that of the track declaring the dependencies.
+Certain tracks may depend on other tracks for decoding. Dependencies holds an array of track names {{trackname}} on which the current track is dependent. Since only the track name is signaled, the namespace of the dependencies is assumed to match that of the track declaring the dependencies.
 
 ### Initialization data {#initdata}
 A string holding Base64 [BASE64] encoded initialization data for the track.
@@ -261,7 +259,7 @@ The following section provides non-normative JSON examples of various catalogs c
 
 ### Lip Sync Audio/Video Tracks with single quality
 
-This example shows catalog for the media sender, Alice, capable of sending LOC packaged, lip-synced audio and video tracks.
+This example shows catalog for a media sender capable of sending LOC packaged, time-aligned audio and video tracks.
 
 ~~~json
 {
@@ -290,7 +288,7 @@ This example shows catalog for the media sender, Alice, capable of sending LOC p
 
 This example shows catalog for the media sender, Alice, capable
 of sending 3 time-aligned video tracks for high definition, low definition and
-medium definition qualities, along with an audio track.
+medium definition video qualities, along with an audio track.
 
 
 ~~~json
@@ -443,6 +441,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
    ]
 }
 ~~~
+
 
 
 # Security Considerations
