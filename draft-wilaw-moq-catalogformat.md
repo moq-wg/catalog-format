@@ -19,11 +19,10 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "Common Catalog Format"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-wilaw-moq-catalogformat-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -32,9 +31,9 @@ v: 3
 area: AREA
 workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - moq
+ - warp
+ - catalog
 venue:
   group: WG
   type: Working Group
@@ -45,9 +44,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Will Law
+    organization: Akamai
+    email: wilaw@akamai.com
 
 normative:
 
