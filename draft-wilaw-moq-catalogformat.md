@@ -444,7 +444,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 
 ### CMAF Tracks with inband init segments
 
-This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data. 
+This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data.
 
 ~~~json
 {
