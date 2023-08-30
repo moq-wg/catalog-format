@@ -92,7 +92,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Streaming format        | sf       |  yes     |   RC      |  Number    | {{streamingformat}}        |
 | Streaming format version| sfv      |  yes     |   RC      |  String    | {{streamingformatversion}} |
 | Tracks                  | tracks   |  opt     |   R       |  Array     | {{tracks}}                 |
-| Catalogs                | catalogs |  opt     |   R       |  Array     | {{tcatalogs}}              |
+| Catalogs                | catalogs |  opt     |   R       |  Array     | {{catalogs}}              |
 | Parent sequence number  | psn      |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
 | Track namespace         | ns       |  yes     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | n        |  yes     |   TC      |  String    | {{trackname}}              |
