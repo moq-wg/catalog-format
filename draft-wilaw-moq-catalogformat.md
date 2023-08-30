@@ -52,7 +52,7 @@ informative:
 
 --- abstract
 
-This specification defines an common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The Catalog describes the content made available by a publisher, including information necessary for track selection, subscription and initialization.
+This specification defines an Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The Catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
 
 
 --- middle
@@ -130,7 +130,6 @@ A track object is a collection of fields whose location is specified as 'RT' in 
 ### Parent sequence number {#parentsequencenumber}
 A number specifying the moq-transport object number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
-
 ### Track namespace {#tracknamespace}
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and it does not need to be re-declared within each track object. A namespace declared in a track object overwrites any inherited name space.
 
@@ -179,10 +178,10 @@ The default track operation is 'Add'. This value does not need to be declared in
 A string defining a human-readable label for the track. Examples might be "Overhead camera view" or "Deutscher Kommentar". Note that the {{JSON}} spec requires UTF-8 support by decoders.
 
 ### Render group {#rendergroup}
-An integer specifying a group of tracks which are designed to be rendered together. Tracks with the same group number SHOULD be rendered simultaneously and are designed to accompany one another. A common example would be tying together audio and video tracks.
+An integer specifying a group of tracks which are designed to be rendered together. Tracks with the same group number SHOULD be rendered simultaneously, are usually time-aligned and are designed to accompany one another. A common example would be tying together audio and video tracks.
 
 ### Alternate group {#altgroup}
-An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties.Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber SHOULD only subscribe to one track from a set of tracks specifying the same alternate group number. A common example would be a video tracks of the same content offered in alternate bitrates.
+An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties. Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber SHOULD only subscribe to one track from a set of tracks specifying the same alternate group number. A common example would be a set video tracks of the same content offered in alternate bitrates.
 
 ### Dependencies {#dependencies}
 Certain tracks may depend on other tracks for decoding. Dependencies holds an array of track names {{trackname}} on which the current track is dependent. Since only the track name is signaled, the namespace of the dependencies is assumed to match that of the track declaring the dependencies.
@@ -194,7 +193,7 @@ A string holding Base64 [BASE64] encoded initialization data for the track.
 A string specifying the track name of another track which holds initialization data for the current track. Initialization tracks MUST NOT be added to the tracks array {{tracks}}. They are referenced only via the initialization track field of the track which they initialize.
 
 ### Selection parameters {#selectionparameters}
-An object holding a series of name/value pairs which a subscriber can use to select tracks for subscription.If present, the selection parameters object MUST NOT be empty. Any selection parameters declared at the root level are inherited by all tracks. A selection parameters object may exist at both the root and track level. Any declaration of a selection parameter at the track level overrides the inherited root value.
+An object holding a series of name/value pairs which a subscriber can use to select tracks for subscription. If present, the selection parameters object MUST NOT be empty. Any selection parameters declared at the root level are inherited by all tracks. A selection parameters object may exist at both the root and track level. Any declaration of a selection parameter at the track level overrides the inherited root value.
 
 ### Codec {#codec}
 A string defining the codec used to encode the track.
@@ -243,9 +242,9 @@ An array of track names intended for synchronized playout. An example would be a
 ## Catalog Delta Updates {#deltaupdate}
 A catalog might contain incremental changes. This is a useful property if many tracks may be initially declared but then there are small changes to a subset of tracks. The producer can issue a delta update to describe these small changes. Changes are described incrementally, meaning that a delta-update can itself depend on a previous delta update.
 
-The following rules MUST be followed by subscribers in processing delta updates:
+The following rules MUST be followed in processing delta updates:
 
-* If a catalog is received without the parent sequence number field {#parentsequencenumber} defined, then it is an independent catalog and no delta update processing is required.
+* If a catalog is received without the parent sequence number field {{parentsequencenumber}} defined, then it is an independent catalog and no delta update processing is required.
 * If a catalog is received with a parent sequence number field present, then the content of the catalog MUST be parsed as if the catalog contents had been added to the contents received on the referenced moq-transport object. Newer field definitions overwrite older field definitions.
 * Track namespaces may not be changed across delta updates.
 * Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.
@@ -257,9 +256,9 @@ The following rules MUST be followed by subscribers in processing delta updates:
 The following section provides non-normative JSON examples of various catalogs compliant with this draft.
 
 
-### Lip Sync Audio/Video Tracks with single quality
+### Time-aligned Audio/Video Tracks with single quality
 
-This example shows catalog for a media sender capable of sending LOC packaged, time-aligned audio and video tracks.
+This example shows catalog for a media producer capable of sending LOC packaged, time-aligned audio and video tracks.
 
 ~~~json
 {
@@ -267,7 +266,7 @@ This example shows catalog for a media sender capable of sending LOC packaged, t
   "v": "0.2",
   "ns": "conference.example.com/conference123/alice",
   "p": "loc",
-  "gr":1,
+  "gr": 1,
   "tracks": [
     {
       "n": "video",
@@ -286,7 +285,7 @@ This example shows catalog for a media sender capable of sending LOC packaged, t
 ### Simulcast video tracks - 3 alternate qualities along with audio
 
 
-This example shows catalog for the media sender, Alice, capable
+This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
 medium definition video qualities, along with an audio track.
 
@@ -324,7 +323,7 @@ medium definition video qualities, along with an audio track.
 
 ### Delta update adding a track
 
-This example shows catalog for the media sender, Alice, adding a slide track to an established video conference
+This example shows catalog for the media producer adding a slide track to an established video conference
 
 ~~~json
 {
@@ -342,7 +341,7 @@ This example shows catalog for the media sender, Alice, adding a slide track to 
 
 ### Delta update removing a track
 
-This example shows delat catalog update for the media sender, Alice, removing a slide track from an established video conference
+This example shows delat catalog update for a media producer removing a slide track from an established video conference
 
 ~~~json
 {
@@ -359,7 +358,7 @@ This example shows delat catalog update for the media sender, Alice, removing a 
 
 ### Delta update removing all tracks and terminating broadcast
 
-This example shows a delta catalog update for the media sender, Alice, removing all tracks and terminating her broadcast.
+This example shows a delta catalog update for a media producer removing all tracks and terminating the broadcast.
 
 ~~~json
 {
@@ -442,6 +441,32 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 }
 ~~~
 
+
+### CMAF Tracks with inband init segments
+
+This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data. 
+
+~~~json
+{
+  "f": 1,
+  "v": "0.2",
+  "ns": "sports.example.com/games/08-08-23/12345",
+  "p": "cmaf",
+  "gr":1,
+  "tracks": [
+    {
+      "n": "video_1080",
+      "sp":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
+"ind":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
+    },
+    {
+      "n": "audio_aac",
+      "sp":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
+"ind":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
+    }
+   ]
+}
+~~~
 
 
 # Security Considerations
