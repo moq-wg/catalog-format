@@ -123,13 +123,14 @@ Table 1 provides an overview of all fields defined by this document.
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
 
 Location:
- - 'R' - the field is located in the Root of the JSON object.
- - 'RC' - the field may be located in either the Root or a Catalog object.
- - 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
- - 'TC' - the field may be located in either a Track object or a Catalog object.
- - 'RT' - the field may be located in either the Root or a Track object.
- - 'T' - the field is located in a Track object.
- - 'S' - the field is located in the Selection Parameters object.
+
+* 'R' - the field is located in the Root of the JSON object.
+*  'RC' - the field may be located in either the Root or a Catalog object.
+*  'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
+*  'TC' - the field may be located in either a Track object or a Catalog object.
+*  'RT' - the field may be located in either the Root or a Track object.
+*  'T' - the field is located in a Track object.
+*  'S' - the field is located in the Selection Parameters object.
 
 
 ### Streaming format {#streamingformat}
@@ -239,14 +240,14 @@ A number defining the framerate of the track, expressed as frames per second.
 ### Bitrate {#bitrate}
 A number defining the bitrate of track, expressed in bits second.
 
-### Audio sample rate {#audiosamplerate}
-The number of audio frame samples per second. This property SHOULD only accompany audio codecs.
-
 ### Width {#width}
 A number expressing the encoded width of the track content in pixels.
 
 ### Height {#height}
 A number expressing the encoded height of the video frames in pixels.
+
+### Audio sample rate {#audiosamplerate}
+The number of audio frame samples per second. This property SHOULD only accompany audio codecs.
 
 ### Channel configuration {#channelconfiguration}
 A string specifying the audio channel configuration. This property SHOULD only accompany audio codecs. A string is used in order to provide the flexibility to describe complex channel configurations for multi-channel and Next Generation Audio schemas.
