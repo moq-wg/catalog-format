@@ -240,7 +240,7 @@ A number identifying the spatial layer encoding of the track, starting with 0 fo
 ### Time aligned  {#timealigned}
 An array of track names intended for synchronized playout. An example would be audio and video media synced for playout in a conference setting.
 
-## Catalog Delta Updates
+## Catalog Delta Updates {#deltaupdate}
 A catalog might contain incremental changes. This is a useful property if many tracks may be initially declared but then there are small changes to a subset of tracks. The producer can issue a delta update to describe these small changes. Changes are described incrementally, meaning that a delta-update can itself depend on a previous delta update.
 
 The following rules MUST be followed by subscribers in processing delta updates:
