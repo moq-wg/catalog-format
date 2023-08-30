@@ -52,7 +52,7 @@ informative:
 
 --- abstract
 
-This specification defines an Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The Catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
+This specification defines an Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
 
 
 --- middle
@@ -356,7 +356,7 @@ This example shows delat catalog update for a media producer removing a slide tr
 
 ~~~
 
-### Delta update removing all tracks and terminating broadcast
+### Delta update removing all tracks and terminating the broadcast
 
 This example shows a delta catalog update for a media producer removing all tracks and terminating the broadcast.
 
