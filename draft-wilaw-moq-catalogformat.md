@@ -71,12 +71,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 A Catalog is a MOQT Object that provides information about tracks from a given publisher. A Catalog is used by publishers for advertising their output and for subscribers in consuming that output. The payload of the Catalog object is opaque to Relays and can be end-to-end encrypted. The Catalog provides the names and namespaces of the tracks being produced, along with the relationship between tracks, properties of the tracks that consumers may use for selection and any relevant initialization data.
 
-A special case of the catalog exists which describes other catalogs instead of tracks. A catalog might describe tracks, or catalogs, but never both at the same time. 
+A special case of the catalog exists which describes other catalogs instead of tracks. A catalog might describe tracks, or catalogs, but never both at the same time.
 
 ## Catalog version {#catalogversion}
 Versions of this catalog specification are defined using monotonically increasing integers. There is no gaurantee that future catalog versions are backwards compatible and field definitions and interpretaiton may change between versions. A subscriber MUST NOT attempt to parse a catalog version which it does not understand.
 
-This document defines version 1. 
+This document defines version 1.
 
 ## Catalog Fields
 
@@ -122,7 +122,7 @@ Table 1 provides an overview of all fields defined by this document.
 
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
 
-Location: 
+Location:
  - 'R' - the field is located in the Root of the JSON object.
  - 'RC' - the field may be located in either the Root or a Catalog object.
  - 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
@@ -139,10 +139,10 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
 ### Tracks {#tracks}
-An array of track objects {{trackobject}}. If the tracks field is present then the catalog field MUST NOT be present. 
+An array of track objects {{trackobject}}. If the tracks field is present then the catalog field MUST NOT be present.
 
 ### Catalogs {#catalogs}
-An array of catalog objects {{catalogobject}}. If the catalogs field is present then the tracks field MUST NOT be present. 
+An array of catalog objects {{catalogobject}}. If the catalogs field is present then the tracks field MUST NOT be present.
 
 ### Catalog object {#catalogobject}
 A catalog object is a collection of fields whose location is specified as 'RC', 'TC' or 'RTC' in Table 1.
@@ -497,7 +497,7 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 
 ### Time-aligned Audio/Video Tracks with custom field values
 
-This example shows catalog for a media producer capable of sending LOC packaged, time-aligned audio and video tracks along with custom fields in each track description. 
+This example shows catalog for a media producer capable of sending LOC packaged, time-aligned audio and video tracks along with custom fields in each track description.
 
 ~~~json
 {
