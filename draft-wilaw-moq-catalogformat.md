@@ -491,6 +491,5 @@ Every MoQ streaming format draft normatively referencing this catalog format MUS
 
 # Acknowledgments
 {:numbered="false"}
-Suhas Nandakumar
-Mo Zanaty
+Suhas Nandakumar & Mo Zanaty - this [draft](https://github.com/suhasHere/moq-drafts/tree/master/moq-catalog).
 The IETF MoQ mailing lists and discussion groups.
