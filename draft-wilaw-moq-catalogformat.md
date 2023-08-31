@@ -28,6 +28,19 @@ author:
     organization: Akamai
     email: wilaw@akamai.com
 
+ -
+    fullname: Suhas Nandakumar
+    organization: Cisco
+    email: snandaku@cisco.com
+
+ -
+    fullname: Mo Zanaty
+    organization: Cisco
+    email: mzanaty@cisco.com
+
+      
+
+
 normative:
   MoQTransport: I-D.ietf-moq-transport
   Framemarking: I-D.ietf-avtext-framemarking
