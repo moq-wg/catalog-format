@@ -23,10 +23,7 @@ venue:
   latest: "https://wilaw.github.io/catalog-format/draft-wilaw-moq-catalogformat.html"
 
 author:
- -
-    fullname: Will Law
-    organization: Akamai
-    email: wilaw@akamai.com
+
 
  -
     fullname: Suhas Nandakumar
@@ -37,6 +34,11 @@ author:
     fullname: Mo Zanaty
     organization: Cisco
     email: mzanaty@cisco.com
+
+ -
+    fullname: Will Law
+    organization: Akamai
+    email: wilaw@akamai.com
 
 
 normative:
