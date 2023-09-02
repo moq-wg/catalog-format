@@ -39,6 +39,11 @@ author:
     organization: Cisco
     email: mzanaty@cisco.com
 
+ -
+    fullname: Will Law
+    organization: Akamai
+    email: wilaw@akamai.com
+
 
 normative:
   MoQTransport: I-D.ietf-moq-transport
@@ -131,11 +136,12 @@ Table 1 provides an overview of all fields defined by this document.
 | Language                | lang                   |  opt     |   S       |  String    | {{language}}               |
 
 
+
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
 
 Location:
 
-* 'R' - the field is located in the Root of the JSON object.
+*  'R' - the field is located in the Root of the JSON object.
 *  'RC' - the field may be located in either the Root or a Catalog object.
 *  'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
 *  'TC' - the field may be located in either a Track object or a Catalog object.
@@ -297,7 +303,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~json
 {
   "version": 1,
-  "streaminFormat": 1,
+  "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
   "packaging": "loc",
@@ -380,7 +386,7 @@ This example shows delat catalog update for a media producer removing a slide tr
 
 ~~~json
 {
-  "parentSeqNum":1,
+  "parentSequenceNum":1,
   "tracks": [
     {
       "name": "slides",
@@ -397,7 +403,7 @@ This example shows a delta catalog update for a media producer removing all trac
 
 ~~~json
 {
-  "parentSeqNum":2,
+  "parentSequenceNum":2,
   "operation": 0,
   "tracks": [{"name": "audio"},{"name": "video"},{"name": "slides"}]
 }
@@ -420,31 +426,31 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
     {
       "name": "video_4k",
       "selectionParams":{"c":"avc1.640033","mt":"video/mp4","wd":3840,"ht":2160,"fr":30,"br":14931538},
-      "initData":"init_video_4k",
+      "initTrack":"init_video_4k",
       "altGroup": 1
     },
     {
-      "name": "video_1080",
+      "altGroup": "video_1080",
       "selectionParams":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
-      "initData":"init_video_1080",
+      "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
-      "name": "video_720",
+      "altGroup": "video_720",
       "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
-      "initData":"init_video_720",
+      "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
-      "name": "audio_aac",
+      "altGroup": "audio_aac",
       "selectionParams":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
-      "initData":"init_audio_aac",
+      "initTrack":"init_audio_aac",
       "altGroup": 2
     },
     {
       "name": "audio_ec3",
-      "selectionParams":{"c":"ec-3","mt":"audio/mp4","sr":48000,"cc":"F801","br":256000},
-      "initData":"init_audio_ec3",
+      "selectionParms":{"c":"ec-3","mt":"audio/mp4","sr":48000,"cc":"F801","br":256000},
+      "initTrack":"init_audio_ec3",
       "altGroup": 2
     }
    ]
@@ -464,13 +470,13 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
   "renderGroup":1
   "tracks": [
     {
-      "namespace": "video0",
+      "name": "video0",
       "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
       "initTrack":"init_video_720",
       "packaging":"loc",
     },
     {
-      "namespace": "audio",
+      "name": "audio",
       "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
       "packaging": "loc",
     }
@@ -485,7 +491,7 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 
 ~~~json
 {
-  "v": 1,
+  "version": 1,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
