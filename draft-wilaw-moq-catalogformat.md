@@ -218,7 +218,7 @@ A string defining a human-readable label for the track. Examples might be "Overh
 An integer specifying a group of tracks which are designed to be rendered together. Tracks with the same group number SHOULD be rendered simultaneously, are usually time-aligned and are designed to accompany one another. A common example would be tying together audio and video tracks.
 
 ### Alternate group {#altgroup}
-An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties. Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber SHOULD only subscribe to one track from a set of tracks specifying the same alternate group number. A common example would be a set video tracks of the same content offered in alternate bitrates.
+An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties. Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber typically subscribes to one track from a set of tracks specifying the same alternate group number. A common example would be a set video tracks of the same content offered in alternate bitrates.
 
 
 ### Initialization data {#initdata}
