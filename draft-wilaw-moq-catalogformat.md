@@ -92,7 +92,7 @@ This document defines version 1.
 
 ## Catalog Fields
 
-A catalog is a JSON [JSON] document, comprised of a series of mandatory and optional fields. At a minimum, a catalog MUST provide all mandatory fields and one of either a 'tracks' field or a 'catalogs' field.  A producer MAY add additional fields to the ones described in this draft. Custom field names MUST NOT collide with field names described in this draft. To prevent custom field name collisions with future versions, custom field names SHOULD be prefixed using reverse domain name notation e.g "com.example-size". All custom fields MUST have a JSON type of 'String'. The order of field names within the JSON document is not important. Any track or catalog field declared at the root level is inherited by all tracks or catalogs. Any track or catalog field declared within a track or catalog object overwrites any inherited value.
+A catalog is a JSON [JSON] document, comprised of a series of mandatory and optional fields. At a minimum, a catalog MUST provide all mandatory fields and one of either a 'tracks' field or a 'catalogs' field.  A producer MAY add additional fields to the ones described in this draft. Custom field names MUST NOT collide with field names described in this draft. To prevent custom field name collisions with future versions, custom field names SHOULD be prefixed using reverse domain name notation e.g "com.example-size". The order of field names within the JSON document is not important. Any track or catalog field declared at the root level is inherited by all tracks or catalogs. Any track or catalog field declared within a track or catalog object overwrites any inherited value.
 
 A parser MUST ignore fields it does not understand.
 
@@ -217,7 +217,7 @@ A string defining a human-readable label for the track. Examples might be "Overh
 An integer specifying a group of tracks which are designed to be rendered together. Tracks with the same group number SHOULD be rendered simultaneously, are usually time-aligned and are designed to accompany one another. A common example would be tying together audio and video tracks.
 
 ### Alternate group {#altgroup}
-An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties. Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber SHOULD only subscribe to one track from a set of tracks specifying the same alternate group number. A common example would be a set video tracks of the same content offered in alternate bitrates.
+An integer specifying a group of tracks which are alternate versions of one-another. Alternate tracks represent the same media content, but differ in their selection properties. Alternate tracks SHOULD have matching framerate {{framerate}} and media time sequences. A subscriber typically subscribes to one track from a set of tracks specifying the same alternate group number. A common example would be a set video tracks of the same content offered in alternate bitrates.
 
 
 ### Initialization data {#initdata}
@@ -523,7 +523,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
     {
       "name": "video",
       "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000},
-      "com.example-billing-code": "3201",
+      "com.example-billing-code": 3201,
       "com.example-tier": "premium",
       "com.example-debug": "h349835bfkjfg82394d945034jsdfn349fns"
     },
