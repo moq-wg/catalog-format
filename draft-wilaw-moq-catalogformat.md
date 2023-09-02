@@ -24,10 +24,6 @@ venue:
 
 author:
 
- -
-    fullname: Will Law
-    organization: Akamai
-    email: wilaw@akamai.com
 
  -
     fullname: Suhas Nandakumar
@@ -38,6 +34,11 @@ author:
     fullname: Mo Zanaty
     organization: Cisco
     email: mzanaty@cisco.com
+
+ -
+    fullname: Will Law
+    organization: Akamai
+    email: wilaw@akamai.com
 
 
 normative:
@@ -98,38 +99,38 @@ A parser MUST ignore fields it does not understand.
 
 Table 1 provides an overview of all fields defined by this document.
 
-| Field                   |  Name                  | Required |  Location |  JSON type |           Definition       |
-|:========================|:=======================|:=========|:==========|:===========|:===========================|
-| Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
-| Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
-| Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
-| Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Catalog sequence number | catalogSeqNum          |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
-| Parent sequence number  | parentSeqNum           |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
-| Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
-| Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
-| Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
-| Track operation         | operation              |  yes     |   RT      |  Number    | {{trackoperations}}        |
-| Track label             | label                  |  opt     |   RT      |  String    | {{tracklabel}}             |
-| Render group            | renderGroup            |  opt     |   RT      |  Number    | {{rendergroup}}            |
-| Alternate group         | altGroup               |  opt     |   RT      |  Number    | {{altgroup}}               |
-| Initialization data     | initData               |  opt     |   RT      |  String    | {{initdata}}               |
-| Initialization track    | initTrack              |  opt     |   RT      |  String    | {{inittrack}}              |
-| Selection parameters    | selectionParams        |  opt     |   RT      |  Object    | {{selectionparameters}}    |
-| Dependencies            | deps                   |  opt     |   T       |  Array     | {{dependencies}}           |
-| Temporal ID             | temporalId             |  opt     |   T       |  Number    | {{temporalid}}             |
-| Spatial ID              | spatialId              |  opt     |   T       |  Number    | {{spatialid}}              |
-| Codec                   | codec                  |  opt     |   S       |  String    | {{codec}}                  |
-| Mime type               | mimeType               |  opt     |   S       |  String    | {{mimetype}}               |
-| Framerate               | framerate              |  opt     |   S       |  Number    | {{framerate}}              |
-| Bitrate                 | bitrate                |  opt     |   S       |  Number    | {{bitrate}}                |
-| Width                   | width                  |  opt     |   S       |  Number    | {{width}}                  |
-| Height                  | height                 |  opt     |   S       |  Number    | {{height}}                 |
-| Audio sample rate       | sampleRate             |  opt     |   S       |  Number    | {{audiosamplerate}}        |
-| Channel configuration   | channelConfig          |  opt     |   S       |  String    | {{channelconfiguration}}   |
-| Display width           | displayWidth           |  opt     |   S       |  Number    | {{displaywidth}}           |
-| Display height          | displayHeight          |  opt     |   S       |  Number    | {{displayheight}}          |
-| Language                | lang                   |  opt     |   S       |  String    | {{language}}               |
+| Field                   |  Name    | Required |  Location |  JSON type |           Definition       |
+|:========================|:=========|:=========|:==========|:===========|:===========================|
+| Catalog version         | v        |  yes     |   R       |  String    | {{catalogversion}}         |
+| Streaming format        | sf       |  yes     |   RC      |  Number    | {{streamingformat}}        |
+| Streaming format version| sfv      |  yes     |   RC      |  String    | {{streamingformatversion}} |
+| Tracks                  | tracks   |  opt     |   R       |  Array     | {{tracks}}                 |
+| Catalogs                | catalogs |  opt     |   R       |  Array     | {{catalogs}}              |
+| Parent sequence number  | psn      |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
+| Track namespace         | ns       |  yes     |   RTC     |  String    | {{tracknamespace}}         |
+| Track name              | n        |  yes     |   TC      |  String    | {{trackname}}              |
+| Packaging               | p        |  yes     |   RT      |  String    | {{packaging}}              |
+| Track operation         | op       |  yes     |   RT      |  Number    | {{trackoperations}}        |
+| Track label             | lb       |  opt     |   RT      |  String    | {{tracklabel}}             |
+| Render group            | gr       |  opt     |   RT      |  Number    | {{rendergroup}}            |
+| Alternate group         | alt      |  opt     |   RT      |  Number    | {{altgroup}}               |
+| Initialization data     | ind      |  opt     |   RT      |  String    | {{initdata}}               |
+| Initialization track    | init     |  opt     |   RT      |  String    | {{inittrack}}              |
+| Selection parameters    | sp       |  opt     |   RT      |  Object    | {{selectionparameters}}    |
+| Dependencies            | alt      |  opt     |   T       |  Array     | {{dependencies}}           |
+| Temporal ID             | tid      |  opt     |   T       |  Number    | {{temporalid}}             |
+| Spatial ID              | sid      |  opt     |   T       |  Number    | {{spatialid}}              |
+| Codec                   | c        |  opt     |   S       |  String    | {{codec}}                  |
+| Mime type               | mt       |  opt     |   S       |  String    | {{mimetype}}               |
+| Framerate               | fr       |  opt     |   S       |  Number    | {{framerate}}              |
+| Bitrate                 | br       |  opt     |   S       |  Number    | {{bitrate}}                |
+| Width                   | wd       |  opt     |   S       |  Number    | {{width}}                  |
+| Height                  | ht       |  opt     |   S       |  Number    | {{height}}                 |
+| Audio sample rate       | sr       |  opt     |   S       |  Number    | {{audiosamplerate}}        |
+| Channel configuration   | cc       |  opt     |   S       |  String    | {{channelconfiguration}}   |
+| Display width           | dw       |  opt     |   S       |  Number    | {{displaywidth}}           |
+| Display height          | dh       |  opt     |   S       |  Number    | {{displayheight}}          |
+| Language                | la       |  opt     |   S       |  String    | {{language}}               |
 
 
 Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
@@ -297,20 +298,20 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 ~~~json
 {
-  "version": 1,
-  "streaminFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "packaging": "loc",
-  "renderGroup": 1,
+  "v": 1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "conference.example.com/conference123/alice",
+  "p": "loc",
+  "gr": 1,
   "tracks": [
     {
-      "name": "video",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000}
+      "n": "video",
+      "sp":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000}
     },
     {
-      "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000}
+      "n": "audio",
+      "sp":{"c":"opus","sr":48000,"cc":"2","br":32000}
     }
    ]
 }
@@ -328,30 +329,31 @@ medium definition video qualities, along with an audio track.
 
 ~~~json
 {
-  "version": 1,
-  "streamingFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "renderGroup": 1,
+  "v": 1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "conference.example.com/conference123/alice",
+  "sp": {"c":"av01"},
+  "gr": 1,
   "tracks":[
     {
-      "name": "hd",
-      "selectionParams": {"c":"av01","wd":1920,"ht":1080,"br":5000000,"fr":30},
-      "altGroup":1
+      "n": "hd",
+      "sp": {"wd":1920,"ht":1080,"br":5000000,"fr":30},
+      "alt":1
     },
     {
-      "name": "md",
-      "selectionParams": {"c":"av01","wd":720,"ht":640,"br":3000000,"fr":30},
-      "altGroup":1
+      "n": "md",
+      "sp": {"wd":720,"ht":640,"br":3000000,"fr":30},
+      "alt":1
     },
     {
-      "name": "sd",
-      "selectionParams": {"c":"av01","wd":192,"ht":144,"br":500000,"fr":30},
-      "altGroup":1
+      "n": "sd",
+      "sp": {"wd":192,"ht":144,"br":500000,"fr":30},
+      "alt":1
     },
     {
-      "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
+      "n": "audio",
+      "sp":{"c":"opus","sr":48000,"cc":"2","br":32000},
     }
    ]
 }
@@ -363,12 +365,12 @@ This example shows catalog for the media producer adding a slide track to an est
 
 ~~~json
 {
-  "parentSeqNum":0,
+  "psn":0,
   "tracks": [
     {
-      "name": "slides",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":15,"br":750000},
-      "renderGroup":1
+      "n": "slides",
+      "sp":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":15,"br":750000},
+      "gr":1
     }
    ]
 }
@@ -381,11 +383,11 @@ This example shows delat catalog update for a media producer removing a slide tr
 
 ~~~json
 {
-  "parentSeqNum":1,
+  "psn":1,
   "tracks": [
     {
-      "name": "slides",
-      "operation": 0
+      "n": "slides",
+      "op": 0
     }
    ]
 }
@@ -398,9 +400,9 @@ This example shows a delta catalog update for a media producer removing all trac
 
 ~~~json
 {
-  "parentSeqNum":2,
-  "operation": 0,
-  "tracks": [{"name": "audio"},{"name": "video"},{"name": "slides"}]
+  "psn":2,
+  "op": 0,
+  "tracks": [{"n": "audio"},{"n": "video"},{"n": "slides"}]
 }
 
 ~~~
@@ -411,42 +413,42 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 
 ~~~json
 {
-  "version": 1,
-  "streamingFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "sports.example.com/games/08-08-23/12345",
-  "packaging": "cmaf",
-  "renderGroup":1,
+  "v": 1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "sports.example.com/games/08-08-23/12345",
+  "p": "cmaf",
+  "gr":1,
   "tracks": [
     {
-      "name": "video_4k",
-      "selectionParams":{"c":"avc1.640033","mt":"video/mp4","wd":3840,"ht":2160,"fr":30,"br":14931538},
-      "initData":"init_video_4k",
-      "altGroup": 1
+      "n": "video_4k",
+      "sp":{"c":"avc1.640033","mt":"video/mp4","wd":3840,"ht":2160,"fr":30,"br":14931538},
+      "init":"init_video_4k",
+      "alt": 1
     },
     {
-      "name": "video_1080",
-      "selectionParams":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
-      "initData":"init_video_1080",
-      "altGroup": 1
+      "n": "video_1080",
+      "sp":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
+      "init":"init_video_1080",
+      "alt": 1
     },
     {
-      "name": "video_720",
-      "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
-      "initData":"init_video_720",
-      "altGroup": 1
+      "n": "video_720",
+      "sp":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
+      "init":"init_video_720",
+      "alt": 1
     },
     {
-      "name": "audio_aac",
-      "selectionParams":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
-      "initData":"init_audio_aac",
-      "altGroup": 2
+      "n": "audio_aac",
+      "sp":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
+      "init":"init_audio_aac",
+      "alt": 2
     },
     {
-      "name": "audio_ec3",
-      "selectionParams":{"c":"ec-3","mt":"audio/mp4","sr":48000,"cc":"F801","br":256000},
-      "initData":"init_audio_ec3",
-      "altGroup": 2
+      "n": "audio_ec3",
+      "sp":{"c":"ec-3","mt":"audio/mp4","sr":48000,"cc":"F801","br":256000},
+      "init":"init_audio_ec3",
+      "alt": 2
     }
    ]
 }
@@ -458,22 +460,22 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 
 ~~~json
 {
-  "version": 1,
-  "streamingFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "output.example.com/event/12345",
-  "renderGroup":1
+  "v": 1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "output.example.com/event/12345",
+  "gr":1
   "tracks": [
     {
-      "namespace": "video0",
-      "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
-      "initTrack":"init_video_720",
-      "packaging":"loc",
+      "n": "video0",
+      "sp":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
+      "init":"init_video_720",
+      "p":"loc",
     },
     {
-      "namespace": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
-      "packaging": "loc",
+      "n": "audio",
+      "sp":{"c":"opus","sr":48000,"cc":"2","br":32000},
+      "p": "loc",
     }
    ]
 }
@@ -487,21 +489,21 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 ~~~json
 {
   "v": 1,
-  "streamingFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "sports.example.com/games/08-08-23/12345",
-  "packaging": "cmaf",
-  "renderGroup":1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "sports.example.com/games/08-08-23/12345",
+  "p": "cmaf",
+  "gr":1,
   "tracks": [
     {
-      "name": "video_1080",
-      "selectionParams":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
-"initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
+      "n": "video_1080",
+      "sp":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
+"ind":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
     },
     {
-      "name": "audio_aac",
-      "selectionParams":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
-"initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
+      "n": "audio_aac",
+      "sp":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
+"ind":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
     }
    ]
 }
@@ -513,23 +515,23 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 ~~~json
 {
-  "version": 1,
-  "streamingFormat": 1,
-  "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "packaging": "loc",
-  "renderGroup": 1,
+  "v": 1,
+  "sf": 1,
+  "sfv": "0.2",
+  "ns": "conference.example.com/conference123/alice",
+  "p": "loc",
+  "gr": 1,
   "tracks": [
     {
-      "name": "video",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000},
+      "n": "video",
+      "sp":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000},
       "com.example-billing-code": 3201,
       "com.example-tier": "premium",
       "com.example-debug": "h349835bfkjfg82394d945034jsdfn349fns"
     },
     {
-      "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000}
+      "n": "audio",
+      "sp":{"c":"opus","sr":48000,"cc":"2","br":32000}
     }
    ]
 }
@@ -542,19 +544,19 @@ This example shows the catalog for a media producer that is outputting two strea
 
 ~~~json
 {
-  "version": 1,
+  "v": 1,
   "catalogs": [
     {
-      "name": "anytracknameA",
-      "namespace": "sports.example.com/games/08-08-23/live",
-      "streamingFormat":1,
-      "streamingFormatVersion": "0.2"
+      "n": "anytracknameA",
+      "ns": "sports.example.com/games/08-08-23/live",
+      "sf":1,
+      "sfv": "0.2"
     },
     {
-      "name": "anytracknameB",
-      "namespace": "chat.example.com/games/08-08-23/chat",
-      "streamingFormat":5,
-      "streamingFormatVersion": "1.6.2"
+      "n": "anytracknameB",
+      "ns": "chat.example.com/games/08-08-23/chat",
+      "sf":5,
+      "sfv": "1.6.2"
     }
   ]
 }
