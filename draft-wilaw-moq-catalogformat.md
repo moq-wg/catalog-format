@@ -25,14 +25,14 @@ venue:
 author:
 
  -
-    fullname: Will Law
-    organization: Akamai
-    email: wilaw@akamai.com
-
- -
     fullname: Suhas Nandakumar
     organization: Cisco
     email: snandaku@cisco.com
+
+ -
+    fullname: Will Law
+    organization: Akamai
+    email: wilaw@akamai.com
 
  -
     fullname: Mo Zanaty
@@ -104,7 +104,6 @@ Table 1 provides an overview of all fields defined by this document.
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Catalog sequence number | catalogSeqNum          |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
 | Parent sequence number  | parentSeqNum           |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
 | Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
