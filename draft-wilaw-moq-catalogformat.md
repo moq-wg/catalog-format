@@ -389,7 +389,7 @@ layers with a dependency relation as shown below:
 
 
 
-The corresponding catalog uses "depends" attribute to 
+The corresponding catalog uses "depends" attribute to
 express the track relationships.
 
 ~~~json
