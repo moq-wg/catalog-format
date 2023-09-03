@@ -114,7 +114,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Initialization data     | initData               |  opt     |   RT      |  String    | {{initdata}}               |
 | Initialization track    | initTrack              |  opt     |   RT      |  String    | {{inittrack}}              |
 | Selection parameters    | selectionParams        |  opt     |   RT      |  Object    | {{selectionparameters}}    |
-| Dependencies            | deps                   |  opt     |   T       |  Array     | {{dependencies}}           |
+| Dependencies            | depends                |  opt     |   T       |  Array     | {{dependencies}}           |
 | Temporal ID             | temporalId             |  opt     |   T       |  Number    | {{temporalid}}             |
 | Spatial ID              | spatialId              |  opt     |   T       |  Number    | {{spatialid}}              |
 | Codec                   | codec                  |  opt     |   S       |  String    | {{codec}}                  |
@@ -317,8 +317,8 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~
 
 
-### Simulcast video tracks - 3 alternate qualities along with audio
 
+### Simulcast video tracks - 3 alternate qualities along with audio
 
 This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
@@ -347,6 +347,77 @@ medium definition video qualities, along with an audio track.
       "name": "sd",
       "selectionParams": {"c":"av01","wd":192,"ht":144,"br":500000,"fr":30},
       "altGroup":1
+    },
+    {
+      "name": "audio",
+      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
+    }
+   ]
+}
+~~~
+
+
+### SVC video tracks with 2 spatial and 2 temporal qualities
+
+
+This example shows catalog for a media producer capable
+of sending scalable video codec with 2 spatial and 2 temporal
+layers with a dependency relation as shown below:
+
+~~~ascii-figure
+
+                  +----------+
+     +----------->|  S1T1    |
+     |            | 1080p30  |
+     |            +----------+
+     |                  ^
+     |                  |
++----------+            |
+|  S1TO    |            |
+| 1080p15  |            |
++----------+      +-----+----+
+      ^           |  SOT1    |
+      |           | 480p30   |
+      |           +----------+
+      |               ^
++----------+          |
+|  SOTO     |         |
+| 480p15    |---------+
++----------+
+~~~
+
+
+
+The corresponding catalog uses "depends" attribute to
+express the track relationships.
+
+~~~json
+{
+  "version": 1,
+  "streamingFormat": 1,
+  "streamingFormatVersion": "0.2",
+  "namespace": "conference.example.com/conference123/alice",
+  "renderGroup": 1,
+  "tracks":[
+    {
+      "name": "480p15",
+      "selectionParams": {"c":"av01.0.01M.10.0.110.09","wd":640,"ht":480,"br":3000000,"fr":15},
+    },
+    {
+      "name": "480p30",
+      "selectionParams": {"c":"av01.0.04M.10.0.110.09","wd":640,"ht":480,"br":3000000,"fr":30},
+      "depends": ["480p15"],
+    },
+    {
+      "name": "1080p15",
+      "selectionParams": {"c":"av01.0.05M.10.0.110.09","wd":1920,"ht":1080,"br":3000000,"fr":15},
+      "depends":["480p15"]
+    },
+
+    {
+      "name": "1080p30",
+      "selectionParams": {"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"br":5000000,"fr":30},
+      "depends": ["480p30", "1080p15"]
     },
     {
       "name": "audio",
