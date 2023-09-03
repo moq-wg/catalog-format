@@ -39,7 +39,6 @@ author:
     organization: Cisco
     email: mzanaty@cisco.com
 
-
 normative:
   MoQTransport: I-D.ietf-moq-transport
   Framemarking: I-D.ietf-avtext-framemarking
