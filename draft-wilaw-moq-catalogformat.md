@@ -102,9 +102,10 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
 | Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
+| Catalog sequence number | sequence               |  yes     |   R       |  Number    | {{sequenceNumber}}         |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Parent sequence number  | parentSeqNum           |  opt     |   R       |  Array     | {{parentsequencenumber}}   |
+| Parent sequence number  | parentSequence         |  opt     |   R       |  Array     | {{parentsequence}}         |
 | Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
 | Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
@@ -151,6 +152,9 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
+### Catalog sequence number {#sequenceNumber}
+An integer indicating the sequence of this catalog object update. The first catalog object produced under a given name|namespace carries a sequence number of zero. Each successive update of that catalog, either as an independent or delta update, increments the sequence number by one.
+
 ### Tracks {#tracks}
 An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
 
@@ -163,8 +167,8 @@ A catalog object is a collection of fields whose location is specified as 'RC', 
 ### Tracks object {#trackobject}
 A track object is a collection of fields whose location is specified as 'RT', 'TC' or 'RTC' in Table 1.
 
-### Parent sequence number {#parentsequencenumber}
-A number specifying the moq-transport object number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
+### Parent sequence number {#parentsequence}
+An optional integer specifying the catalog sequence number {{catalogsequence}} number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
 ### Track namespace {#tracknamespace}
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space.
@@ -279,8 +283,8 @@ A catalog might contain incremental changes. This is a useful property if many t
 
 The following rules MUST be followed in processing delta updates:
 
-* If a catalog is received without the parent sequence number field {{parentsequencenumber}} defined, then it is an independent catalog and no delta update processing is required.
-* If a catalog is received with a parent sequence number field present, then the content of the catalog MUST be parsed as if the catalog contents had been added to the contents received on the referenced moq-transport object. Newer field definitions overwrite older field definitions.
+* If a catalog is received without the parent sequence number field {{parentsequence}} defined, then it is an independent catalog and no delta update processing is required.
+* If a catalog is received with the parent sequence number field present, then the contents of the catalog MUST be parsed as if the catalog contents had been added to the state represented by the catalog whose sequence number matches the parent sequence number. Newer field definitions overwrite older field definitions.
 * Track namespaces may not be changed across delta updates.
 * Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.
 * Track names may not be changed across delta updates. To change a track name, remove the track and then add a new track with the new name and matching properties.
@@ -298,6 +302,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -329,6 +334,7 @@ medium definition video qualities, along with an audio track.
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -395,6 +401,7 @@ express the track relationships.
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -434,7 +441,8 @@ This example shows catalog for the media producer adding a slide track to an est
 
 ~~~json
 {
-  "parentSeqNum":0,
+  "sequence": 1,
+  "parentSequence":0,
   "tracks": [
     {
       "name": "slides",
@@ -452,7 +460,8 @@ This example shows delat catalog update for a media producer removing a slide tr
 
 ~~~json
 {
-  "parentSequenceNum":1,
+  "sequence": 2,
+  "parentSequence":1,
   "tracks": [
     {
       "name": "slides",
@@ -469,9 +478,10 @@ This example shows a delta catalog update for a media producer removing all trac
 
 ~~~json
 {
-  "parentSequenceNum":2,
+  "sequence": 3,
+  "parentSequence":2,
   "operation": 0,
-  "tracks": [{"name": "audio"},{"name": "video"},{"name": "slides"}]
+  "tracks": [{"name": "audio"},{"name": "video"}]
 }
 
 ~~~
@@ -483,6 +493,7 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -530,6 +541,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "output.example.com/event/12345",
@@ -558,6 +570,7 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -585,6 +598,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -614,6 +628,7 @@ This example shows the catalog for a media producer that is outputting two strea
 ~~~json
 {
   "version": 1,
+  "sequence": 0,
   "catalogs": [
     {
       "name": "catalog-for-format-one",
