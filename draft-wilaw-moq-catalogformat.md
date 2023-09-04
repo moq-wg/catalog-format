@@ -100,6 +100,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Field                   |  Name                  | Required |  Location |  JSON type |           Definition       |
 |:========================|:=======================|:=========|:==========|:===========|:===========================|
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
+| Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
@@ -151,10 +152,10 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
 ### Tracks {#tracks}
-An array of track objects {{trackobject}}. If the tracks field is present then the catalog field MUST NOT be present.
+An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
 
 ### Catalogs {#catalogs}
-An array of catalog objects {{catalogobject}}. If the catalogs field is present then the tracks field MUST NOT be present.
+An array of catalog objects {{catalogobject}}. If the 'catalogs' field is present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list itself in the catalog array. 
 
 ### Catalog object {#catalogobject}
 A catalog object is a collection of fields whose location is specified as 'RC', 'TC' or 'RTC' in Table 1.
@@ -608,20 +609,20 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 ### A catalog referencing catalogs for two different formats
 
-This example shows the catalog for a media producer that is outputting two streaming formats simultaneously under different namespaces.
+This example shows the catalog for a media producer that is outputting two streaming formats simultaneously under different namespaces. Note that each track name referenced points at another catalog object.  
 
 ~~~json
 {
   "version": 1,
   "catalogs": [
     {
-      "name": "anytracknameA",
+      "name": "catalog-for-format-one",
       "namespace": "sports.example.com/games/08-08-23/live",
       "streamingFormat":1,
       "streamingFormatVersion": "0.2"
     },
     {
-      "name": "anytracknameB",
+      "name": "catalog-for-format-five",
       "namespace": "chat.example.com/games/08-08-23/chat",
       "streamingFormat":5,
       "streamingFormatVersion": "1.6.2"
