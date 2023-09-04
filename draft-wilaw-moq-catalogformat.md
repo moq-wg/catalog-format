@@ -102,7 +102,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
 | Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
-| Catalog sequence number | sequence               |  yes     |   R       |  Number    | {{sequenceNumber}}         |
+| Catalog sequence number | sequence               |  yes     |   R       |  Number    | {{sequencenumber}}         |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
 | Parent sequence number  | parentSequence         |  opt     |   R       |  Array     | {{parentsequence}}         |
@@ -152,7 +152,7 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
-### Catalog sequence number {#sequenceNumber}
+### Catalog sequence number {#sequencenumber}
 An integer indicating the sequence of this catalog object update. The first catalog object produced under a given name|namespace carries a sequence number of zero. Each successive update of that catalog, either as an independent or delta update, increments the sequence number by one.
 
 ### Tracks {#tracks}
@@ -168,7 +168,7 @@ A catalog object is a collection of fields whose location is specified as 'RC', 
 A track object is a collection of fields whose location is specified as 'RT', 'TC' or 'RTC' in Table 1.
 
 ### Parent sequence number {#parentsequence}
-An optional integer specifying the catalog sequence number {{catalogsequence}} number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
+An optional integer specifying the catalog sequence number {{sequencenumber}} number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
 ### Track namespace {#tracknamespace}
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space.
