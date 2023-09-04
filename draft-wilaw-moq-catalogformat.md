@@ -170,7 +170,7 @@ A number specifying the moq-transport object number from which this catalog repr
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space.
 
 ### Track name {#trackname}
-A string defining the name of the track. See section 2.3 of {{MoQTransport}}
+A string defining the name of the track. See section 2.3 of {{MoQTransport}}. Within the catalog, track names MUST be unique per namespace.
 
 ### Packaging {#packaging}
 A string defining the type of payload encapsulation. Allowed values are strings as defined in Table 2.
