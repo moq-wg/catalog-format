@@ -109,7 +109,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
 | Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
-| Track operation         | operation              |  yes     |   RT      |  Number    | {{trackoperations}}        |
+| Track operation         | operation              |  yes     |   RT      |  String    | {{trackoperations}}        |
 | Track label             | label                  |  opt     |   RT      |  String    | {{tracklabel}}             |
 | Render group            | renderGroup            |  opt     |   RT      |  Number    | {{rendergroup}}            |
 | Alternate group         | altGroup               |  opt     |   RT      |  Number    | {{altgroup}}               |
@@ -198,7 +198,7 @@ as defined below.
  catalog may subscribe to the track.
 
 * Delete: Indicates that media producer is no longer producing media on the
-associated track.
+associated track. Subscribers SHOULD terminate their subscriptions.
 
 A catalog update in which all previously added tracks are deleted SHOULD be interpreted by a subscriber to indicate that the publisher has terminated the broadcast.
 
@@ -206,12 +206,12 @@ Table 3 defines the numerical values for the track operations.
 
 Table 3: Allowed track operations
 
-| Name            | Value | Default value  |
-|:================|:======|:===============|
-| Add             | 1     |    yes         |
-| Delete          | 0     |                |
+| Name            | Value  | Default value  |
+|:================|:=======|:===============|
+| Add             | add    |    yes         |
+| Delete          | delete |                |
 
-The default track operation is 'Add'. This value does not need to be declared in the track object.
+The default track operation is 'add'. This value does not need to be declared in the track object.
 
 
 ### Track label {#tracklabel}
@@ -467,7 +467,7 @@ This example shows delat catalog update for a media producer removing a slide tr
   "tracks": [
     {
       "name": "slides",
-      "operation": 0
+      "operation": "delete"
     }
    ]
 }
@@ -482,7 +482,7 @@ This example shows a delta catalog update for a media producer removing all trac
 {
   "sequence": 3,
   "parentSequence":2,
-  "operation": 0,
+  "operation": "delete",
   "tracks": [{"name": "audio"},{"name": "video"}]
 }
 
