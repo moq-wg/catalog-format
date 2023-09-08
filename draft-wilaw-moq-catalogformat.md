@@ -339,6 +339,7 @@ medium definition video qualities, along with an audio track.
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
   "renderGroup": 1,
+  "packaging": "loc",
   "tracks":[
     {
       "name": "hd",
@@ -406,6 +407,7 @@ express the track relationships.
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
   "renderGroup": 1,
+  "packaging": "loc",
   "tracks":[
     {
       "name": "480p15",
@@ -551,7 +553,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
       "name": "video0",
       "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
       "initTrack":"init_video_720",
-      "packaging":"loc",
+      "packaging":"cmaf",
     },
     {
       "name": "audio",
