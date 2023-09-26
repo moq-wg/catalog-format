@@ -63,7 +63,7 @@ informative:
 
 --- abstract
 
-This specification defines an Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
+This specification defines a Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
 
 
 --- middle
@@ -85,7 +85,7 @@ A Catalog is a MOQT Object that provides information about tracks from a given p
 A special case of the catalog exists which describes other catalogs instead of tracks. A catalog might describe tracks, or catalogs, but never both at the same time.
 
 ## Catalog version {#catalogversion}
-Versions of this catalog specification are defined using monotonically increasing integers. There is no gaurantee that future catalog versions are backwards compatible and field definitions and interpretaiton may change between versions. A subscriber MUST NOT attempt to parse a catalog version which it does not understand.
+Versions of this catalog specification are defined using monotonically increasing integers. There is no guarantee that future catalog versions are backwards compatible and field definitions and interpretation may change between versions. A subscriber MUST NOT attempt to parse a catalog version which it does not understand.
 
 This document defines version 1.
 
@@ -125,7 +125,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Bitrate                 | bitrate                |  opt     |   S       |  Number    | {{bitrate}}                |
 | Width                   | width                  |  opt     |   S       |  Number    | {{width}}                  |
 | Height                  | height                 |  opt     |   S       |  Number    | {{height}}                 |
-| Audio sample rate       | sampleRate             |  opt     |   S       |  Number    | {{audiosamplerate}}        |
+| Audio sample rate       | samplerate             |  opt     |   S       |  Number    | {{audiosamplerate}}        |
 | Channel configuration   | channelConfig          |  opt     |   S       |  String    | {{channelconfiguration}}   |
 | Display width           | displayWidth           |  opt     |   S       |  Number    | {{displaywidth}}           |
 | Display height          | displayHeight          |  opt     |   S       |  Number    | {{displayheight}}          |
@@ -191,7 +191,7 @@ Table 2: Allowed packaging values
 ### Track operations {#trackoperations}
 
 Each track description can specify an optional operation value that identifies
-the catalog producer's intent. Track operation is a enumeration of values
+the catalog producer's intent. Track operation is an enumeration of values
 as defined below.
 
 * Add: Indicates the track is added to the catalog and the consumers of the
@@ -311,11 +311,11 @@ This example shows catalog for a media producer capable of sending LOC packaged,
   "tracks": [
     {
       "name": "video",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000}
+      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,"height":1080,"framerate":30,"bitrate":1500000}
     },
     {
       "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000}
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
     }
    ]
 }
@@ -343,22 +343,22 @@ medium definition video qualities, along with an audio track.
   "tracks":[
     {
       "name": "hd",
-      "selectionParams": {"c":"av01","wd":1920,"ht":1080,"br":5000000,"fr":30},
+      "selectionParams": {"codec":"av01","width":1920,"height":1080,"bitrate":5000000,"framerate":30},
       "altGroup":1
     },
     {
       "name": "md",
-      "selectionParams": {"c":"av01","wd":720,"ht":640,"br":3000000,"fr":30},
+      "selectionParams": {"codec":"av01","width":720,"height":640,"bitrate":3000000,"framerate":30},
       "altGroup":1
     },
     {
       "name": "sd",
-      "selectionParams": {"c":"av01","wd":192,"ht":144,"br":500000,"fr":30},
+      "selectionParams": {"codec":"av01","width":192,"height":144,"bitrate":500000,"framerate":30},
       "altGroup":1
     },
     {
       "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
     }
    ]
 }
@@ -411,27 +411,27 @@ express the track relationships.
   "tracks":[
     {
       "name": "480p15",
-      "selectionParams": {"c":"av01.0.01M.10.0.110.09","wd":640,"ht":480,"br":3000000,"fr":15},
+      "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":15},
     },
     {
       "name": "480p30",
-      "selectionParams": {"c":"av01.0.04M.10.0.110.09","wd":640,"ht":480,"br":3000000,"fr":30},
+      "selectionParams": {"codec":"av01.0.04M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":30},
       "depends": ["480p15"],
     },
     {
       "name": "1080p15",
-      "selectionParams": {"c":"av01.0.05M.10.0.110.09","wd":1920,"ht":1080,"br":3000000,"fr":15},
+      "selectionParams": {"codec":"av01.0.05M.10.0.110.09","width":1920,"height":1080,"bitrate":3000000,"framerate":15},
       "depends":["480p15"]
     },
 
     {
       "name": "1080p30",
-      "selectionParams": {"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"br":5000000,"fr":30},
+      "selectionParams": {"codec":"av01.0.08M.10.0.110.09","width":1920,"height":1080,"bitrate":5000000,"framerate":30},
       "depends": ["480p30", "1080p15"]
     },
     {
       "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
     }
    ]
 }
@@ -448,7 +448,7 @@ This example shows catalog for the media producer adding a slide track to an est
   "tracks": [
     {
       "name": "slides",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":15,"br":750000},
+      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,"height":1080,"framerate":15,"bitrate":750000},
       "renderGroup":1
     }
    ]
@@ -458,7 +458,7 @@ This example shows catalog for the media producer adding a slide track to an est
 
 ### Delta update removing a track
 
-This example shows delat catalog update for a media producer removing a slide track from an established video conference
+This example shows delta catalog update for a media producer removing a slide track from an established video conference
 
 ~~~json
 {
@@ -504,31 +504,31 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
   "tracks": [
     {
       "name": "video_4k",
-      "selectionParams":{"c":"avc1.640033","mt":"video/mp4","wd":3840,"ht":2160,"fr":30,"br":14931538},
+      "selectionParams":{"codec":"avc1.640033","mimeType":"video/mp4","width":3840,"height":2160,"framerate":30,"bitrate":14931538},
       "initTrack":"init_video_4k",
       "altGroup": 1
     },
     {
       "altGroup": "video_1080",
-      "selectionParams":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
+      "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
       "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
       "altGroup": "video_720",
-      "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
+      "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
       "altGroup": "audio_aac",
-      "selectionParams":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
+      "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
       "initTrack":"init_audio_aac",
       "altGroup": 2
     },
     {
       "name": "audio_ec3",
-      "selectionParms":{"c":"ec-3","mt":"audio/mp4","sr":48000,"cc":"F801","br":256000},
+      "selectionParms":{"codec":"ec-3","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"F801","bitrate":256000},
       "initTrack":"init_audio_ec3",
       "altGroup": 2
     }
@@ -551,13 +551,13 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
   "tracks": [
     {
       "name": "video0",
-      "selectionParams":{"c":"avc1.64001f","mt":"video/mp4","wd":1280,"ht":720,"fr":30,"br":4952892},
+      "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
       "packaging":"cmaf",
     },
     {
       "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000},
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
       "packaging": "loc",
     }
    ]
@@ -581,12 +581,12 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
   "tracks": [
     {
       "name": "video_1080",
-      "selectionParams":{"c":"avc1.640028","mt":"video/mp4","wd":1920,"ht":1080,"fr":30,"br":9914554},
+      "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
 "initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
     },
     {
       "name": "audio_aac",
-      "selectionParams":{"c":"mp4a.40.5","mt":"audio/mp4","sr":48000,"cc":"2","br":67071},
+      "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
 "initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
     }
    ]
@@ -609,14 +609,14 @@ This example shows catalog for a media producer capable of sending LOC packaged,
   "tracks": [
     {
       "name": "video",
-      "selectionParams":{"c":"av01.0.08M.10.0.110.09","wd":1920,"ht":1080,"fr":30,"br":1500000},
+      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,"height":1080,"framerate":30,"bitrate":1500000},
       "com.example-billing-code": 3201,
       "com.example-tier": "premium",
       "com.example-debug": "h349835bfkjfg82394d945034jsdfn349fns"
     },
     {
       "name": "audio",
-      "selectionParams":{"c":"opus","sr":48000,"cc":"2","br":32000}
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
     }
    ]
 }
@@ -651,7 +651,7 @@ This example shows the catalog for a media producer that is outputting two strea
 
 # Security Considerations
 
-The catalog contents MAY be encrypted. The mechanism of encryption and the signalling of the keys are left to the Streaming Format referencing this catalog format.
+The catalog contents MAY be encrypted. The mechanism of encryption and the signaling of the keys are left to the Streaming Format referencing this catalog format.
 
 # IANA Considerations {#iana}
 
