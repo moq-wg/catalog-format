@@ -11,26 +11,26 @@
 <meta content="
        This specification defines a Common Catalog specification for streaming formats implementing the MOQ Transport Protocol  . Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks. 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.18.2" name="generator">
 <meta content="moq" name="keyword">
 <meta content="warp" name="keyword">
 <meta content="catalog" name="keyword">
 <meta content="draft-wilaw-moq-catalogformat-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
-    Python 3.11.5
+  xml2rfc 3.18.2
+    Python 3.11.6
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 3.11.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.9
 -->
 <link href="draft-wilaw-moq-catalogformat.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1029,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Common Catalog Format for moq-transport</td>
-<td class="right">September 2023</td>
+<td class="right">November 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Nandakumar, et al.</td>
-<td class="center">Expires 29 March 2024</td>
+<td class="center">Expires 6 May 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wilaw-moq-catalogformat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-26" class="published">26 September 2023</time>
+<time datetime="2023-11-03" class="published">3 November 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-03-29">29 March 2024</time></dd>
+<dd class="expires"><time datetime="2024-05-06">6 May 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1109,7 +1109,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1686,19 +1686,26 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-3.2-5">Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <p id="section-3.2-6">Location:<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2-7.1">'R' - the field is located in the Root of the JSON object.<a href="#section-3.2-7.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2-7.1">
+            <p id="section-3.2-7.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-3.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.2">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-3.2-7.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.2">
+            <p id="section-3.2-7.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-3.2-7.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.3">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-3.2-7.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.3">
+            <p id="section-3.2-7.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-3.2-7.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.4">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-3.2-7.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.4">
+            <p id="section-3.2-7.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-3.2-7.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.5">'RT' - the field may be located in either the Root or a Track object.<a href="#section-3.2-7.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.5">
+            <p id="section-3.2-7.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-3.2-7.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.6">'T' - the field is located in a Track object.<a href="#section-3.2-7.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.6">
+            <p id="section-3.2-7.6.1">'T' - the field is located in a Track object.<a href="#section-3.2-7.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-7.7">'S' - the field is located in the Selection Parameters object.<a href="#section-3.2-7.7" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-7.7">
+            <p id="section-3.2-7.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-3.2-7.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="streamingformat">
@@ -1821,11 +1828,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 the catalog producer's intent. Track operation is an enumeration of values
 as defined below.<a href="#section-3.2.12-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2.12-2.1">Add: Indicates the track is added to the catalog and the consumers of the
- catalog may subscribe to the track.<a href="#section-3.2.12-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2.12-2.1">
+              <p id="section-3.2.12-2.1.1">Add: Indicates the track is added to the catalog and the consumers of the
+ catalog may subscribe to the track.<a href="#section-3.2.12-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.2.12-2.2">Delete: Indicates that media producer is no longer producing media on the
-associated track. Subscribers SHOULD terminate their subscriptions.<a href="#section-3.2.12-2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-3.2.12-2.2">
+              <p id="section-3.2.12-2.2.1">Delete: Indicates that media producer is no longer producing media on the
+associated track. Subscribers SHOULD terminate their subscriptions.<a href="#section-3.2.12-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-3.2.12-3">A catalog update in which all previously added tracks are deleted SHOULD be interpreted by a subscriber to indicate that the publisher has terminated the broadcast.<a href="#section-3.2.12-3" class="pilcrow">¶</a></p>
@@ -2028,15 +2037,20 @@ For CMAF packaged content, the string codec registrations are defined in XXX.<a 
 <p id="section-3.3-1">A catalog might contain incremental changes. This is a useful property if many tracks may be initially declared but then there are small changes to a subset of tracks. The producer can issue a delta update to describe these small changes. Changes are described incrementally, meaning that a delta-update can itself depend on a previous delta update.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">The following rules MUST be followed in processing delta updates:<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.3-3.1">If a catalog is received without the parent sequence number field <a href="#parentsequence" class="auto internal xref">Section 3.2.8</a> defined, then it is an independent catalog and no delta update processing is required.<a href="#section-3.3-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.3-3.1">
+            <p id="section-3.3-3.1.1">If a catalog is received without the parent sequence number field <a href="#parentsequence" class="auto internal xref">Section 3.2.8</a> defined, then it is an independent catalog and no delta update processing is required.<a href="#section-3.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.3-3.2">If a catalog is received with the parent sequence number field present, then the contents of the catalog MUST be parsed as if the catalog contents had been added to the state represented by the catalog whose sequence number matches the parent sequence number. Newer field definitions overwrite older field definitions.<a href="#section-3.3-3.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.3-3.2">
+            <p id="section-3.3-3.2.1">If a catalog is received with the parent sequence number field present, then the contents of the catalog MUST be parsed as if the catalog contents had been added to the state represented by the catalog whose sequence number matches the parent sequence number. Newer field definitions overwrite older field definitions.<a href="#section-3.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.3-3.3">Track namespaces may not be changed across delta updates.<a href="#section-3.3-3.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.3-3.3">
+            <p id="section-3.3-3.3.1">Track namespaces may not be changed across delta updates.<a href="#section-3.3-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.3-3.4">Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.<a href="#section-3.3-3.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.3-3.4">
+            <p id="section-3.3-3.4.1">Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.<a href="#section-3.3-3.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.3-3.5">Track names may not be changed across delta updates. To change a track name, remove the track and then add a new track with the new name and matching properties.<a href="#section-3.3-3.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.3-3.5">
+            <p id="section-3.3-3.5.1">Track names may not be changed across delta updates. To change a track name, remove the track and then add a new track with the new name and matching properties.<a href="#section-3.3-3.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2286,19 +2300,19 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
       "altGroup": 1
     },
     {
-      "altGroup": "video_1080",
+      "name": "video_1080",
       "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
       "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
-      "altGroup": "video_720",
+      "name": "video_720",
       "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
-      "altGroup": "audio_aac",
+      "name": "audio_aac",
       "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
       "initTrack":"init_audio_aac",
       "altGroup": 2
@@ -2491,13 +2505,16 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <ul class="normal">
-<li class="normal" id="section-6-1.1">Suhas Nandakumar &amp; Mo Zanaty - this <a href="https://github.com/suhasHere/moq-drafts/tree/master/moq-catalog">draft</a>.<a href="#section-6-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-1.1">
+          <p id="section-6-1.1.1">Suhas Nandakumar &amp; Mo Zanaty - this <a href="https://github.com/suhasHere/moq-drafts/tree/master/moq-catalog">draft</a>.<a href="#section-6-1.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-1.2">The IETF MoQ mailing lists and discussion groups.<a href="#section-6-1.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-1.2">
+          <p id="section-6-1.2.1">The IETF MoQ mailing lists and discussion groups.<a href="#section-6-1.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
 </div>
+<div id="sec-normative-references">
 <section id="section-7">
       <h2 id="name-normative-references">
 <a href="#name-normative-references" class="section-name selfRef">Normative References</a>
@@ -2529,7 +2546,7 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <dd class="break"></dd>
 <dt id="MoQTransport">[MoQTransport]</dt>
       <dd>
-<span class="refAuthor">Curley, L.</span>, <span class="refAuthor">Pugin, K.</span>, <span class="refAuthor">Nandakumar, S.</span>, and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"Media over QUIC Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-moq-transport-00</span>, <time datetime="2023-07-05" class="refDate">5 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-00">https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-00</a>&gt;</span>. </dd>
+<span class="refAuthor">Curley, L.</span>, <span class="refAuthor">Pugin, K.</span>, <span class="refAuthor">Nandakumar, S.</span>, and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"Media over QUIC Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-moq-transport-01</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-01">https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="WebCodecs">[WebCodecs]</dt>
       <dd>
@@ -2541,6 +2558,7 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
 <div id="authors-addresses">
 <section id="appendix-A">
       <h2 id="name-authors-addresses">

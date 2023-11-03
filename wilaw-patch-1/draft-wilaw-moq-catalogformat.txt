@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 29 March 2024                                            Akamai
+Expires: 6 May 2024                                               Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                       26 September 2023
+                                                         3 November 2023
 
 
                 Common Catalog Format for moq-transport
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 March 2024.
+   This Internet-Draft will expire on 6 May 2024.
 
 Copyright Notice
 
@@ -801,19 +801,19 @@ Table of Contents
          "altGroup": 1
        },
        {
-         "altGroup": "video_1080",
+         "name": "video_1080",
          "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
          "initTrack":"init_video_1080",
          "altGroup": 1
        },
        {
-         "altGroup": "video_720",
+         "name": "video_720",
          "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
          "initTrack":"init_video_720",
          "altGroup": 1
        },
        {
-         "altGroup": "audio_aac",
+         "name": "audio_aac",
          "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
          "initTrack":"init_audio_aac",
          "altGroup": 2
@@ -1008,9 +1008,9 @@ Normative References
    [MoQTransport]
               Curley, L., Pugin, K., Nandakumar, S., and V. Vasiliev,
               "Media over QUIC Transport", Work in Progress, Internet-
-              Draft, draft-ietf-moq-transport-00, 5 July 2023,
+              Draft, draft-ietf-moq-transport-01, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-moq-
-              transport-00>.
+              transport-01>.
 
    [WebCodecs]
               "WebCodecs", July 2023,
