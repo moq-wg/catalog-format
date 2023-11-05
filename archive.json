@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-12T00:25:41.448840+00:00",
+  "timestamp": "2023-11-05T00:30:34.990709+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -256,9 +256,17 @@
       "labels": [],
       "body": "Which bitrate is this reflecting? How do we set this for VBR content? ",
       "createdAt": "2023-09-30T10:34:58Z",
-      "updatedAt": "2023-09-30T10:34:58Z",
+      "updatedAt": "2023-11-03T20:26:27Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good question. HLS defines variant bitrate using two parameters\r\n\r\n> BANDWIDTH : It represents the peak segment bit rate of the Variant Stream.\r\n> AVERAGE-BANDWIDTH: the value is a decimal-integer of bits per second.  It represents the average segment bit rate of the Variant Stream. \r\n\r\nDASH defines bitrate using there interplay between two parameters\r\n\r\n> @bandwidth @MinBufferTime - consider a hypothetical constant bitrate channel of bandwidth with the value of this attribute in bits per second (bps). Then, if the Representation is continuously delivered at this bitrate, starting at any SAP that is indicated either by @startWithSAP or by any Segment Index box, a client can be assured of having enough data for continuous playout providing playout begins after @minBufferTime * @bandwidth bits have been received.\r\n\r\nWebCodecs defines bitrate quote ambiguously\r\n\r\n> bitrate - The average bitrate of the encoded video given in units of bits per second.\r\n\r\n\r\nI find the DASH approach, while technically correct, to be difficult to interpret by many implementers. The WebCodes approach seems underdefined. So perhaps for MoQ catalog we go with the two understandable properties of:\r\n\r\n- average-bandwidth (required) \r\n- peak-bandwidth (optional) - indicates degree of VBR variance\r\n\r\nAs soon as we specify average, we need to give an indication over which timebase we are taking the average. For GOP segmented content, the GOP is a natural base over which to average the . For a track which is has a single GOP, what timebase would be appropriate? ",
+          "createdAt": "2023-11-03T20:20:41Z",
+          "updatedAt": "2023-11-03T20:26:27Z"
+        }
+      ]
     },
     {
       "number": 26,
@@ -272,9 +280,24 @@
       "labels": [],
       "body": "I suggest creating an IANA registry for catalog fields with values auto-populated from Section 3.2.",
       "createdAt": "2023-09-30T10:42:22Z",
-      "updatedAt": "2023-09-30T10:42:22Z",
+      "updatedAt": "2023-11-03T17:45:32Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "What is the point of shifting the catalog fields definitions to IANA? IANA is useful for ensuring global uniqueness. If a single specification defines the catalog format, then that spec if a much more efficient and natural place to define the fields used by that format. ",
+          "createdAt": "2023-11-03T11:36:25Z",
+          "updatedAt": "2023-11-03T11:36:25Z"
+        },
+        {
+          "author": "acbegen",
+          "authorAssociation": "NONE",
+          "body": "If we end up needing new fields (which we certainly will), we don't need a revised RFC. The fields table can be amended/expanded in a number of ways. ",
+          "createdAt": "2023-11-03T17:45:32Z",
+          "updatedAt": "2023-11-03T17:45:32Z"
+        }
+      ]
     },
     {
       "number": 27,
@@ -288,7 +311,7 @@
       "labels": [],
       "body": "`Alternate tracks SHOULD have matching framerate [Section 3.2.24](https://www.ietf.org/archive/id/draft-wilaw-moq-catalogformat-01.html#framerate) and media time sequences.`\r\n\r\nDifferent video representations can easily have different frame rates. I don't see the reason for this \"SHOULD.\"",
       "createdAt": "2023-09-30T10:43:37Z",
-      "updatedAt": "2023-10-11T14:20:05Z",
+      "updatedAt": "2023-11-03T17:48:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -304,6 +327,13 @@
           "body": "Also to note, matching framerates will enable changing groups across alt groups natural too. ",
           "createdAt": "2023-10-11T14:20:04Z",
           "updatedAt": "2023-10-11T14:20:04Z"
+        },
+        {
+          "author": "acbegen",
+          "authorAssociation": "NONE",
+          "body": "> Constraining alt tracks to have a matching framerate makes player audio/video sync simpler .\r\n\r\nMaybe, but frame rate changes do not require decoder re-initialization. So, I view this as an unnecessary constraint. ",
+          "createdAt": "2023-11-03T17:48:22Z",
+          "updatedAt": "2023-11-03T17:48:22Z"
         }
       ]
     },
@@ -319,7 +349,7 @@
       "labels": [],
       "body": "Any plans for providing this info for CMAF selectionParams ?",
       "createdAt": "2023-09-30T10:49:09Z",
-      "updatedAt": "2023-10-11T14:20:35Z",
+      "updatedAt": "2023-11-03T17:50:38Z",
       "closedAt": null,
       "comments": [
         {
@@ -328,6 +358,20 @@
           "body": "I think this should go in the WARP spec",
           "createdAt": "2023-10-11T14:20:35Z",
           "updatedAt": "2023-10-11T14:20:35Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The streaming format spec can define what parameters to place, however the catalog should still provide a harmonized location to hold DRM info. \r\n\r\nA DASH manifest snippet is shown below. We would need to hold similar information if the catalog is to adequately describe CENC-protected content. We should also be concerned with conciseness, as DRM info can be large compared to the rest of the catalog and we don't want to repeat it for each track if it is common. \r\n\r\n```\r\n<ContentProtection value=\"cenc\" schemeIdUri=\"urn:mpeg:dash:mp4protection:2011\"  cenc:default_KID=\"80399bf5-8a21-4014-8053-e27e748e98c0\" />\r\n<ContentProtection value=\"MSPR 2.0\" schemeIdUri=\"urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95\">\r\n\t<cenc:pssh>AAAB...</cenc:pssh>\r\n        <pro xmlns=\"urn:microsoft:playready\">xAEA...</pro>\r\n</ContentProtection>\r\n<ContentProtection value=\"Widevine\" schemeIdUri=\"urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\">\r\n\t<cenc:pssh>AAAA...</cenc:pssh>\r\n</ContentProtection>\r\n```\r\nI propose the following new catalog elements\r\n\r\n\r\n\r\nField | Name | Required | Location | JSON type | Definition\r\n| ------| -----| ---------| ---------|------------|------------|\r\n|Content Protection  | contentProtection | opt | R | Array| Holds a series of content protection objects|\r\n|Content Protection scheme | cpScheme | opt | CP | String| Defines the content protection scheme|\r\n|Content Protection value | cpValue | opt | CP | String| Defines the content protection scheme value|\r\n|Default key ID | defaultKID | opt | CP | String| Defines the default key ID for CENC protected content|\r\n|Protection System Specific Header  | pssh| opt | CP | String| Defines the base64 encoded contents of the pssh box |\r\n|PlayReady Object | pro | opt | CP | String| Defines the base64 encoded contents of the Playready Object |\r\n|Content protection reference ID| cpID | R | CP | String| Provides a reference ID to the content protection object |\r\n|Content protection IDs | contentProtectionID | opt | RT | Array | Holds an array of Content protection reference IDs |\r\n\r\nA resultant catalog might look like this for CMAF content in which all tracks are protected with Playready and Widevine via CENC, but the 4K track is only offered in Playready. \r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"sequence\": 0,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"namespace\": \"sports.example.com/games/08-08-23/12345\",\r\n  \"packaging\": \"cmaf\",\r\n  \"renderGroup\":1,\r\n  \"contentProtection\": [\r\n      { \"cpID\":\"1\",\r\n        \"value\":\"cenc\",\r\n        \"schemeID\":\"urn:mpeg:dash:mp4protection:2011\",\r\n        \"defaultKID\":\"80399bf5-8a21-4014-8053-e27e748e98c0\"\r\n      },\r\n      { \"cpID\":\"2\",\r\n        \"value\":\"MSPR 2.0\",\r\n        \"schemeID\":\"urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95\",\r\n        \"pssh\":\"AAAB..\",\r\n        \"pro\":\"xAEA...\"\r\n      },\r\n      { \"cpID\":\"3\",\r\n        \"value\":\"Widevine\",\r\n        \"schemeID\":\"urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\r\n        \"pssh\":\"AAAA..\"\r\n      }\r\n  ],\r\n  \"contentProtectionID\": [\"1\",\"2\",\"3\"],\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"video_4k\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640033\",\"mimeType\":\"video/mp4\",\"width\":3840,\"height\":2160,\"framerate\":30,\"bitrate\":14931538},\r\n      \"initTrack\":\"init_video_4k\",\r\n      \"altGroup\": 1,\r\n      \"contentProtectionID\": [\"1\",\"2\"]\r\n    },\r\n    {\r\n      \"altGroup\": \"video_1080\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640028\",\"mimeType\":\"video/mp4\",\"width\":1920,\"height\":1080,\"framerate\":30,\"bitrate\":9914554},\r\n      \"initTrack\":\"init_video_1080\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"altGroup\": \"video_720\",\r\n      \"selectionParams\":{\"codec\":\"avc1.64001f\",\"mimeType\":\"video/mp4\",\"width\":1280,\"height\":720,\"framerate\":30,\"bitrate\":4952892},\r\n      \"initTrack\":\"init_video_720\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"altGroup\": \"audio_aac\",\r\n      \"selectionParams\":{\"codec\":\"mp4a.40.5\",\"mimeType\":\"audio/mp4\",\"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":67071},\r\n      \"initTrack\":\"init_audio_aac\",\r\n      \"altGroup\": 2\r\n    },\r\n    {\r\n      \"name\": \"audio_ec3\",\r\n      \"selectionParms\":{\"codec\":\"ec-3\",\"mimeType\":\"audio/mp4\",\"samplerate\":48000,\"channelConfig\":\"F801\",\"bitrate\":256000},\r\n      \"initTrack\":\"init_audio_ec3\",\r\n      \"altGroup\": 2\r\n    }\r\n   ]\r\n}\r\n```\r\n\r\n\r\n\r\n\r\n",
+          "createdAt": "2023-11-03T11:28:47Z",
+          "updatedAt": "2023-11-03T11:28:47Z"
+        },
+        {
+          "author": "acbegen",
+          "authorAssociation": "NONE",
+          "body": "This is fine and is actually a good example why these fields should be registered/maintained by the IANA (we might be missing something today and want to add it quickly in the future).",
+          "createdAt": "2023-11-03T17:50:38Z",
+          "updatedAt": "2023-11-03T17:50:38Z"
         }
       ]
     },
@@ -352,6 +396,37 @@
           "body": "They are already a JSON object. See the examples in Sect 3.4. \r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"sequence\": 0,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"namespace\": \"conference.example.com/conference123/alice\",\r\n  \"packaging\": \"loc\",\r\n  \"renderGroup\": 1,\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"video\",\r\n      \"selectionParams\":{\"codec\":\"av01.0.08M.10.0.110.09\",\"width\":1920,\"height\":1080,\"framerate\":30,\"bitrate\":1500000}\r\n    },\r\n    {\r\n      \"name\": \"audio\",\r\n      \"selectionParams\":{\"codec\":\"opus\",\"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":32000}\r\n    }\r\n   ]\r\n}\r\n```",
           "createdAt": "2023-10-11T11:23:39Z",
           "updatedAt": "2023-10-11T11:23:39Z"
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOKMx0ks513ZKZ",
+      "title": "Consider JSON Patch / JSON Merge Patch for delta updates",
+      "url": "https://github.com/moq-wg/catalog-format/issues/31",
+      "state": "OPEN",
+      "author": "englishm",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "If we can do away with sequence numbers, we may be able to move to a standardized format for delta updates:\n\nhttps://datatracker.ietf.org/doc/html/rfc6902/",
+      "createdAt": "2023-10-04T21:37:11Z",
+      "updatedAt": "2023-11-04T18:53:33Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "englishm",
+          "authorAssociation": "NONE",
+          "body": "Alternatively: https://datatracker.ietf.org/doc/html/rfc7396",
+          "createdAt": "2023-10-04T21:42:18Z",
+          "updatedAt": "2023-10-04T21:42:18Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think is a good approach. Prefer RFC6902 over RFC7396. I am preparing slides and PR for IETF #118. ",
+          "createdAt": "2023-11-04T18:53:32Z",
+          "updatedAt": "2023-11-04T18:53:32Z"
         }
       ]
     }
@@ -716,6 +791,32 @@
       "mergeCommit": {
         "oid": "97a8e76400526049894a7d1c4a902ddbe6b85ce9"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOKMx0ks5ehD7J",
+      "title": "Fixing track names in example 3.4.7",
+      "url": "https://github.com/moq-wg/catalog-format/pull/30",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #24",
+      "createdAt": "2023-11-03T09:54:38Z",
+      "updatedAt": "2023-11-03T09:54:38Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "c9f755920bb852dd4226f7e5827e4e80c9f633d7",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "bcbb69724407c07b3bf599ff7b36f5dfc1342ce3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
