@@ -279,7 +279,7 @@ The following rules MUST be followed in processing patches:
 * The target JSON to be modified is the JSON document described by the preceding [MOQTransport] Object in the Catalog track, post any patching that may have been applied to that Object.
 * A Catalog Patch is identified by having a single array at the root level, holding a series of JSON objects, each object representing a single operation to be applied to the target JSON document.
 * Operations are applied sequentially in the order they appear in the array.  Each operation in the sequence is applied to the target document; the resulting document becomes the target of the next operation.  Evaluation continues until all operations are successfully applied or until an error condition is encountered.
-* Track namespaces and track names may not be changed across patch updates. To change either namespace or name, remove the track and then add a new track with matching properties and the new namespace and name. 
+* Track namespaces and track names may not be changed across patch updates. To change either namespace or name, remove the track and then add a new track with matching properties and the new namespace and name.
 * Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.
 
 
