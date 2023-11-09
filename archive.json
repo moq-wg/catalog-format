@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-07T00:28:38.949451+00:00",
+  "timestamp": "2023-11-09T00:28:00.014438+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -848,7 +848,7 @@
       "labels": [],
       "body": "This PR adds support RFC6902 JSON patching as the delta update mechanism for catalogs. \r\n\r\nFixes #31 ",
       "createdAt": "2023-11-05T20:18:16Z",
-      "updatedAt": "2023-11-05T20:21:55Z",
+      "updatedAt": "2023-11-07T16:35:09Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
       "baseRefOid": "c9f755920bb852dd4226f7e5827e4e80c9f633d7",
@@ -859,7 +859,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "fluffy",
+          "authorAssociation": "NONE",
+          "body": "I sort of feel like this is a bit of premature optimization - do we have so many and updates to catalog that this is needed ?",
+          "createdAt": "2023-11-07T16:35:09Z",
+          "updatedAt": "2023-11-07T16:35:09Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -874,7 +882,7 @@
       "labels": [],
       "body": "Fixes #33 ",
       "createdAt": "2023-11-06T10:00:11Z",
-      "updatedAt": "2023-11-06T10:00:11Z",
+      "updatedAt": "2023-11-07T16:33:36Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
       "baseRefOid": "c9f755920bb852dd4226f7e5827e4e80c9f633d7",
@@ -886,7 +894,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKMx0ks5maS8M",
+          "commit": {
+            "abbreviatedOid": "efb49f6"
+          },
+          "author": "fluffy",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "I know there has been lots of debate on this but it seems reasonable. ",
+          "createdAt": "2023-11-07T16:33:36Z",
+          "updatedAt": "2023-11-07T16:33:36Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
