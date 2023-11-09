@@ -508,19 +508,19 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
       "altGroup": 1
     },
     {
-      "altGroup": "video_1080",
+      "name": "video_1080",
       "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
       "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
-      "altGroup": "video_720",
+      "name": "video_720",
       "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
-      "altGroup": "audio_aac",
+      "name": "audio_aac",
       "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
       "initTrack":"init_audio_aac",
       "altGroup": 2
