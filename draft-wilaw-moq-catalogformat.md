@@ -106,7 +106,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
 | Parent sequence number  | parentSequence         |  opt     |   R       |  Array     | {{parentsequence}}         |
-| Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
+| Track namespace         | namespace              |  opt     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
 | Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
 | Track operation         | operation              |  yes     |   RT      |  String    | {{trackoperations}}        |
@@ -171,7 +171,7 @@ A track object is a collection of fields whose location is specified as 'RT', 'T
 An optional integer specifying the catalog sequence number {{sequencenumber}} number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
 ### Track namespace {#tracknamespace}
-The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space.
+The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space. The track namespace is optional. If it is not declared at the root or track level, then each track MUST inherit the namespace of the catalog track.
 
 ### Track name {#trackname}
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}. Within the catalog, track names MUST be unique per namespace.
@@ -328,7 +328,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
-medium definition video qualities, along with an audio track.
+medium definition video qualities, along with an audio track. In this example the namesapce is absent, which infers that each track must inherit the namespace of the catalog.
 
 
 ~~~json
@@ -337,7 +337,6 @@ medium definition video qualities, along with an audio track.
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
   "renderGroup": 1,
   "packaging": "loc",
   "tracks":[
