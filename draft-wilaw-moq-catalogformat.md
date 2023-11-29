@@ -57,6 +57,7 @@ normative:
   BASE64: RFC4648
   LANG: RFC5646
   MIME: RFC6838
+  JSON-PATCH: RFC6902
 
 informative:
 
@@ -102,10 +103,8 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
 | Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
-| Catalog sequence number | sequence               |  yes     |   R       |  Number    | {{sequencenumber}}         |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Parent sequence number  | parentSequence         |  opt     |   R       |  Array     | {{parentsequence}}         |
 | Track namespace         | namespace              |  opt     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
 | Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
@@ -133,7 +132,7 @@ Table 1 provides an overview of all fields defined by this document.
 
 
 
-Required: 'yes' indicates a mandatory field, 'opt' indicates an optional field
+Required: 'yes' indicates a mandatory field  in non-patch catalogs, 'opt' indicates an optional field
 
 Location:
 
@@ -152,9 +151,6 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
-### Catalog sequence number {#sequencenumber}
-An integer indicating the sequence of this catalog object update. The first catalog object produced under a given name|namespace carries a sequence number of zero. Each successive update of that catalog, either as an independent or delta update, increments the sequence number by one.
-
 ### Tracks {#tracks}
 An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
 
@@ -166,9 +162,6 @@ A catalog object is a collection of fields whose location is specified as 'RC', 
 
 ### Tracks object {#trackobject}
 A track object is a collection of fields whose location is specified as 'RT', 'TC' or 'RTC' in Table 1.
-
-### Parent sequence number {#parentsequence}
-An optional integer specifying the catalog sequence number {{sequencenumber}} number from which this catalog represents a delta update. See {{deltaupdate}} for additional details. Absence of this parent sequence number indicates that this catalog is independent and completely describes the content available in the broadcast.
 
 ### Track namespace {#tracknamespace}
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space. The track namespace is optional. If it is not declared at the root or track level, then each track MUST inherit the namespace of the catalog track.
@@ -278,16 +271,17 @@ A number expressing the intended display height of the track content in pixels.
 A string defining the dominant language of the track. The string MUST be one of the standard Tags for Identifying Languages as defined by [LANG].
 
 
-## Catalog Delta Updates {#deltaupdate}
-A catalog might contain incremental changes. This is a useful property if many tracks may be initially declared but then there are small changes to a subset of tracks. The producer can issue a delta update to describe these small changes. Changes are described incrementally, meaning that a delta-update can itself depend on a previous delta update.
+## Catalog Patch {#patch}
+A catalog update might contain incremental changes. This is a useful property if many tracks may be initially declared but then there are small changes to a subset of tracks. The producer can issue a patch to describe these small changes. Changes are described incrementally, meaning that a patch can itself modify a prior patch. Patching leverages JSON PATCH [JSON-PATCH] to modify the catalog.   JSON Patch is a format for expressing a sequence of operations to apply to a target JSON document.
 
-The following rules MUST be followed in processing delta updates:
+The following rules MUST be followed in processing patches:
 
-* If a catalog is received without the parent sequence number field {{parentsequence}} defined, then it is an independent catalog and no delta update processing is required.
-* If a catalog is received with the parent sequence number field present, then the contents of the catalog MUST be parsed as if the catalog contents had been added to the state represented by the catalog whose sequence number matches the parent sequence number. Newer field definitions overwrite older field definitions.
-* Track namespaces may not be changed across delta updates.
+* The target JSON to be modified is the JSON document described by the preceding [MOQTransport] Object in the Catalog track, post any patching that may have been applied to that Object.
+* A Catalog Patch is identified by having a single array at the root level, holding a series of JSON objects, each object representing a single operation to be applied to the target JSON document.
+* Operations are applied sequentially in the order they appear in the array.  Each operation in the sequence is applied to the target document; the resulting document becomes the target of the next operation.  Evaluation continues until all operations are successfully applied or until an error condition is encountered.
+* Track namespaces and track names may not be changed across patch updates. To change either namespace or name, remove the track and then add a new track with matching properties and the new namespace and name.
 * Contents of the track selection properties object may not be varied across updates. To adjust a track selection property, the track must first be removed and then added with the new selection properties and a different name.
-* Track names may not be changed across delta updates. To change a track name, remove the track and then add a new track with the new name and matching properties.
+
 
 
 ## Catalog Examples
@@ -436,54 +430,52 @@ express the track relationships.
 }
 ~~~
 
-### Delta update adding a track
+### Patch update adding a track
 
-This example shows catalog for the media producer adding a slide track to an established video conference
+This example shows catalog for the media producer adding a slide track to an established video conference.
 
 ~~~json
-{
-  "sequence": 1,
-  "parentSequence":0,
-  "tracks": [
+[
     {
-      "name": "slides",
-      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,"height":1080,"framerate":15,"bitrate":750000},
-      "renderGroup":1
+        "op": "add",
+        "path": "/tracks/-",
+        "value": {
+            "name": "slides",
+            "selectionParams": {
+                "codec": "av01.0.08M.10.0.110.09",
+                "width": 1920,
+                "height": 1080,
+                "framerate": 15,
+                "Bitrate": 750000
+            },
+            "renderGroup": 1
+        }
     }
-   ]
-}
+]
+
 
 ~~~
 
-### Delta update removing a track
+### Patch update removing a track
 
-This example shows delta catalog update for a media producer removing a slide track from an established video conference
+This example shows patch catalog update for a media producer removing the track from an established video conference.
 
 ~~~json
-{
-  "sequence": 2,
-  "parentSequence":1,
-  "tracks": [
-    {
-      "name": "slides",
-      "operation": "delete"
-    }
-   ]
-}
-
+[
+  { "op": "remove", "path": "/tracks/2"}
+]
 ~~~
 
-### Delta update removing all tracks and terminating the broadcast
+### Patch update removing all tracks and terminating the broadcast
 
-This example shows a delta catalog update for a media producer removing all tracks and terminating the broadcast.
+This example shows a patch catalog update for a media producer removing all tracks and terminating the broadcast.
 
 ~~~json
-{
-  "sequence": 3,
-  "parentSequence":2,
-  "operation": "delete",
-  "tracks": [{"name": "audio"},{"name": "video"}]
-}
+[
+  { "op": "remove", "path": "/tracks/2"},
+  { "op": "remove", "path": "/tracks/1"},
+  { "op": "remove", "path": "/tracks/0"},
+]
 
 ~~~
 
