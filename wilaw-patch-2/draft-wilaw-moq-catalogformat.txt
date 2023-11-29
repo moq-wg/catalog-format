@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 8 May 2024                                               Akamai
+Expires: 1 June 2024                                              Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                         5 November 2023
+                                                        29 November 2023
 
 
                 Common Catalog Format for moq-transport
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 May 2024.
+   This Internet-Draft will expire on 1 June 2024.
 
 Copyright Notice
 
@@ -221,7 +221,7 @@ Table of Contents
    |Catalogs      |catalogs              |opt     |R       |Array |Section   |
    |              |                      |        |        |      |3.2.4     |
    +--------------+----------------------+--------+--------+------+----------+
-   |Track         |namespace             |yes     |RTC     |String|Section   |
+   |Track         |namespace             |opt     |RTC     |String|Section   |
    |namespace     |                      |        |        |      |3.2.7     |
    +--------------+----------------------+--------+--------+------+----------+
    |Track name    |name                  |yes     |TC      |String|Section   |
@@ -356,12 +356,13 @@ Table of Contents
 3.2.7.  Track namespace
 
    The name space under which the track name is defined.  See section
-   2.3 of [MoQTransport].  The track namespace is required to be
-   specified for each track object.  If the track namespace is declared
-   in the root of the JSON document, then its value is inherited by all
-   tracks and catalogs and it does not need to be re-declared within
-   each track or catalog object.  A namespace declared in a track object
-   or catalog object overwrites any inherited name space.
+   2.3 of [MoQTransport].  If the track namespace is declared in the
+   root of the JSON document, then its value is inherited by all tracks
+   and catalogs and it does not need to be re-declared within each track
+   or catalog object.  A namespace declared in a track object or catalog
+   object overwrites any inherited name space.  The track namespace is
+   optional.  If it is not declared at the root or track level, then
+   each track MUST inherit the namespace of the catalog track.
 
 3.2.8.  Track name
 
@@ -616,14 +617,15 @@ Table of Contents
 
    This example shows catalog for a media producer capable of sending 3
    time-aligned video tracks for high definition, low definition and
-   medium definition video qualities, along with an audio track.
+   medium definition video qualities, along with an audio track.  In
+   this example the namesapce is absent, which infers that each track
+   must inherit the namespace of the catalog.
 
    {
      "version": 1,
      "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
-     "namespace": "conference.example.com/conference123/alice",
      "renderGroup": 1,
      "packaging": "loc",
      "tracks":[
@@ -778,19 +780,19 @@ Table of Contents
          "altGroup": 1
        },
        {
-         "altGroup": "video_1080",
+         "name": "video_1080",
          "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
          "initTrack":"init_video_1080",
          "altGroup": 1
        },
        {
-         "altGroup": "video_720",
+         "name": "video_720",
          "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
          "initTrack":"init_video_720",
          "altGroup": 1
        },
        {
-         "altGroup": "audio_aac",
+         "name": "audio_aac",
          "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
          "initTrack":"init_audio_aac",
          "altGroup": 2
