@@ -105,7 +105,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Track namespace         | namespace              |  yes     |   RTC     |  String    | {{tracknamespace}}         |
+| Track namespace         | namespace              |  opt     |   RTC     |  String    | {{tracknamespace}}         |
 | Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
 | Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
 | Track operation         | operation              |  yes     |   RT      |  String    | {{trackoperations}}        |
@@ -164,7 +164,7 @@ A catalog object is a collection of fields whose location is specified as 'RC', 
 A track object is a collection of fields whose location is specified as 'RT', 'TC' or 'RTC' in Table 1.
 
 ### Track namespace {#tracknamespace}
-The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. The track namespace is required to be specified for each track object. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space.
+The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space. The track namespace is optional. If it is not declared at the root or track level, then each track MUST inherit the namespace of the catalog track.
 
 ### Track name {#trackname}
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}. Within the catalog, track names MUST be unique per namespace.
@@ -322,7 +322,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
-medium definition video qualities, along with an audio track.
+medium definition video qualities, along with an audio track. In this example the namesapce is absent, which infers that each track must inherit the namespace of the catalog.
 
 
 ~~~json
@@ -331,7 +331,6 @@ medium definition video qualities, along with an audio track.
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
   "renderGroup": 1,
   "packaging": "loc",
   "tracks":[
@@ -501,19 +500,19 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
       "altGroup": 1
     },
     {
-      "altGroup": "video_1080",
+      "name": "video_1080",
       "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
       "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
-      "altGroup": "video_720",
+      "name": "video_720",
       "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
-      "altGroup": "audio_aac",
+      "name": "audio_aac",
       "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
       "initTrack":"init_audio_aac",
       "altGroup": 2
