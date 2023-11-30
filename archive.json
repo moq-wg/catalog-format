@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-28T00:29:39.364835+00:00",
+  "timestamp": "2023-11-30T00:29:32.660875+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -338,44 +338,6 @@
       ]
     },
     {
-      "number": 28,
-      "id": "I_kwDOKMx0ks5ydB2W",
-      "title": "Encryption/DRM info for CMAF ",
-      "url": "https://github.com/moq-wg/catalog-format/issues/28",
-      "state": "OPEN",
-      "author": "acbegen",
-      "authorAssociation": "NONE",
-      "assignees": [],
-      "labels": [],
-      "body": "Any plans for providing this info for CMAF selectionParams ?",
-      "createdAt": "2023-09-30T10:49:09Z",
-      "updatedAt": "2023-11-03T17:50:38Z",
-      "closedAt": null,
-      "comments": [
-        {
-          "author": "suhasHere",
-          "authorAssociation": "COLLABORATOR",
-          "body": "I think this should go in the WARP spec",
-          "createdAt": "2023-10-11T14:20:35Z",
-          "updatedAt": "2023-10-11T14:20:35Z"
-        },
-        {
-          "author": "wilaw",
-          "authorAssociation": "COLLABORATOR",
-          "body": "The streaming format spec can define what parameters to place, however the catalog should still provide a harmonized location to hold DRM info. \r\n\r\nA DASH manifest snippet is shown below. We would need to hold similar information if the catalog is to adequately describe CENC-protected content. We should also be concerned with conciseness, as DRM info can be large compared to the rest of the catalog and we don't want to repeat it for each track if it is common. \r\n\r\n```\r\n<ContentProtection value=\"cenc\" schemeIdUri=\"urn:mpeg:dash:mp4protection:2011\"  cenc:default_KID=\"80399bf5-8a21-4014-8053-e27e748e98c0\" />\r\n<ContentProtection value=\"MSPR 2.0\" schemeIdUri=\"urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95\">\r\n\t<cenc:pssh>AAAB...</cenc:pssh>\r\n        <pro xmlns=\"urn:microsoft:playready\">xAEA...</pro>\r\n</ContentProtection>\r\n<ContentProtection value=\"Widevine\" schemeIdUri=\"urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\">\r\n\t<cenc:pssh>AAAA...</cenc:pssh>\r\n</ContentProtection>\r\n```\r\nI propose the following new catalog elements\r\n\r\n\r\n\r\nField | Name | Required | Location | JSON type | Definition\r\n| ------| -----| ---------| ---------|------------|------------|\r\n|Content Protection  | contentProtection | opt | R | Array| Holds a series of content protection objects|\r\n|Content Protection scheme | cpScheme | opt | CP | String| Defines the content protection scheme|\r\n|Content Protection value | cpValue | opt | CP | String| Defines the content protection scheme value|\r\n|Default key ID | defaultKID | opt | CP | String| Defines the default key ID for CENC protected content|\r\n|Protection System Specific Header  | pssh| opt | CP | String| Defines the base64 encoded contents of the pssh box |\r\n|PlayReady Object | pro | opt | CP | String| Defines the base64 encoded contents of the Playready Object |\r\n|Content protection reference ID| cpID | R | CP | String| Provides a reference ID to the content protection object |\r\n|Content protection IDs | contentProtectionID | opt | RT | Array | Holds an array of Content protection reference IDs |\r\n\r\nA resultant catalog might look like this for CMAF content in which all tracks are protected with Playready and Widevine via CENC, but the 4K track is only offered in Playready. \r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"sequence\": 0,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"namespace\": \"sports.example.com/games/08-08-23/12345\",\r\n  \"packaging\": \"cmaf\",\r\n  \"renderGroup\":1,\r\n  \"contentProtection\": [\r\n      { \"cpID\":\"1\",\r\n        \"value\":\"cenc\",\r\n        \"schemeID\":\"urn:mpeg:dash:mp4protection:2011\",\r\n        \"defaultKID\":\"80399bf5-8a21-4014-8053-e27e748e98c0\"\r\n      },\r\n      { \"cpID\":\"2\",\r\n        \"value\":\"MSPR 2.0\",\r\n        \"schemeID\":\"urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95\",\r\n        \"pssh\":\"AAAB..\",\r\n        \"pro\":\"xAEA...\"\r\n      },\r\n      { \"cpID\":\"3\",\r\n        \"value\":\"Widevine\",\r\n        \"schemeID\":\"urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\r\n        \"pssh\":\"AAAA..\"\r\n      }\r\n  ],\r\n  \"contentProtectionID\": [\"1\",\"2\",\"3\"],\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"video_4k\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640033\",\"mimeType\":\"video/mp4\",\"width\":3840,\"height\":2160,\"framerate\":30,\"bitrate\":14931538},\r\n      \"initTrack\":\"init_video_4k\",\r\n      \"altGroup\": 1,\r\n      \"contentProtectionID\": [\"1\",\"2\"]\r\n    },\r\n    {\r\n      \"altGroup\": \"video_1080\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640028\",\"mimeType\":\"video/mp4\",\"width\":1920,\"height\":1080,\"framerate\":30,\"bitrate\":9914554},\r\n      \"initTrack\":\"init_video_1080\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"altGroup\": \"video_720\",\r\n      \"selectionParams\":{\"codec\":\"avc1.64001f\",\"mimeType\":\"video/mp4\",\"width\":1280,\"height\":720,\"framerate\":30,\"bitrate\":4952892},\r\n      \"initTrack\":\"init_video_720\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"altGroup\": \"audio_aac\",\r\n      \"selectionParams\":{\"codec\":\"mp4a.40.5\",\"mimeType\":\"audio/mp4\",\"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":67071},\r\n      \"initTrack\":\"init_audio_aac\",\r\n      \"altGroup\": 2\r\n    },\r\n    {\r\n      \"name\": \"audio_ec3\",\r\n      \"selectionParms\":{\"codec\":\"ec-3\",\"mimeType\":\"audio/mp4\",\"samplerate\":48000,\"channelConfig\":\"F801\",\"bitrate\":256000},\r\n      \"initTrack\":\"init_audio_ec3\",\r\n      \"altGroup\": 2\r\n    }\r\n   ]\r\n}\r\n```\r\n\r\n\r\n\r\n\r\n",
-          "createdAt": "2023-11-03T11:28:47Z",
-          "updatedAt": "2023-11-03T11:28:47Z"
-        },
-        {
-          "author": "acbegen",
-          "authorAssociation": "NONE",
-          "body": "This is fine and is actually a good example why these fields should be registered/maintained by the IANA (we might be missing something today and want to add it quickly in the future).",
-          "createdAt": "2023-11-03T17:50:38Z",
-          "updatedAt": "2023-11-03T17:50:38Z"
-        }
-      ]
-    },
-    {
       "number": 29,
       "id": "I_kwDOKMx0ks5zQBgF",
       "title": "Make Selection parameters a json object",
@@ -404,15 +366,15 @@
       "id": "I_kwDOKMx0ks513ZKZ",
       "title": "Consider JSON Patch / JSON Merge Patch for delta updates",
       "url": "https://github.com/moq-wg/catalog-format/issues/31",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "englishm",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "If we can do away with sequence numbers, we may be able to move to a standardized format for delta updates:\n\nhttps://datatracker.ietf.org/doc/html/rfc6902/",
       "createdAt": "2023-10-04T21:37:11Z",
-      "updatedAt": "2023-11-04T18:53:33Z",
-      "closedAt": null,
+      "updatedAt": "2023-11-29T13:56:02Z",
+      "closedAt": "2023-11-29T13:56:02Z",
       "comments": [
         {
           "author": "englishm",
@@ -843,24 +805,26 @@
       "id": "PR_kwDOKMx0ks5eoA0N",
       "title": "Adding JSON Patch",
       "url": "https://github.com/moq-wg/catalog-format/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR adds support RFC6902 JSON patching as the delta update mechanism for catalogs. \r\n\r\nFixes #31 ",
       "createdAt": "2023-11-05T20:18:16Z",
-      "updatedAt": "2023-11-07T16:35:09Z",
+      "updatedAt": "2023-11-29T13:56:06Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
-      "baseRefOid": "c9f755920bb852dd4226f7e5827e4e80c9f633d7",
+      "baseRefOid": "1bb5a51c33eb16b42426ae989e140b4b53239013",
       "headRepository": "moq-wg/catalog-format",
       "headRefName": "wilaw-patch-2",
-      "headRefOid": "d72246b175fbb8a07be04fc03cecfc8c5fe50c85",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "fdf6acf86093001a99dcbcbd7a7ccf670c150a25",
+      "closedAt": "2023-11-29T13:56:01Z",
+      "mergedAt": "2023-11-29T13:56:01Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "aadd03e2bd1982047e1e618798a7307d6987810f"
+      },
       "comments": [
         {
           "author": "fluffy",
@@ -868,6 +832,13 @@
           "body": "I sort of feel like this is a bit of premature optimization - do we have so many and updates to catalog that this is needed ?",
           "createdAt": "2023-11-07T16:35:09Z",
           "updatedAt": "2023-11-07T16:35:09Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Based on [discussion](https://notes.ietf.org/notes-ietf-118-moq) at IETF 118, merging this PR. ",
+          "createdAt": "2023-11-29T13:47:15Z",
+          "updatedAt": "2023-11-29T13:47:15Z"
         }
       ],
       "reviews": []
