@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-11T00:30:09.275021+00:00",
+  "timestamp": "2024-01-14T00:33:15.020500+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -406,6 +406,22 @@
       "createdAt": "2023-11-06T09:53:40Z",
       "updatedAt": "2023-11-09T17:28:02Z",
       "closedAt": "2023-11-09T17:28:02Z",
+      "comments": []
+    },
+    {
+      "number": 35,
+      "id": "I_kwDOKMx0ks57xFWw",
+      "title": "Current examples reference the obsolete 'sequence' field",
+      "url": "https://github.com/moq-wg/catalog-format/issues/35",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The sequence field was removed when we switched to JSON patch for updating and allowed the transport's Object sequence number to denote the order of the patches. ",
+      "createdAt": "2024-01-11T12:11:53Z",
+      "updatedAt": "2024-01-11T12:11:53Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -892,6 +908,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOKMx0ks5jzAl2",
+      "title": "Update draft-wilaw-moq-catalogformat.md",
+      "url": "https://github.com/moq-wg/catalog-format/pull/36",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Removes obsolete sequence parameter from examples.\r\n\r\nFixes #35",
+      "createdAt": "2024-01-11T12:12:26Z",
+      "updatedAt": "2024-01-11T12:12:26Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "aadd03e2bd1982047e1e618798a7307d6987810f",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "b6ad10c0588e915031d6407d3b594235df2f10de",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
