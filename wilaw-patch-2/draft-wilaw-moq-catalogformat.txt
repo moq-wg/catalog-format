@@ -933,7 +933,7 @@ Table of Contents
 
    This document creates a new registry, "MoQ Streaming Format Type".
    This registry is managed by the IANA according to the RFC Required
-   policy of [IANA].  The Type value is 2 octets.  The range is
+   policy of [RFC5226].  The Type value is 2 octets.  The range is
    0x0000-0xFFFF.  The initial entry in the registry is:
 
      | Type   |     Name    |                                RFC                                |
@@ -951,7 +951,8 @@ Table of Contents
    This document creates a new IANA registry for the Common Catalog
    fields.  The registry is called "Common Catalog Fields".  This
    registry is managed by the IANA according to the Specification
-   Required policy of [IANA].  The initial entries in the registry are:
+   Required policy of [RFC5226].  The initial entries in the registry
+   are:
 
    +==============+======================+========+========+======+=================================+
    |Descriptive   |Field Name            |Required|Location|JSON  |Specification                    |
@@ -1083,7 +1084,8 @@ Table of Contents
       String, Array, Number, Object or Boolean.
 
    *  Specification - a URL to the specification which defines the usage
-      of the field, per the Specification Required policy of [IANA].
+      of the field within the catalog, per the Specification Required
+      policy of [RFC5226].
 
 Acknowledgments
 
@@ -1108,11 +1110,6 @@ Normative References
               Draft, draft-ietf-avtext-framemarking-15, 26 July 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-avtext-
               framemarking-15>.
-
-   [IANA]     Narten, T. and H. Alvestrand, "Guidelines for Writing an
-              IANA Considerations Section in RFCs", RFC 5226,
-              DOI 10.17487/RFC5226, May 2008,
-              <https://www.rfc-editor.org/rfc/rfc5226>.
 
    [JSON]     Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
@@ -1139,6 +1136,11 @@ Normative References
               Internet-Draft, draft-ietf-moq-transport-02, 24 January
               2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
               moq-transport-02>.
+
+   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
+              IANA Considerations Section in RFCs", RFC 5226,
+              DOI 10.17487/RFC5226, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5226>.
 
    [WebCodecs]
               "WebCodecs", July 2023,
