@@ -2718,14 +2718,30 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
             <p id="section-5.2-4.3.1">Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-4.4">
-            <p id="section-5.2-4.4.1">Location - a string defining the permissible locations for the field within the catalog:
-** 'R' - the field is located in the Root of the JSON object.
-** 'RC' - the field may be located in either the Root or a Catalog object.
-** 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
-** 'TC' - the field may be located in either a Track object or a Catalog object.
-** 'RT' - the field may be located in either the Root or a Track object.
-** 'T' - the field is located in a Track object.
-** 'S' - the field is located in the Selection Parameters object.<a href="#section-5.2-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-4.4.1">Location - a string defining the permissible locations for the field within the catalog:<a href="#section-5.2-4.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-4.4.2.1">
+                <p id="section-5.2-4.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.2-4.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.2">
+                <p id="section-5.2-4.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.2-4.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.3">
+                <p id="section-5.2-4.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-5.2-4.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.4">
+                <p id="section-5.2-4.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-5.2-4.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.5">
+                <p id="section-5.2-4.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.2-4.4.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.6">
+                <p id="section-5.2-4.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.2-4.4.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.7">
+                <p id="section-5.2-4.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.2-4.4.2.7.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li class="normal" id="section-5.2-4.5">
             <p id="section-5.2-4.5.1">JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.<a href="#section-5.2-4.5.1" class="pilcrow">¶</a></p>

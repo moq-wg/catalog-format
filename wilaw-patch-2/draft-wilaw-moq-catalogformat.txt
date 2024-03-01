@@ -1059,15 +1059,25 @@ Table of Contents
       catalogs and "opt" if it is not.
 
    *  Location - a string defining the permissible locations for the
-      field within the catalog: ** 'R' - the field is located in the
-      Root of the JSON object. ** 'RC' - the field may be located in
-      either the Root or a Catalog object. ** 'RTC' - the field may be
-      located in either the Root, or a Track object or a Catalog object.
-      ** 'TC' - the field may be located in either a Track object or a
-      Catalog object. ** 'RT' - the field may be located in either the
-      Root or a Track object. ** 'T' - the field is located in a Track
-      object. ** 'S' - the field is located in the Selection Parameters
-      object.
+      field within the catalog:
+
+      -  'R' - the field is located in the Root of the JSON object.
+
+      -  'RC' - the field may be located in either the Root or a Catalog
+         object.
+
+      -  'RTC' - the field may be located in either the Root, or a Track
+         object or a Catalog object.
+
+      -  'TC' - the field may be located in either a Track object or a
+         Catalog object.
+
+      -  'RT' - the field may be located in either the Root or a Track
+         object.
+
+      -  'T' - the field is located in a Track object.
+
+      -  'S' - the field is located in the Selection Parameters object.
 
    *  JSON Type - the JSON type of the field value, which must be one of
       String, Array, Number, Object or Boolean.
