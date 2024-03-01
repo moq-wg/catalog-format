@@ -58,7 +58,7 @@ normative:
   LANG: RFC5646
   MIME: RFC6838
   JSON-PATCH: RFC6902
-  IANA: RFC5226
+  RFC5226: RFC5226
 
 informative:
 
@@ -651,7 +651,7 @@ This section details how the MoQ Streaming Format Type and new fields can be reg
 
 ## MoQ Streaming Format Type Registry
 
-This document creates a new registry, "MoQ Streaming Format Type". This registry is managed by the IANA according to the RFC Required  policy of [IANA]. The Type value is 2 octets. The range is 0x0000-0xFFFF. The initial entry in the registry is:
+This document creates a new registry, "MoQ Streaming Format Type". This registry is managed by the IANA according to the RFC Required  policy of [RFC5226]. The Type value is 2 octets. The range is 0x0000-0xFFFF. The initial entry in the registry is:
 
 
          | Type   |     Name    |                                RFC                                |
@@ -662,7 +662,7 @@ No RFC is provided for the initial entry as it is reserved for Every MoQ streami
 
 ## Common Catalog Field Registry
 
-This document creates a new IANA registry for the Common Catalog fields.  The registry is called "Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [IANA]. The initial entries in the registry are:
+This document creates a new IANA registry for the Common Catalog fields.  The registry is called "Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [RFC5226]. The initial entries in the registry are:
 
 | Descriptive Name        |  Field Name            | Required |  Location |  JSON type |                         Specification                             |
 |:========================|:=======================|:=========|:==========|:===========|:==================================================================|
@@ -710,7 +710,7 @@ Any registration for a new Field name MUST provide the following information:
   * 'T' - the field is located in a Track object.
   * 'S' - the field is located in the Selection Parameters object.
 * JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.
-* Specification - a URL to the specification which defines the usage of the field, per the Specification Required policy of [IANA].
+* Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of [RFC5226].
 
 
 
