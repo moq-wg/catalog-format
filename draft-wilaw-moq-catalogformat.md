@@ -647,7 +647,7 @@ The catalog contents MAY be encrypted. The mechanism of encryption and the signa
 
 # IANA Considerations {#ianaconsiderations}
 
-This section details how the MoQ Streaming Format Type and new fields can be registered for inclusion in a catalog. 
+This section details how the MoQ Streaming Format Type and new fields can be registered for inclusion in a catalog.
 
 ## MoQ Streaming Format Type Registry
 
@@ -657,7 +657,6 @@ This document creates a new registry, "MoQ Streaming Format Type". This registry
          | Type   |     Name    |                                RFC                                |
          |:-------|:------------|:------------------------------------------------------------------|
          | 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-       
 
 No RFC is provided for the initial entry as it is reserved for Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier. The type registry can be updated by incrementally expanding by allocating and reserving new type identifiers.
 
@@ -699,8 +698,8 @@ This document creates a new IANA registry for the Common Catalog fields.  The re
 
 Any registration for a new Field name MUST provide the following information:
 
-* Descriptive Name - a descriptive name for the field
-* Field Name - the JSON field name, as will be used inside the JSON catalog. 
+* Descriptive Name - a descriptive name for the field.
+* Field Name - the JSON field name, as will be used inside the JSON catalog.
 * Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.
 * Location - a string defining the permissible locations for the field within the catalog:
   ** 'R' - the field is located in the Root of the JSON object.
@@ -710,7 +709,7 @@ Any registration for a new Field name MUST provide the following information:
   ** 'RT' - the field may be located in either the Root or a Track object.
   ** 'T' - the field is located in a Track object.
   ** 'S' - the field is located in the Selection Parameters object.
-* JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean
+* JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.
 * Specification - a URL to the specification which defines the usage of the field, per the Specification Required policy of [IANA].
 
 
