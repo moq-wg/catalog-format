@@ -702,13 +702,13 @@ Any registration for a new Field name MUST provide the following information:
 * Field Name - the JSON field name, as will be used inside the JSON catalog.
 * Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.
 * Location - a string defining the permissible locations for the field within the catalog:
-  ** 'R' - the field is located in the Root of the JSON object.
-  ** 'RC' - the field may be located in either the Root or a Catalog object.
-  ** 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
-  ** 'TC' - the field may be located in either a Track object or a Catalog object.
-  ** 'RT' - the field may be located in either the Root or a Track object.
-  ** 'T' - the field is located in a Track object.
-  ** 'S' - the field is located in the Selection Parameters object.
+  * 'R' - the field is located in the Root of the JSON object.
+  * 'RC' - the field may be located in either the Root or a Catalog object.
+  * 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
+  * 'TC' - the field may be located in either a Track object or a Catalog object.
+  * 'RT' - the field may be located in either the Root or a Track object.
+  * 'T' - the field is located in a Track object.
+  * 'S' - the field is located in the Selection Parameters object.
 * JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.
 * Specification - a URL to the specification which defines the usage of the field, per the Specification Required policy of [IANA].
 
