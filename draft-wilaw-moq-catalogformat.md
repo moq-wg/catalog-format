@@ -103,6 +103,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
 | Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
+| Supports delta updates  | supportsDeltaUpdates   |  opt     |   RC      |  Boolean   | {{supportsdeltaupdates}}   |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
 | Track namespace         | namespace              |  opt     |   RTC     |  String    | {{tracknamespace}}         |
@@ -150,6 +151,9 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
+
+### Supports delta updates {#supportsdeltaupdates}
+A boolean that if true indicates that the publisher MAY issue incremental (delta) updates - see {{patch}}. If false or absent, then the publisher gaurantees that they will NOT issue any incremental updates and that any future updates to the catalog will be independent. The default value is false. This field MUST be present if its value is true, but may be omitted if the value is false.
 
 ### Tracks {#tracks}
 An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
@@ -322,7 +326,8 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
-medium definition video qualities, along with an audio track. In this example the namesapce is absent, which infers that each track must inherit the namespace of the catalog.
+medium definition video qualities, along with an audio track. In this example the namespace is absent, which infers that each track must inherit the namespace of the catalog.
+Additionally this example shows the presence of the supportsDeltaUpdates flag. 
 
 
 ~~~json
@@ -331,6 +336,7 @@ medium definition video qualities, along with an audio track. In this example th
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
+  "supportsDeltaUpdates": true,
   "renderGroup": 1,
   "packaging": "loc",
   "tracks":[
@@ -398,6 +404,7 @@ express the track relationships.
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
+  "supportsDeltaUpdates": true,
   "namespace": "conference.example.com/conference123/alice",
   "renderGroup": 1,
   "packaging": "loc",
@@ -489,6 +496,7 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
+  "supportsDeltaUpdates": true,
   "namespace": "sports.example.com/games/08-08-23/12345",
   "packaging": "cmaf",
   "renderGroup":1,
@@ -616,7 +624,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 
 ### A catalog referencing catalogs for two different formats
 
-This example shows the catalog for a media producer that is outputting two streaming formats simultaneously under different namespaces. Note that each track name referenced points at another catalog object.
+This example shows the catalog for a media producer that is outputting two streaming formats simultaneously under different namespaces. Note that each track name referenced points at another catalog object and that only the first catalog supports incremental delta updates.
 
 ~~~json
 {
@@ -627,7 +635,8 @@ This example shows the catalog for a media producer that is outputting two strea
       "name": "catalog-for-format-one",
       "namespace": "sports.example.com/games/08-08-23/live",
       "streamingFormat":1,
-      "streamingFormatVersion": "0.2"
+      "streamingFormatVersion": "0.2",
+      "supportsDeltaUpdates": true,
     },
     {
       "name": "catalog-for-format-five",
