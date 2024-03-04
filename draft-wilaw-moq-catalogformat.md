@@ -654,9 +654,9 @@ This section details how the MoQ Streaming Format Type and new fields can be reg
 This document creates a new registry, "MoQ Streaming Format Type". This registry is managed by the IANA according to the RFC Required  policy of [RFC5226]. The Type value is 2 octets. The range is 0x0000-0xFFFF. The initial entry in the registry is:
 
 
-         | Type   |     Name    |                                RFC                                |
-         |:-------|:------------|:------------------------------------------------------------------|
-         | 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Type   |     Name    |                                RFC                                |
+|:-------|:------------|:------------------------------------------------------------------|
+| 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
 
 No RFC is provided for the initial entry as it is reserved for Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier. The type registry can be updated by incrementally expanding by allocating and reserving new type identifiers.
 
