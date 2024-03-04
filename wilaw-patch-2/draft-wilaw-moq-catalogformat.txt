@@ -936,9 +936,14 @@ Table of Contents
    policy of [RFC5226].  The Type value is 2 octets.  The range is
    0x0000-0xFFFF.  The initial entry in the registry is:
 
-     | Type   |     Name    |                                RFC                                |
-     |:-------|:------------|:------------------------------------------------------------------|
-     | 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+         +========+==========+===================================+
+         | Type   | Name     | RFC                               |
+         +========+==========+===================================+
+         | 0x0000 | Reserved | https://datatracker.ietf.org/doc/ |
+         |        |          | draft-wilaw-moq-catalogformat/    |
+         +--------+----------+-----------------------------------+
+
+                                  Table 4
 
    No RFC is provided for the initial entry as it is reserved for Every
    MoQ streaming format draft normatively referencing this catalog
@@ -1046,7 +1051,7 @@ Table of Contents
    |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
    +--------------+----------------------+--------+--------+------+---------------------------------+
 
-                                  Table 4
+                                  Table 5
 
    Any registration for a new Field name MUST provide the following
    information:
