@@ -662,7 +662,7 @@ No RFC is provided for the initial entry as it is reserved for Every MoQ streami
 
 ## Common Catalog Field Registry
 
-This document creates a new IANA registry for the Common Catalog fields.  The registry is called "Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [RFC5226]. The initial entries in the registry are:
+This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [RFC5226]. The initial entries in the registry are:
 
 | Descriptive Name        |  Field Name            | Required |  Location |  JSON type |                         Specification                             |
 |:========================|:=======================|:=========|:==========|:===========|:==================================================================|
