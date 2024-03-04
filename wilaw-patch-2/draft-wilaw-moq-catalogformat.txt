@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 2 September 2024                                         Akamai
+Expires: 5 September 2024                                         Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                            1 March 2024
+                                                            4 March 2024
 
 
                 Common Catalog Format for moq-transport
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2024.
+   This Internet-Draft will expire on 5 September 2024.
 
 Copyright Notice
 
@@ -949,7 +949,7 @@ Table of Contents
 5.2.  Common Catalog Field Registry
 
    This document creates a new IANA registry for the Common Catalog
-   fields.  The registry is called "Common Catalog Fields".  This
+   fields.  The registry is called "MoQ Common Catalog Fields".  This
    registry is managed by the IANA according to the Specification
    Required policy of [RFC5226].  The initial entries in the registry
    are:
