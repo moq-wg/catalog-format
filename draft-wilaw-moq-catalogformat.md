@@ -103,18 +103,19 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
 | Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
 | Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
+| Common Track Fields     | commonTrackFields      |  opt     |   R       |  Object    | {{commontrackfields}}      |
 | Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
 | Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Track namespace         | namespace              |  opt     |   RTC     |  String    | {{tracknamespace}}         |
-| Track name              | name                   |  yes     |   TC      |  String    | {{trackname}}              |
-| Packaging               | packaging              |  yes     |   RT      |  String    | {{packaging}}              |
-| Track operation         | operation              |  yes     |   RT      |  String    | {{trackoperations}}        |
-| Track label             | label                  |  opt     |   RT      |  String    | {{tracklabel}}             |
-| Render group            | renderGroup            |  opt     |   RT      |  Number    | {{rendergroup}}            |
-| Alternate group         | altGroup               |  opt     |   RT      |  Number    | {{altgroup}}               |
-| Initialization data     | initData               |  opt     |   RT      |  String    | {{initdata}}               |
-| Initialization track    | initTrack              |  opt     |   RT      |  String    | {{inittrack}}              |
-| Selection parameters    | selectionParams        |  opt     |   RT      |  Object    | {{selectionparameters}}    |
+| Track namespace         | namespace              |  opt     |   TFC     |  String    | {{tracknamespace}}         |
+| Track name              | name                   |  yes     |   TFC     |  String    | {{trackname}}              |
+| Packaging               | packaging              |  yes     |   TF      |  String    | {{packaging}}              |
+| Track operation         | operation              |  yes     |   TF      |  String    | {{trackoperations}}        |
+| Track label             | label                  |  opt     |   TF      |  String    | {{tracklabel}}             |
+| Render group            | renderGroup            |  opt     |   TF      |  Number    | {{rendergroup}}            |
+| Alternate group         | altGroup               |  opt     |   TF      |  Number    | {{altgroup}}               |
+| Initialization data     | initData               |  opt     |   TF      |  String    | {{initdata}}               |
+| Initialization track    | initTrack              |  opt     |   TF      |  String    | {{inittrack}}              |
+| Selection parameters    | selectionParams        |  opt     |   TF      |  Object    | {{selectionparameters}}    |
 | Dependencies            | depends                |  opt     |   T       |  Array     | {{dependencies}}           |
 | Temporal ID             | temporalId             |  opt     |   T       |  Number    | {{temporalid}}             |
 | Spatial ID              | spatialId              |  opt     |   T       |  Number    | {{spatialid}}              |
@@ -138,10 +139,9 @@ Location:
 
 *  'R' - the field is located in the Root of the JSON object.
 *  'RC' - the field may be located in either the Root or a Catalog object.
-*  'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
-*  'TC' - the field may be located in either a Track object or a Catalog object.
-*  'RT' - the field may be located in either the Root or a Track object.
-*  'T' - the field is located in a Track object.
+*  'TFC' - the field may be located in either a Track object, the Common Track Fields object or a Catalog object.
+*  'TF' - the field may be located in either a Track object or a Common Track Fields object
+*  'T' - the field is located in a Track object
 *  'S' - the field is located in the Selection Parameters object.
 
 
@@ -151,6 +151,9 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
+### Common track fields {#commontrackfields
+An object holding a collection of Track Fields (objects with a location of TF or TFC in table 1) which are to be inherited by all tracks. A field defined at the Track object level always supercedes any value inherited from the Common Track Fields object.
+
 ### Tracks {#tracks}
 An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
 
@@ -158,10 +161,10 @@ An array of track objects {{trackobject}}. If the 'tracks' field is present then
 An array of catalog objects {{catalogobject}}. If the 'catalogs' field is present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list itself in the catalog array.
 
 ### Catalog object {#catalogobject}
-A catalog object is a collection of fields whose location is specified as 'RC', 'TC' or 'RTC' in Table 1.
+A catalog object is a collection of fields whose location is specified as 'RC' or 'TFC' in Table 1.
 
 ### Tracks object {#trackobject}
-A track object is a collection of fields whose location is specified as 'RT', 'TC' or 'RTC' in Table 1.
+A track object is a collection of fields whose location is specified as 'TFC', 'TF' or 'T' in Table 1.
 
 ### Track namespace {#tracknamespace}
 The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space. The track namespace is optional. If it is not declared at the root or track level, then each track MUST inherit the namespace of the catalog track.
@@ -299,9 +302,11 @@ This example shows catalog for a media producer capable of sending LOC packaged,
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "packaging": "loc",
-  "renderGroup": 1,
+  "commonTrackFields": {
+     "namespace": "conference.example.com/conference123/alice",
+     "packaging": "loc",
+     "renderGroup": 1
+  },
   "tracks": [
     {
       "name": "video",
@@ -331,8 +336,10 @@ medium definition video qualities, along with an audio track. In this example th
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "renderGroup": 1,
-  "packaging": "loc",
+  "commonTrackFields": {
+     "renderGroup": 1,
+     "packaging": "loc"
+  },
   "tracks":[
     {
       "name": "hd",
@@ -351,7 +358,7 @@ medium definition video qualities, along with an audio track. In this example th
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
     }
    ]
 }
@@ -398,18 +405,20 @@ express the track relationships.
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "renderGroup": 1,
-  "packaging": "loc",
+  "commonTrackFields": {
+     "namespace": "conference.example.com/conference123/alice",
+     "renderGroup": 1,
+     "packaging": "loc"
+  },
   "tracks":[
     {
       "name": "480p15",
-      "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":15},
+      "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":15}
     },
     {
       "name": "480p30",
       "selectionParams": {"codec":"av01.0.04M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":30},
-      "depends": ["480p15"],
+      "depends": ["480p15"]
     },
     {
       "name": "1080p15",
@@ -424,7 +433,7 @@ express the track relationships.
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
     }
    ]
 }
@@ -489,9 +498,11 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "sports.example.com/games/08-08-23/12345",
-  "packaging": "cmaf",
-  "renderGroup":1,
+  "commonTrackFields": {
+     "namespace": "sports.example.com/games/08-08-23/12345",
+     "packaging": "cmaf",
+     "renderGroup":1
+  },
   "tracks": [
     {
       "name": "video_4k",
@@ -537,19 +548,21 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "output.example.com/event/12345",
-  "renderGroup":1
+  "commonTrackFields": {
+     "namespace": "output.example.com/event/12345",
+     "renderGroup":1
+  },
   "tracks": [
     {
       "name": "video0",
       "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
-      "packaging":"cmaf",
+      "packaging":"cmaf"
     },
     {
       "name": "audio",
       "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
-      "packaging": "loc",
+      "packaging": "loc"
     }
    ]
 }
@@ -558,7 +571,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 
 ### CMAF Tracks with inband init segments
 
-This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data.
+This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data. The data has been truncated for clarity. 
 
 ~~~json
 {
@@ -566,19 +579,21 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "sports.example.com/games/08-08-23/12345",
-  "packaging": "cmaf",
-  "renderGroup":1,
+  "commonTrackFields": {
+     "namespace": "sports.example.com/games/08-08-23/12345",
+     "packaging": "cmaf",
+     "renderGroup":1
+  },
   "tracks": [
     {
       "name": "video_1080",
       "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
-"initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
+      "initData":"AAAAGG...BAAAx"
     },
     {
       "name": "audio_aac",
       "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
-"initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
+      "initData":"AAAAGG...EAADE="
     }
    ]
 }
@@ -594,9 +609,11 @@ This example shows catalog for a media producer capable of sending LOC packaged,
   "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "namespace": "conference.example.com/conference123/alice",
-  "packaging": "loc",
-  "renderGroup": 1,
+  "commonTrackFields": {
+     "namespace": "conference.example.com/conference123/alice",
+     "packaging": "loc",
+     "renderGroup": 1
+  },
   "tracks": [
     {
       "name": "video",
