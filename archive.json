@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-05T00:27:47.671006+00:00",
+  "timestamp": "2024-03-07T00:22:41.510233+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -471,6 +471,30 @@
       "updatedAt": "2024-03-04T18:42:51Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 43,
+      "id": "I_kwDOKMx0ks6BU2MW",
+      "title": "Feb Interim 2024 - Revisit Json Patch",
+      "url": "https://github.com/moq-wg/catalog-format/issues/43",
+      "state": "OPEN",
+      "author": "suhasHere",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "this might be related to #42 .. we discussed to revisit Json patch at the interim and the scope of that needs to be re-evaluated.",
+      "createdAt": "2024-03-05T17:00:49Z",
+      "updatedAt": "2024-03-05T17:36:25Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Was the only concern with JSON Patch that some applicantion environments might not have a pre-built library for it?  If so, do you have an update mechanism that would be more convenient/performant/broadly supported than JSON patch that should be considered?",
+          "createdAt": "2024-03-05T17:36:24Z",
+          "updatedAt": "2024-03-05T17:36:24Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1033,6 +1057,54 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOKMx0ks5ouZfS",
+      "title": "Add a new root object to hold inheritable track fields. ",
+      "url": "https://github.com/moq-wg/catalog-format/pull/42",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add a new root object to hold inheritable track fields. \r\nUpdate all examples.\r\n\r\nFixes #37",
+      "createdAt": "2024-03-05T14:22:58Z",
+      "updatedAt": "2024-03-05T17:55:25Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "aadd03e2bd1982047e1e618798a7307d6987810f",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-4",
+      "headRefOid": "de32889b1524fefd5febd3126b5841d9e5330eef",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I am not a big fan of this approach. This led to all sort of problems with SDP Session Level attributes.\r\n\r\nMy main concerns\r\n- How do we ensure the field that goes in this are not of type that represent aggregated values for all the tracks. Things like BW is easy to fall in this trap\r\n- What problem is it solving other than moving these to per track level.\r\nMay be I am missing something here . open to learn more, Thanks\r\n",
+          "createdAt": "2024-03-05T16:58:24Z",
+          "updatedAt": "2024-03-05T16:58:24Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "\r\n> * How do we ensure the field that goes in this are not of type that represent aggregated values for all the tracks. Things like BW is easy to fall in this trap\r\n\r\nThere are no aggregated fields currently defined. All track selection properties, such as 'Bitate\" apply only to that track. If multiple tracks have the same bitrate value, then that bitrate value can be placed inside a SelectionProperties object which is placed inside the Common Track Fields object. \r\n\r\n> * What problem is it solving other than moving these to per track level.\r\n>   May be I am missing something here . open to learn more, Thanks\r\n\r\nThis is not moving anything to a per track level. Rather, it is providing a clear location to place track properties which are intended to be inherited by all tracks. IN the future, we may wish to add fields to the root which are not intended to be inherited, something for which the prior design left no mechanism for accomplishing. \r\n\r\n",
+          "createdAt": "2024-03-05T17:33:24Z",
+          "updatedAt": "2024-03-05T17:33:24Z"
+        },
+        {
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> There are no aggregated fields currently defined. All track selection properties, such as 'Bitate\" apply only to that track. If multiple tracks have the same bitrate value, then that bitrate value can be placed inside a SelectionProperties object which is placed inside the Common Track Fields object.\r\n\r\nmakes sense and understand. We want to careful and not end up adding aggregates .  How about we rename it \"Inherirted Fields\" instead and be explicit about it \r\n\r\n> here are no aggregated fields currently defined. All track selection properties, such as 'Bitate\" apply only to that track. If multiple tracks have the same bitrate value, then that bitrate value can be placed inside a SelectionProperties object which is placed inside the Common Track Fields object.\r\n",
+          "createdAt": "2024-03-05T17:55:23Z",
+          "updatedAt": "2024-03-05T17:55:23Z"
+        }
+      ],
       "reviews": []
     }
   ]
