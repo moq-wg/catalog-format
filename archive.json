@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-28T00:28:33.461079+00:00",
+  "timestamp": "2024-03-31T00:32:17.018802+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -495,6 +495,74 @@
           "updatedAt": "2024-03-05T17:36:24Z"
         }
       ]
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOKMx0ks6D9gjg",
+      "title": "Streaming format should be a string not an integer",
+      "url": "https://github.com/moq-wg/catalog-format/issues/44",
+      "state": "OPEN",
+      "author": "JonathanLennox",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I think it would make more sense for the \"streaming format\" field to be a string rather than an integer.  (It should still be IANA-registered, though.)",
+      "createdAt": "2024-03-28T19:10:02Z",
+      "updatedAt": "2024-03-28T22:37:12Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "JonathanLennox",
+          "authorAssociation": "NONE",
+          "body": "(I think this was discussed in the chat at one of the interims, but it never got surfaced higher than that.)",
+          "createdAt": "2024-03-28T19:16:37Z",
+          "updatedAt": "2024-03-28T19:16:37Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Seems reasonable. Should there be a max length? I find such fields get abused by people embedding 2,000 lines of javascript in the streaming format identifier. ",
+          "createdAt": "2024-03-28T20:36:00Z",
+          "updatedAt": "2024-03-28T20:36:00Z"
+        },
+        {
+          "author": "JonathanLennox",
+          "authorAssociation": "NONE",
+          "body": "Hm, that hadn't occurred to me, that's a good point...if it's IANA-registered you could require a registration policy that requires it to be something sensible, though this doesn't help for non-registered fields.\r\n\r\nYou'll probably want people to use identifiers like `my-proposed-new-catalog-format-draft-04` for the draft versions that are under development (for the usual reason to prevent the draft versions from polluting the namespace for the final release version).  \r\n\r\nNormally I'd invoke the computer science principle that \"all arbitrary numbers should be powers of 2\", but in this case it's possibly better to make it explicit that the value is indeed arbitrary, so I'll say:\r\n\r\nMax 100 bytes.\r\n\r\nI'm sure we could bikeshed forever about what characters should be allowed in the string, but I think that's something that needs to be defined more widely for this draft, since MoQTransport allows track namespaces, e.g., to be arbitrary binary strings.  I can open another issue for that.\r\n\r\nAs a strawman for this item specifically, I'd suggest ASCII-only, from the set `[A-Za-z0-9_.-]`.",
+          "createdAt": "2024-03-28T22:30:04Z",
+          "updatedAt": "2024-03-28T22:34:16Z"
+        },
+        {
+          "author": "JonathanLennox",
+          "authorAssociation": "NONE",
+          "body": "Opened https://github.com/moq-wg/catalog-format/issues/45 for the track namespace grammar issue but I think the grammar of this field should be substantially more restricted.",
+          "createdAt": "2024-03-28T22:34:01Z",
+          "updatedAt": "2024-03-28T22:34:01Z"
+        },
+        {
+          "author": "JonathanLennox",
+          "authorAssociation": "NONE",
+          "body": "Note for clarity: `[A-Za-z0-9_.-]` is standard regular expression syntax (Posix ERE or PCRE or whatever): square brackets are delimiters, `-` is a range operator except when at the beginning or the end.\r\n\r\nSo my suggestion is that tokens can contain alphanumerics, underscore, period, or dash, but nothing else.",
+          "createdAt": "2024-03-28T22:37:10Z",
+          "updatedAt": "2024-03-28T22:37:10Z"
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "I_kwDOKMx0ks6D-yTY",
+      "title": "Should the catalog format constrain the grammar of track namespaces and track names?",
+      "url": "https://github.com/moq-wg/catalog-format/issues/45",
+      "state": "OPEN",
+      "author": "JonathanLennox",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "MOQ Transport says:\r\n\r\n>    In this specification, both the Track Namespace and the Track Name\r\n>   are not constrained to a specific encoding.  They carry a sequence of\r\n>   bytes and comparison between two Track Namespaces or Track Names is\r\n>   done by exact comparison of the bytes.  Specifications that use MoQ\r\n>   Transport may constrain the information in these fields, for example\r\n>   by restricting them to UTF-8.  Any specification that does needs to\r\n>   specify the canonicalization into the bytes in the Track Namespace or\r\n>   Track Name such that exact comparison works.\r\n\r\nShould the catalog format indeed constrain the grammar of these fields, whether just be restricting them to be valid UTF-8 or somehow further?  (Valid URI?  ASCII-Only?). Otherwise we need to deal with arbitrary binary data in the track namespaces and track names, which can be challenging at best to represent in JSON.",
+      "createdAt": "2024-03-28T22:33:05Z",
+      "updatedAt": "2024-03-28T22:38:55Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
