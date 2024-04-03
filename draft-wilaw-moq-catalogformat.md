@@ -296,7 +296,6 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -328,7 +327,6 @@ medium definition video qualities, along with an audio track. In this example th
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "renderGroup": 1,
@@ -395,7 +393,6 @@ express the track relationships.
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -486,7 +483,6 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -534,7 +530,6 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "output.example.com/event/12345",
@@ -563,7 +558,6 @@ This example shows catalog for a sports broadcast sending time-aligned audio and
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -591,7 +585,6 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -621,7 +614,6 @@ This example shows the catalog for a media producer that is outputting two strea
 ~~~json
 {
   "version": 1,
-  "sequence": 0,
   "catalogs": [
     {
       "name": "catalog-for-format-one",
