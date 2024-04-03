@@ -11,26 +11,26 @@
 <meta content="
        This specification defines a Common Catalog specification for streaming formats implementing the MOQ Transport Protocol  . Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks. 
     " name="description">
-<meta content="xml2rfc 3.18.2" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="moq" name="keyword">
 <meta content="warp" name="keyword">
 <meta content="catalog" name="keyword">
 <meta content="draft-wilaw-moq-catalogformat-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.2
-    Python 3.11.6
-    ConfigArgParse 1.5.3
+  xml2rfc 3.20.1
+    Python 3.11.8
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.0.0
+    platformdirs 4.2.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.10
+    wcwidth 0.2.13
 -->
 <link href="draft-wilaw-moq-catalogformat.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1029,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Common Catalog Format for moq-transport</td>
-<td class="right">November 2023</td>
+<td class="right">April 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Nandakumar, et al.</td>
-<td class="center">Expires 1 June 2024</td>
+<td class="center">Expires 5 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wilaw-moq-catalogformat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-11-29" class="published">29 November 2023</time>
+<time datetime="2024-04-03" class="published">3 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-01">1 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-05">5 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1109,7 +1109,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1118,7 +1118,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -2029,7 +2029,6 @@ For CMAF packaged content, the string codec registrations are defined in XXX.<a 
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -2063,7 +2062,6 @@ medium definition video qualities, along with an audio track. In this example th
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "renderGroup": 1,
@@ -2130,7 +2128,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -2241,7 +2238,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -2294,7 +2290,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "output.example.com/event/12345",
@@ -2327,7 +2322,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "sports.example.com/games/08-08-23/12345",
@@ -2360,7 +2354,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "namespace": "conference.example.com/conference123/alice",
@@ -2395,7 +2388,6 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <pre>
 {
   "version": 1,
-  "sequence": 0,
   "catalogs": [
     {
       "name": "catalog-for-format-one",
@@ -2485,7 +2477,7 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <dd class="break"></dd>
 <dt id="Framemarking">[Framemarking]</dt>
       <dd>
-<span class="refAuthor">Zanaty, M.</span>, <span class="refAuthor">Berger, E.</span>, and <span class="refAuthor">S. Nandakumar</span>, <span class="refTitle">"Video Frame Marking RTP Header Extension"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-avtext-framemarking-15</span>, <time datetime="2023-07-26" class="refDate">26 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking-15">https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking-15</a>&gt;</span>. </dd>
+<span class="refAuthor">Zanaty, M.</span>, <span class="refAuthor">Berger, E.</span>, and <span class="refAuthor">S. Nandakumar</span>, <span class="refTitle">"Video Frame Marking RTP Header Extension"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-avtext-framemarking-16</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking-16">https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking-16</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="JSON">[JSON]</dt>
       <dd>
@@ -2505,7 +2497,7 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <dd class="break"></dd>
 <dt id="MoQTransport">[MoQTransport]</dt>
       <dd>
-<span class="refAuthor">Curley, L.</span>, <span class="refAuthor">Pugin, K.</span>, <span class="refAuthor">Nandakumar, S.</span>, and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"Media over QUIC Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-moq-transport-01</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-01">https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Curley, L.</span>, <span class="refAuthor">Pugin, K.</span>, <span class="refAuthor">Nandakumar, S.</span>, <span class="refAuthor">Vasiliev, V.</span>, and <span class="refAuthor">I. Swett</span>, <span class="refTitle">"Media over QUIC Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-moq-transport-03</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-03">https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="WebCodecs">[WebCodecs]</dt>
       <dd>
