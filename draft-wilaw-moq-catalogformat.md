@@ -58,6 +58,7 @@ normative:
   LANG: RFC5646
   MIME: RFC6838
   JSON-PATCH: RFC6902
+  RFC5226: RFC5226
 
 informative:
 
@@ -146,7 +147,7 @@ Location:
 
 
 ### Streaming format {#streamingformat}
-A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {{iana}} for additional details.
+A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
 
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
@@ -636,21 +637,74 @@ This example shows the catalog for a media producer that is outputting two strea
 
 The catalog contents MAY be encrypted. The mechanism of encryption and the signaling of the keys are left to the Streaming Format referencing this catalog format.
 
-# IANA Considerations {#iana}
+# IANA Considerations {#ianaconsiderations}
 
-This section details how the MoQ Streaming Format Type can be registered. The type registry can be updated by incrementally expanding the type space, i.e., by allocating and reserving new type identifiers. As per [RFC8126], this section details the creation of the "MoQ Streaming Format Type" registry.
+This section details how the MoQ Streaming Format Type and new fields can be registered for inclusion in a catalog.
 
 ## MoQ Streaming Format Type Registry
 
-This document creates a new registry, "MoQ Streaming Format Type". The registry policy is "RFC Required". The Type value is 2 octets. The range is 0x0000-0xFFFF.The initial entry in the registry is:
+This document creates a new registry, "MoQ Streaming Format Type". This registry is managed by the IANA according to the RFC Required  policy of [RFC5226]. The Type value is 2 octets. The range is 0x0000-0xFFFF. The initial entry in the registry is:
 
-         +--------+-------------+----------------------------------+
-         | Type   |     Name    |            RFC                   |
-         +--------+-------------+----------------------------------+
-         | 0x0000 |   Reserved  |                                  |
-         +--------+-------------+----------------------------------+
 
-Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier.
+| Type   |     Name    |                                RFC                                |
+|:-------|:------------|:------------------------------------------------------------------|
+| 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+
+No RFC is provided for the initial entry as it is reserved for Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier. The type registry can be updated by incrementally expanding by allocating and reserving new type identifiers.
+
+## Common Catalog Field Registry
+
+This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [RFC5226]. The initial entries in the registry are:
+
+| Descriptive Name        |  Field Name            | Required |  Location |  JSON type |                         Specification                             |
+|:========================|:=======================|:=========|:==========|:===========|:==================================================================|
+| Catalog version         | version                |  yes     |   R       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Streaming format        | streamingFormat        |  yes     |   RC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Tracks                  | tracks                 |  opt     |   R       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Catalogs                | catalogs               |  opt     |   R       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Track namespace         | namespace              |  opt     |   RTC     |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Track name              | name                   |  yes     |   TC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Packaging               | packaging              |  yes     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Track operation         | operation              |  yes     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Track label             | label                  |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Render group            | renderGroup            |  opt     |   RT      |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Alternate group         | altGroup               |  opt     |   RT      |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Initialization data     | initData               |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Initialization track    | initTrack              |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Selection parameters    | selectionParams        |  opt     |   RT      |  Object    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Dependencies            | depends                |  opt     |   T       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Temporal ID             | temporalId             |  opt     |   T       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Spatial ID              | spatialId              |  opt     |   T       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Codec                   | codec                  |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Mime type               | mimeType               |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Framerate               | framerate              |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Bitrate                 | bitrate                |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Width                   | width                  |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Height                  | height                 |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Audio sample rate       | samplerate             |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Channel configuration   | channelConfig          |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Display width           | displayWidth           |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Display height          | displayHeight          |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+| Language                | lang                   |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+
+Any registration for a new Field name MUST provide the following information:
+
+* Descriptive Name - a descriptive name for the field.
+* Field Name - the JSON field name, as will be used inside the JSON catalog.
+* Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.
+* Location - a string defining the permissible locations for the field within the catalog:
+  * 'R' - the field is located in the Root of the JSON object.
+  * 'RC' - the field may be located in either the Root or a Catalog object.
+  * 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
+  * 'TC' - the field may be located in either a Track object or a Catalog object.
+  * 'RT' - the field may be located in either the Root or a Track object.
+  * 'T' - the field is located in a Track object.
+  * 'S' - the field is located in the Selection Parameters object.
+* JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.
+* Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of [RFC5226].
+
+
 
 # Acknowledgments
 {:numbered="false"}
