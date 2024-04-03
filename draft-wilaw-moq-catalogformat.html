@@ -1297,6 +1297,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-moq-streaming-format-type-r" class="internal xref">MoQ Streaming Format Type Registry</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-common-catalog-field-regist" class="internal xref">Common Catalog Field Registry</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
@@ -1687,7 +1690,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <h4 id="name-streaming-format">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-streaming-format" class="section-name selfRef">Streaming format</a>
           </h4>
-<p id="section-3.2.1-1">A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See <a href="#iana" class="auto internal xref">Section 5</a> for additional details.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See <a href="#ianaconsiderations" class="auto internal xref">Section 5</a> for additional details.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="streamingformatversion">
@@ -2420,28 +2423,335 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <p id="section-4-1">The catalog contents MAY be encrypted. The mechanism of encryption and the signaling of the keys are left to the Streaming Format referencing this catalog format.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="iana">
+<div id="ianaconsiderations">
 <section id="section-5">
       <h2 id="name-iana-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-5-1">This section details how the MoQ Streaming Format Type can be registered. The type registry can be updated by incrementally expanding the type space, i.e., by allocating and reserving new type identifiers. As per [RFC8126], this section details the creation of the "MoQ Streaming Format Type" registry.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This section details how the MoQ Streaming Format Type and new fields can be registered for inclusion in a catalog.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="moq-streaming-format-type-registry">
 <section id="section-5.1">
         <h3 id="name-moq-streaming-format-type-r">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-moq-streaming-format-type-r" class="section-name selfRef">MoQ Streaming Format Type Registry</a>
         </h3>
-<p id="section-5.1-1">This document creates a new registry, "MoQ Streaming Format Type". The registry policy is "RFC Required". The Type value is 2 octets. The range is 0x0000-0xFFFF.The initial entry in the registry is:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-2">
-<pre>
-     +--------+-------------+----------------------------------+
-     | Type   |     Name    |            RFC                   |
-     +--------+-------------+----------------------------------+
-     | 0x0000 |   Reserved  |                                  |
-     +--------+-------------+----------------------------------+
-</pre><a href="#section-5.1-2" class="pilcrow">¶</a>
+<p id="section-5.1-1">This document creates a new registry, "MoQ Streaming Format Type". This registry is managed by the IANA according to the RFC Required  policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The Type value is 2 octets. The range is 0x0000-0xFFFF. The initial entry in the registry is:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-4">
+          <caption><a href="#table-4" class="selfRef">Table 4</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Type</th>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">RFC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
+              <td class="text-left" rowspan="1" colspan="1">Reserved</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+          </tbody>
+        </table>
+<p id="section-5.1-3">No RFC is provided for the initial entry as it is reserved for Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier. The type registry can be updated by incrementally expanding by allocating and reserving new type identifiers.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+</section>
 </div>
-<p id="section-5.1-3">Every MoQ streaming format draft normatively referencing this catalog format MUST register itself a unique type identifier.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<div id="common-catalog-field-registry">
+<section id="section-5.2">
+        <h3 id="name-common-catalog-field-regist">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-common-catalog-field-regist" class="section-name selfRef">Common Catalog Field Registry</a>
+        </h3>
+<p id="section-5.2-1">This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The initial entries in the registry are:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-5">
+          <caption><a href="#table-5" class="selfRef">Table 5</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Descriptive Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Field Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Required</th>
+              <th class="text-left" rowspan="1" colspan="1">Location</th>
+              <th class="text-left" rowspan="1" colspan="1">JSON type</th>
+              <th class="text-left" rowspan="1" colspan="1">Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Catalog version</td>
+              <td class="text-left" rowspan="1" colspan="1">version</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">R</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Streaming format</td>
+              <td class="text-left" rowspan="1" colspan="1">streamingFormat</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">RC</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Streaming format version</td>
+              <td class="text-left" rowspan="1" colspan="1">streamingFormatVersion</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">RC</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Tracks</td>
+              <td class="text-left" rowspan="1" colspan="1">tracks</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">R</td>
+              <td class="text-left" rowspan="1" colspan="1">Array</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Catalogs</td>
+              <td class="text-left" rowspan="1" colspan="1">catalogs</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">R</td>
+              <td class="text-left" rowspan="1" colspan="1">Array</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Track namespace</td>
+              <td class="text-left" rowspan="1" colspan="1">namespace</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RTC</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Track name</td>
+              <td class="text-left" rowspan="1" colspan="1">name</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">TC</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Packaging</td>
+              <td class="text-left" rowspan="1" colspan="1">packaging</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Track operation</td>
+              <td class="text-left" rowspan="1" colspan="1">operation</td>
+              <td class="text-left" rowspan="1" colspan="1">yes</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Track label</td>
+              <td class="text-left" rowspan="1" colspan="1">label</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Render group</td>
+              <td class="text-left" rowspan="1" colspan="1">renderGroup</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Alternate group</td>
+              <td class="text-left" rowspan="1" colspan="1">altGroup</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Initialization data</td>
+              <td class="text-left" rowspan="1" colspan="1">initData</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Initialization track</td>
+              <td class="text-left" rowspan="1" colspan="1">initTrack</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Selection parameters</td>
+              <td class="text-left" rowspan="1" colspan="1">selectionParams</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">RT</td>
+              <td class="text-left" rowspan="1" colspan="1">Object</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Dependencies</td>
+              <td class="text-left" rowspan="1" colspan="1">depends</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">T</td>
+              <td class="text-left" rowspan="1" colspan="1">Array</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Temporal ID</td>
+              <td class="text-left" rowspan="1" colspan="1">temporalId</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">T</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Spatial ID</td>
+              <td class="text-left" rowspan="1" colspan="1">spatialId</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">T</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Codec</td>
+              <td class="text-left" rowspan="1" colspan="1">codec</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Mime type</td>
+              <td class="text-left" rowspan="1" colspan="1">mimeType</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Framerate</td>
+              <td class="text-left" rowspan="1" colspan="1">framerate</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Bitrate</td>
+              <td class="text-left" rowspan="1" colspan="1">bitrate</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Width</td>
+              <td class="text-left" rowspan="1" colspan="1">width</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Height</td>
+              <td class="text-left" rowspan="1" colspan="1">height</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Audio sample rate</td>
+              <td class="text-left" rowspan="1" colspan="1">samplerate</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Channel configuration</td>
+              <td class="text-left" rowspan="1" colspan="1">channelConfig</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Display width</td>
+              <td class="text-left" rowspan="1" colspan="1">displayWidth</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Display height</td>
+              <td class="text-left" rowspan="1" colspan="1">displayHeight</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">Number</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Language</td>
+              <td class="text-left" rowspan="1" colspan="1">lang</td>
+              <td class="text-left" rowspan="1" colspan="1">opt</td>
+              <td class="text-left" rowspan="1" colspan="1">S</td>
+              <td class="text-left" rowspan="1" colspan="1">String</td>
+              <td class="text-left" rowspan="1" colspan="1">https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/</td>
+            </tr>
+          </tbody>
+        </table>
+<p id="section-5.2-3">Any registration for a new Field name MUST provide the following information:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">Descriptive Name - a descriptive name for the field.<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">Field Name - the JSON field name, as will be used inside the JSON catalog.<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.4">
+            <p id="section-5.2-4.4.1">Location - a string defining the permissible locations for the field within the catalog:<a href="#section-5.2-4.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-4.4.2.1">
+                <p id="section-5.2-4.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.2-4.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.2">
+                <p id="section-5.2-4.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.2-4.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.3">
+                <p id="section-5.2-4.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-5.2-4.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.4">
+                <p id="section-5.2-4.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-5.2-4.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.5">
+                <p id="section-5.2-4.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.2-4.4.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.6">
+                <p id="section-5.2-4.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.2-4.4.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-4.4.2.7">
+                <p id="section-5.2-4.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.2-4.4.2.7.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-5.2-4.5">
+            <p id="section-5.2-4.5.1">JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.<a href="#section-5.2-4.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.6">
+            <p id="section-5.2-4.6.1">Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>.<a href="#section-5.2-4.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 </section>
@@ -2498,6 +2808,10 @@ express the track relationships.<a href="#section-3.4.3-3" class="pilcrow">¶</a
 <dt id="MoQTransport">[MoQTransport]</dt>
       <dd>
 <span class="refAuthor">Curley, L.</span>, <span class="refAuthor">Pugin, K.</span>, <span class="refAuthor">Nandakumar, S.</span>, <span class="refAuthor">Vasiliev, V.</span>, and <span class="refAuthor">I. Swett</span>, <span class="refTitle">"Media over QUIC Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-moq-transport-03</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-03">https://datatracker.ietf.org/doc/html/draft-ietf-moq-transport-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5226">[RFC5226]</dt>
+      <dd>
+<span class="refAuthor">Narten, T.</span> and <span class="refAuthor">H. Alvestrand</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">RFC 5226</span>, <span class="seriesInfo">DOI 10.17487/RFC5226</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5226">https://www.rfc-editor.org/rfc/rfc5226</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="WebCodecs">[WebCodecs]</dt>
       <dd>
