@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-02T00:28:54.666260+00:00",
+  "timestamp": "2024-04-04T00:29:45.644480+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -273,15 +273,15 @@
       "id": "I_kwDOKMx0ks5ydBae",
       "title": "Registry for catalog fields",
       "url": "https://github.com/moq-wg/catalog-format/issues/26",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "acbegen",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I suggest creating an IANA registry for catalog fields with values auto-populated from Section 3.2.",
       "createdAt": "2023-09-30T10:42:22Z",
-      "updatedAt": "2023-11-03T17:45:32Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-03T15:38:20Z",
+      "closedAt": "2024-04-03T15:38:20Z",
       "comments": [
         {
           "author": "wilaw",
@@ -413,15 +413,15 @@
       "id": "I_kwDOKMx0ks57xFWw",
       "title": "Current examples reference the obsolete 'sequence' field",
       "url": "https://github.com/moq-wg/catalog-format/issues/35",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The sequence field was removed when we switched to JSON patch for updating and allowed the transport's Object sequence number to denote the order of the patches. ",
       "createdAt": "2024-01-11T12:11:53Z",
-      "updatedAt": "2024-01-11T12:11:53Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-03T15:37:26Z",
+      "closedAt": "2024-04-03T15:37:26Z",
       "comments": []
     },
     {
@@ -560,9 +560,17 @@
       "labels": [],
       "body": "MOQ Transport says:\r\n\r\n>    In this specification, both the Track Namespace and the Track Name\r\n>   are not constrained to a specific encoding.  They carry a sequence of\r\n>   bytes and comparison between two Track Namespaces or Track Names is\r\n>   done by exact comparison of the bytes.  Specifications that use MoQ\r\n>   Transport may constrain the information in these fields, for example\r\n>   by restricting them to UTF-8.  Any specification that does needs to\r\n>   specify the canonicalization into the bytes in the Track Namespace or\r\n>   Track Name such that exact comparison works.\r\n\r\nShould the catalog format indeed constrain the grammar of these fields, whether just be restricting them to be valid UTF-8 or somehow further?  (Valid URI?  ASCII-Only?). Otherwise we need to deal with arbitrary binary data in the track namespaces and track names, which can be challenging at best to represent in JSON.",
       "createdAt": "2024-03-28T22:33:05Z",
-      "updatedAt": "2024-03-28T22:38:55Z",
+      "updatedAt": "2024-04-02T10:01:42Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The JSON spec requires UTF-8 support by decoders, so it seems sensible to inherit that flexibility. We should state this explicitly in the spec.  I'd like to support our Chinese, Korean and Japanese colleagues with the ability to specify namespace and names in their character sets. \r\n\r\n```\r\n\"namespace\" : \"\u7279\u522b\u9879\u76ee/2025\u5e745\u67081\u65e5\"\r\n\"name\":\"\u89c6\u9891\"\r\n```\r\n\r\nIf a streaming format wishes to further constrain these names to be URIs, or ASCII, it may do so, however the catalog spec itself should not force those restrictions. \r\n\r\nSimilarly, if a streaming format wishes to support binary namespace and names, these can be encoded as base64 strings in the catalog and the application would understand how to convert them to their wire format. \r\n\r\n```\r\n\"namespace\" : \"c2FtcGxlbmFtZXNwYWNl\"\r\n\"name\":\"c2FtcGxlbmFtZQ==\"\r\n```",
+          "createdAt": "2024-04-02T10:01:41Z",
+          "updatedAt": "2024-04-02T10:01:41Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1054,24 +1062,26 @@
       "id": "PR_kwDOKMx0ks5jzAl2",
       "title": "Update draft-wilaw-moq-catalogformat.md",
       "url": "https://github.com/moq-wg/catalog-format/pull/36",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Removes obsolete sequence parameter from examples.\r\n\r\nFixes #35",
       "createdAt": "2024-01-11T12:12:26Z",
-      "updatedAt": "2024-01-11T12:12:26Z",
+      "updatedAt": "2024-04-03T15:37:29Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
       "baseRefOid": "aadd03e2bd1982047e1e618798a7307d6987810f",
       "headRepository": "moq-wg/catalog-format",
       "headRefName": "wilaw-patch-1",
       "headRefOid": "b6ad10c0588e915031d6407d3b594235df2f10de",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-04-03T15:37:25Z",
+      "mergedAt": "2024-04-03T15:37:25Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "69e9977715715dc366475988f612b7869f043594"
+      },
       "comments": [],
       "reviews": []
     },
@@ -1080,24 +1090,26 @@
       "id": "PR_kwDOKMx0ks5omP8A",
       "title": "Adds an IANA registry for catalog fields",
       "url": "https://github.com/moq-wg/catalog-format/pull/39",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #26 ",
       "createdAt": "2024-03-04T14:28:52Z",
-      "updatedAt": "2024-03-04T14:28:52Z",
+      "updatedAt": "2024-04-03T15:38:24Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
       "baseRefOid": "aadd03e2bd1982047e1e618798a7307d6987810f",
       "headRepository": "moq-wg/catalog-format",
       "headRefName": "wilaw-patch-2",
       "headRefOid": "125a5db14e2727cf238804f2bb9b25db59a5f580",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-04-03T15:38:20Z",
+      "mergedAt": "2024-04-03T15:38:20Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "70ca2c7c2d5c313714445f6ed451402d722b9169"
+      },
       "comments": [],
       "reviews": []
     },
