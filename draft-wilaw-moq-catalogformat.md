@@ -151,7 +151,7 @@ A number indicating the streaming format type. Every MoQ Streaming Format normat
 ### Streaming format version {#streamingformatversion}
 A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
 
-### Common track fields {#commontrackfields
+### Common track fields {#commontrackfields}
 An object holding a collection of Track Fields (objects with a location of TF or TFC in table 1) which are to be inherited by all tracks. A field defined at the Track object level always supercedes any value inherited from the Common Track Fields object.
 
 ### Tracks {#tracks}
@@ -571,7 +571,7 @@ This example shows catalog describing a broadcast with CMAF packaged video and L
 
 ### CMAF Tracks with inband init segments
 
-This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data. The data has been truncated for clarity. 
+This example shows catalog for a sports broadcast sending time-aligned audio and video tracks using CMAF packaging. Init segments are delivered as inband data. The data has been truncated for clarity.
 
 ~~~json
 {
