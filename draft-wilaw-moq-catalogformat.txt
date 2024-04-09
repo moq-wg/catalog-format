@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 5 October 2024                                           Akamai
+Expires: 11 October 2024                                          Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                            3 April 2024
+                                                            9 April 2024
 
 
                 Common Catalog Format for moq-transport
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2024.
+   This Internet-Draft will expire on 11 October 2024.
 
 Copyright Notice
 
