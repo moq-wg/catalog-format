@@ -327,7 +327,7 @@ This example shows catalog for a media producer capable of sending LOC packaged,
 This example shows catalog for a media producer capable
 of sending 3 time-aligned video tracks for high definition, low definition and
 medium definition video qualities, along with an audio track. In this example the namespace is absent, which infers that each track must inherit the namespace of the catalog.
-Additionally this example shows the presence of the supportsDeltaUpdates flag. 
+Additionally this example shows the presence of the supportsDeltaUpdates flag.
 
 
 ~~~json
