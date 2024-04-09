@@ -83,35 +83,36 @@ Table of Contents
      3.2.  Catalog Fields
        3.2.1.  Streaming format
        3.2.2.  Streaming format version
-       3.2.3.  Common track fields
-       3.2.4.  Tracks
-       3.2.5.  Catalogs
-       3.2.6.  Catalog object
-       3.2.7.  Tracks object
-       3.2.8.  Track namespace
-       3.2.9.  Track name
-       3.2.10. Packaging
-       3.2.11. Track operations
-       3.2.12. Track label
-       3.2.13. Render group
-       3.2.14. Alternate group
-       3.2.15. Initialization data
-       3.2.16. Initialization track
-       3.2.17. Selection parameters
-       3.2.18. Dependencies
-       3.2.19. Temporal ID
-       3.2.20. Spatial ID
-       3.2.21. Codec
-       3.2.22. Mimetype
-       3.2.23. Framerate
-       3.2.24. Bitrate
-       3.2.25. Width
-       3.2.26. Height
-       3.2.27. Audio sample rate
-       3.2.28. Channel configuration
-       3.2.29. Display width
-       3.2.30. Display height
-       3.2.31. Language
+       3.2.3.  Supports delta updates
+       3.2.4.  Common track fields
+       3.2.5.  Tracks
+       3.2.6.  Catalogs
+       3.2.7.  Catalog object
+       3.2.8.  Tracks object
+       3.2.9.  Track namespace
+       3.2.10. Track name
+       3.2.11. Packaging
+       3.2.12. Track operations
+       3.2.13. Track label
+       3.2.14. Render group
+       3.2.15. Alternate group
+       3.2.16. Initialization data
+       3.2.17. Initialization track
+       3.2.18. Selection parameters
+       3.2.19. Dependencies
+       3.2.20. Temporal ID
+       3.2.21. Spatial ID
+       3.2.22. Codec
+       3.2.23. Mimetype
+       3.2.24. Framerate
+       3.2.25. Bitrate
+       3.2.26. Width
+       3.2.27. Height
+       3.2.28. Audio sample rate
+       3.2.29. Channel configuration
+       3.2.30. Display width
+       3.2.31. Display height
+       3.2.32. Language
      3.3.  Catalog Patch
      3.4.  Catalog Examples
        3.4.1.  Time-aligned Audio/Video Tracks with single quality
@@ -134,6 +135,7 @@ Table of Contents
    4.  Security Considerations
    5.  IANA Considerations
      5.1.  MoQ Streaming Format Type Registry
+     5.2.  Common Catalog Field Registry
    Acknowledgments
    Normative References
    Authors' Addresses
@@ -203,100 +205,103 @@ Table of Contents
 
    Table 1 provides an overview of all fields defined by this document.
 
-   +==============+======================+========+========+======+==========+
-   |Field         |Name                  |Required|Location|JSON  |Definition|
-   |              |                      |        |        |type  |          |
-   +==============+======================+========+========+======+==========+
-   |Catalog       |version               |yes     |R       |String|Section   |
-   |version       |                      |        |        |      |3.1       |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Streaming     |streamingFormat       |yes     |RC      |String|Section   |
-   |format        |                      |        |        |      |3.2.1     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Streaming     |streamingFormatVersion|yes     |RC      |String|Section   |
-   |format version|                      |        |        |      |3.2.2     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Common Track  |commonTrackFields     |opt     |R       |Object|Section   |
-   |Fields        |                      |        |        |      |3.2.3     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Tracks        |tracks                |opt     |R       |Array |Section   |
-   |              |                      |        |        |      |3.2.4     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Catalogs      |catalogs              |opt     |R       |Array |Section   |
-   |              |                      |        |        |      |3.2.5     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Track         |namespace             |opt     |TFC     |String|Section   |
-   |namespace     |                      |        |        |      |3.2.8     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Track name    |name                  |yes     |TFC     |String|Section   |
-   |              |                      |        |        |      |3.2.9     |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Packaging     |packaging             |yes     |TF      |String|Section   |
-   |              |                      |        |        |      |3.2.10    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Track         |operation             |yes     |TF      |String|Section   |
-   |operation     |                      |        |        |      |3.2.11    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Track label   |label                 |opt     |TF      |String|Section   |
-   |              |                      |        |        |      |3.2.12    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Render group  |renderGroup           |opt     |TF      |Number|Section   |
-   |              |                      |        |        |      |3.2.13    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Alternate     |altGroup              |opt     |TF      |Number|Section   |
-   |group         |                      |        |        |      |3.2.14    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Initialization|initData              |opt     |TF      |String|Section   |
-   |data          |                      |        |        |      |3.2.15    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Initialization|initTrack             |opt     |TF      |String|Section   |
-   |track         |                      |        |        |      |3.2.16    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Selection     |selectionParams       |opt     |TF      |Object|Section   |
-   |parameters    |                      |        |        |      |3.2.17    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Dependencies  |depends               |opt     |T       |Array |Section   |
-   |              |                      |        |        |      |3.2.18    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Temporal ID   |temporalId            |opt     |T       |Number|Section   |
-   |              |                      |        |        |      |3.2.19    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Spatial ID    |spatialId             |opt     |T       |Number|Section   |
-   |              |                      |        |        |      |3.2.20    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Codec         |codec                 |opt     |S       |String|Section   |
-   |              |                      |        |        |      |3.2.21    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Mime type     |mimeType              |opt     |S       |String|Section   |
-   |              |                      |        |        |      |3.2.22    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Framerate     |framerate             |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.23    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Bitrate       |bitrate               |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.24    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Width         |width                 |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.25    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Height        |height                |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.26    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Audio sample  |samplerate            |opt     |S       |Number|Section   |
-   |rate          |                      |        |        |      |3.2.27    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Channel       |channelConfig         |opt     |S       |String|Section   |
-   |configuration |                      |        |        |      |3.2.28    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Display width |displayWidth          |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.29    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Display height|displayHeight         |opt     |S       |Number|Section   |
-   |              |                      |        |        |      |3.2.30    |
-   +--------------+----------------------+--------+--------+------+----------+
-   |Language      |lang                  |opt     |S       |String|Section   |
-   |              |                      |        |        |      |3.2.31    |
-   +--------------+----------------------+--------+--------+------+----------+
+   +==============+======================+========+========+=======+==========+
+   |Field         |Name                  |Required|Location|JSON   |Definition|
+   |              |                      |        |        |type   |          |
+   +==============+======================+========+========+=======+==========+
+   |Catalog       |version               |yes     |R       |String |Section   |
+   |version       |                      |        |        |       |3.1       |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Streaming     |streamingFormat       |yes     |RC      |String |Section   |
+   |format        |                      |        |        |       |3.2.1     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Streaming     |streamingFormatVersion|yes     |RC      |String |Section   |
+   |format version|                      |        |        |       |3.2.2     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Supports delta|supportsDeltaUpdates  |opt     |RC      |Boolean|Section   |
+   |updates       |                      |        |        |       |3.2.3     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Common Track  |commonTrackFields     |opt     |R       |Object |Section   |
+   |Fields        |                      |        |        |       |3.2.4     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Tracks        |tracks                |opt     |R       |Array  |Section   |
+   |              |                      |        |        |       |3.2.5     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Catalogs      |catalogs              |opt     |R       |Array  |Section   |
+   |              |                      |        |        |       |3.2.6     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Track         |namespace             |opt     |TFC     |String |Section   |
+   |namespace     |                      |        |        |       |3.2.9     |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Track name    |name                  |yes     |TFC     |String |Section   |
+   |              |                      |        |        |       |3.2.10    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Packaging     |packaging             |yes     |TF      |String |Section   |
+   |              |                      |        |        |       |3.2.11    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Track         |operation             |yes     |TF      |String |Section   |
+   |operation     |                      |        |        |       |3.2.12    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Track label   |label                 |opt     |TF      |String |Section   |
+   |              |                      |        |        |       |3.2.13    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Render group  |renderGroup           |opt     |TF      |Number |Section   |
+   |              |                      |        |        |       |3.2.14    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Alternate     |altGroup              |opt     |TF      |Number |Section   |
+   |group         |                      |        |        |       |3.2.15    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Initialization|initData              |opt     |TF      |String |Section   |
+   |data          |                      |        |        |       |3.2.16    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Initialization|initTrack             |opt     |TF      |String |Section   |
+   |track         |                      |        |        |       |3.2.17    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Selection     |selectionParams       |opt     |TF      |Object |Section   |
+   |parameters    |                      |        |        |       |3.2.18    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Dependencies  |depends               |opt     |T       |Array  |Section   |
+   |              |                      |        |        |       |3.2.19    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Temporal ID   |temporalId            |opt     |T       |Number |Section   |
+   |              |                      |        |        |       |3.2.20    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Spatial ID    |spatialId             |opt     |T       |Number |Section   |
+   |              |                      |        |        |       |3.2.21    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Codec         |codec                 |opt     |S       |String |Section   |
+   |              |                      |        |        |       |3.2.22    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Mime type     |mimeType              |opt     |S       |String |Section   |
+   |              |                      |        |        |       |3.2.23    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Framerate     |framerate             |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.24    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Bitrate       |bitrate               |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.25    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Width         |width                 |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.26    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Height        |height                |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.27    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Audio sample  |samplerate            |opt     |S       |Number |Section   |
+   |rate          |                      |        |        |       |3.2.28    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Channel       |channelConfig         |opt     |S       |String |Section   |
+   |configuration |                      |        |        |       |3.2.29    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Display width |displayWidth          |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.30    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Display height|displayHeight         |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.31    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Language      |lang                  |opt     |S       |String |Section   |
+   |              |                      |        |        |       |3.2.32    |
+   +--------------+----------------------+--------+--------+-------+----------+
 
                                   Table 1
 
@@ -333,35 +338,45 @@ Table of Contents
    catalog applies.  The structure of the version string is defined by
    the streaming format.
 
-3.2.3.  Common track fields
+3.2.3.  Supports delta updates
+
+   A boolean that if true indicates that the publisher MAY issue
+   incremental (delta) updates - see Section 3.3.  If false or absent,
+   then the publisher gaurantees that they will NOT issue any
+   incremental updates and that any future updates to the catalog will
+   be independent.  The default value is false.  This field MUST be
+   present if its value is true, but may be omitted if the value is
+   false.
+
+3.2.4.  Common track fields
 
    An object holding a collection of Track Fields (objects with a
    location of TF or TFC in table 1) which are to be inherited by all
    tracks.  A field defined at the Track object level always supercedes
    any value inherited from the Common Track Fields object.
 
-3.2.4.  Tracks
+3.2.5.  Tracks
 
-   An array of track objects Section 3.2.7.  If the 'tracks' field is
+   An array of track objects Section 3.2.8.  If the 'tracks' field is
    present then the 'catalog' field MUST NOT be present.
 
-3.2.5.  Catalogs
+3.2.6.  Catalogs
 
-   An array of catalog objects Section 3.2.6.  If the 'catalogs' field
+   An array of catalog objects Section 3.2.7.  If the 'catalogs' field
    is present then the 'tracks' field MUST NOT be present.  A catalog
    MUST NOT list itself in the catalog array.
 
-3.2.6.  Catalog object
+3.2.7.  Catalog object
 
    A catalog object is a collection of fields whose location is
    specified as 'RC' or 'TFC' in Table 1.
 
-3.2.7.  Tracks object
+3.2.8.  Tracks object
 
    A track object is a collection of fields whose location is specified
    as 'TFC', 'TF' or 'T' in Table 1.
 
-3.2.8.  Track namespace
+3.2.9.  Track namespace
 
    The name space under which the track name is defined.  See section
    2.3 of [MoQTransport].  If the track namespace is declared in the
@@ -372,13 +387,13 @@ Table of Contents
    optional.  If it is not declared at the root or track level, then
    each track MUST inherit the namespace of the catalog track.
 
-3.2.9.  Track name
+3.2.10.  Track name
 
    A string defining the name of the track.  See section 2.3 of
    [MoQTransport].  Within the catalog, track names MUST be unique per
    namespace.
 
-3.2.10.  Packaging
+3.2.11.  Packaging
 
    A string defining the type of payload encapsulation.  Allowed values
    are strings as defined in Table 2.
@@ -395,7 +410,7 @@ Table of Contents
 
                                  Table 2
 
-3.2.11.  Track operations
+3.2.12.  Track operations
 
    Each track description can specify an optional operation value that
    identifies the catalog producer's intent.  Track operation is an
@@ -429,13 +444,13 @@ Table of Contents
    The default track operation is 'add'.  This value does not need to be
    declared in the track object.
 
-3.2.12.  Track label
+3.2.13.  Track label
 
    A string defining a human-readable label for the track.  Examples
    might be "Overhead camera view" or "Deutscher Kommentar".  Note that
    the [JSON] spec requires UTF-8 support by decoders.
 
-3.2.13.  Render group
+3.2.14.  Render group
 
    An integer specifying a group of tracks which are designed to be
    rendered together.  Tracks with the same group number SHOULD be
@@ -443,31 +458,31 @@ Table of Contents
    accompany one another.  A common example would be tying together
    audio and video tracks.
 
-3.2.14.  Alternate group
+3.2.15.  Alternate group
 
    An integer specifying a group of tracks which are alternate versions
    of one-another.  Alternate tracks represent the same media content,
    but differ in their selection properties.  Alternate tracks SHOULD
-   have matching framerate Section 3.2.23 and media time sequences.  A
+   have matching framerate Section 3.2.24 and media time sequences.  A
    subscriber typically subscribes to one track from a set of tracks
    specifying the same alternate group number.  A common example would
    be a set video tracks of the same content offered in alternate
    bitrates.
 
-3.2.15.  Initialization data
+3.2.16.  Initialization data
 
    A string holding Base64 [BASE64] encoded initialization data for the
    track.
 
-3.2.16.  Initialization track
+3.2.17.  Initialization track
 
    A string specifying the track name of another track which holds
    initialization data for the current track.  Initialization tracks
-   MUST NOT be added to the tracks array Section 3.2.4.  They are
+   MUST NOT be added to the tracks array Section 3.2.5.  They are
    referenced only via the initialization track field of the track which
    they initialize.
 
-3.2.17.  Selection parameters
+3.2.18.  Selection parameters
 
    An object holding a series of name/value pairs which a subscriber can
    use to select tracks for subscription.  If present, the selection
@@ -477,78 +492,78 @@ Table of Contents
    declaration of a selection parameter at the track level overrides the
    inherited root value.
 
-3.2.18.  Dependencies
+3.2.19.  Dependencies
 
    Certain tracks may depend on other tracks for decoding.  Dependencies
-   holds an array of track names Section 3.2.9 on which the current
+   holds an array of track names Section 3.2.10 on which the current
    track is dependent.  Since only the track name is signaled, the
    namespace of the dependencies is assumed to match that of the track
    declaring the dependencies.
 
-3.2.19.  Temporal ID
+3.2.20.  Temporal ID
 
    A number identifying the temporal layer/sub-layer encoding of the
    track, starting with 0 for the base layer, and increasing with higher
    temporal fidelity.
 
-3.2.20.  Spatial ID
+3.2.21.  Spatial ID
 
    A number identifying the spatial layer encoding of the track,
    starting with 0 for the base layer, and increasing with higher
    fidelity.
 
-3.2.21.  Codec
+3.2.22.  Codec
 
    A string defining the codec used to encode the track.  For LOC
    packaged content, the string codec registrations are defined in Sect
    3 and Section 4 of [WEBCODECS-CODEC-REGISTRY].  For CMAF packaged
    content, the string codec registrations are defined in XXX.
 
-3.2.22.  Mimetype
+3.2.23.  Mimetype
 
    A string defining the mime type [MIME] of the track.  This parameter
    is typically supplied with CMAF packaged content.
 
-3.2.23.  Framerate
+3.2.24.  Framerate
 
    A number defining the framerate of the track, expressed as frames per
    second.
 
-3.2.24.  Bitrate
+3.2.25.  Bitrate
 
    A number defining the bitrate of track, expressed in bits second.
 
-3.2.25.  Width
+3.2.26.  Width
 
    A number expressing the encoded width of the track content in pixels.
 
-3.2.26.  Height
+3.2.27.  Height
 
    A number expressing the encoded height of the video frames in pixels.
 
-3.2.27.  Audio sample rate
+3.2.28.  Audio sample rate
 
    The number of audio frame samples per second.  This property SHOULD
    only accompany audio codecs.
 
-3.2.28.  Channel configuration
+3.2.29.  Channel configuration
 
    A string specifying the audio channel configuration.  This property
    SHOULD only accompany audio codecs.  A string is used in order to
    provide the flexibility to describe complex channel configurations
    for multi-channel and Next Generation Audio schemas.
 
-3.2.29.  Display width
+3.2.30.  Display width
 
    A number expressing the intended display width of the track content
    in pixels.
 
-3.2.30.  Display height
+3.2.31.  Display height
 
    A number expressing the intended display height of the track content
    in pixels.
 
-3.2.31.  Language
+3.2.32.  Language
 
    A string defining the dominant language of the track.  The string
    MUST be one of the standard Tags for Identifying Languages as defined
@@ -603,7 +618,6 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "commonTrackFields": {
@@ -628,14 +642,15 @@ Table of Contents
    This example shows catalog for a media producer capable of sending 3
    time-aligned video tracks for high definition, low definition and
    medium definition video qualities, along with an audio track.  In
-   this example the namesapce is absent, which infers that each track
-   must inherit the namespace of the catalog.
+   this example the namespace is absent, which infers that each track
+   must inherit the namespace of the catalog.  Additionally this example
+   shows the presence of the supportsDeltaUpdates flag.
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
+     "supportsDeltaUpdates": true,
      "commonTrackFields": {
         "renderGroup": 1,
         "packaging": "loc"
@@ -693,9 +708,9 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
+     "supportsDeltaUpdates": true,
      "commonTrackFields": {
         "namespace": "conference.example.com/conference123/alice",
         "renderGroup": 1,
@@ -780,9 +795,9 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
+     "supportsDeltaUpdates": true,
      "commonTrackFields": {
         "namespace": "sports.example.com/games/08-08-23/12345",
         "packaging": "cmaf",
@@ -830,7 +845,6 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "commonTrackFields": {
@@ -861,7 +875,6 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "commonTrackFields": {
@@ -891,7 +904,6 @@ Table of Contents
 
    {
      "version": 1,
-     "sequence": 0,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "commonTrackFields": {
@@ -919,17 +931,18 @@ Table of Contents
    This example shows the catalog for a media producer that is
    outputting two streaming formats simultaneously under different
    namespaces.  Note that each track name referenced points at another
-   catalog object.
+   catalog object and that only the first catalog supports incremental
+   delta updates.
 
    {
      "version": 1,
-     "sequence": 0,
      "catalogs": [
        {
          "name": "catalog-for-format-one",
          "namespace": "sports.example.com/games/08-08-23/live",
          "streamingFormat":1,
-         "streamingFormatVersion": "0.2"
+         "streamingFormatVersion": "0.2",
+         "supportsDeltaUpdates": true,
        },
        {
          "name": "catalog-for-format-five",
@@ -948,26 +961,171 @@ Table of Contents
 
 5.  IANA Considerations
 
-   This section details how the MoQ Streaming Format Type can be
-   registered.  The type registry can be updated by incrementally
-   expanding the type space, i.e., by allocating and reserving new type
-   identifiers.  As per [RFC8126], this section details the creation of
-   the "MoQ Streaming Format Type" registry.
+   This section details how the MoQ Streaming Format Type and new fields
+   can be registered for inclusion in a catalog.
 
 5.1.  MoQ Streaming Format Type Registry
 
    This document creates a new registry, "MoQ Streaming Format Type".
-   The registry policy is "RFC Required".  The Type value is 2 octets.
-   The range is 0x0000-0xFFFF.The initial entry in the registry is:
+   This registry is managed by the IANA according to the RFC Required
+   policy of [RFC5226].  The Type value is 2 octets.  The range is
+   0x0000-0xFFFF.  The initial entry in the registry is:
 
-        +--------+-------------+----------------------------------+
-        | Type   |     Name    |            RFC                   |
-        +--------+-------------+----------------------------------+
-        | 0x0000 |   Reserved  |                                  |
-        +--------+-------------+----------------------------------+
+         +========+==========+===================================+
+         | Type   | Name     | RFC                               |
+         +========+==========+===================================+
+         | 0x0000 | Reserved | https://datatracker.ietf.org/doc/ |
+         |        |          | draft-wilaw-moq-catalogformat/    |
+         +--------+----------+-----------------------------------+
 
-   Every MoQ streaming format draft normatively referencing this catalog
-   format MUST register itself a unique type identifier.
+                                  Table 4
+
+   No RFC is provided for the initial entry as it is reserved for Every
+   MoQ streaming format draft normatively referencing this catalog
+   format MUST register itself a unique type identifier.  The type
+   registry can be updated by incrementally expanding by allocating and
+   reserving new type identifiers.
+
+5.2.  Common Catalog Field Registry
+
+   This document creates a new IANA registry for the Common Catalog
+   fields.  The registry is called "MoQ Common Catalog Fields".  This
+   registry is managed by the IANA according to the Specification
+   Required policy of [RFC5226].  The initial entries in the registry
+   are:
+
+   +==============+======================+========+========+======+=================================+
+   |Descriptive   |Field Name            |Required|Location|JSON  |Specification                    |
+   |Name          |                      |        |        |type  |                                 |
+   +==============+======================+========+========+======+=================================+
+   |Catalog       |version               |yes     |R       |String|https://datatracker.ietf.org/doc/|
+   |version       |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Streaming     |streamingFormat       |yes     |RC      |String|https://datatracker.ietf.org/doc/|
+   |format        |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Streaming     |streamingFormatVersion|yes     |RC      |String|https://datatracker.ietf.org/doc/|
+   |format version|                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Tracks        |tracks                |opt     |R       |Array |https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Catalogs      |catalogs              |opt     |R       |Array |https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Track         |namespace             |opt     |RTC     |String|https://datatracker.ietf.org/doc/|
+   |namespace     |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Track name    |name                  |yes     |TC      |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Packaging     |packaging             |yes     |RT      |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Track         |operation             |yes     |RT      |String|https://datatracker.ietf.org/doc/|
+   |operation     |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Track label   |label                 |opt     |RT      |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Render group  |renderGroup           |opt     |RT      |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Alternate     |altGroup              |opt     |RT      |Number|https://datatracker.ietf.org/doc/|
+   |group         |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Initialization|initData              |opt     |RT      |String|https://datatracker.ietf.org/doc/|
+   |data          |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Initialization|initTrack             |opt     |RT      |String|https://datatracker.ietf.org/doc/|
+   |track         |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Selection     |selectionParams       |opt     |RT      |Object|https://datatracker.ietf.org/doc/|
+   |parameters    |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Dependencies  |depends               |opt     |T       |Array |https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Temporal ID   |temporalId            |opt     |T       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Spatial ID    |spatialId             |opt     |T       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Codec         |codec                 |opt     |S       |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Mime type     |mimeType              |opt     |S       |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Framerate     |framerate             |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Bitrate       |bitrate               |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Width         |width                 |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Height        |height                |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Audio sample  |samplerate            |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |rate          |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Channel       |channelConfig         |opt     |S       |String|https://datatracker.ietf.org/doc/|
+   |configuration |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Display width |displayWidth          |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Display height|displayHeight         |opt     |S       |Number|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+   |Language      |lang                  |opt     |S       |String|https://datatracker.ietf.org/doc/|
+   |              |                      |        |        |      |draft-wilaw-moq-catalogformat/   |
+   +--------------+----------------------+--------+--------+------+---------------------------------+
+
+                                  Table 5
+
+   Any registration for a new Field name MUST provide the following
+   information:
+
+   *  Descriptive Name - a descriptive name for the field.
+
+   *  Field Name - the JSON field name, as will be used inside the JSON
+      catalog.
+
+   *  Required - the string "yes" if the field is required in all
+      catalogs and "opt" if it is not.
+
+   *  Location - a string defining the permissible locations for the
+      field within the catalog:
+
+      -  'R' - the field is located in the Root of the JSON object.
+
+      -  'RC' - the field may be located in either the Root or a Catalog
+         object.
+
+      -  'RTC' - the field may be located in either the Root, or a Track
+         object or a Catalog object.
+
+      -  'TC' - the field may be located in either a Track object or a
+         Catalog object.
+
+      -  'RT' - the field may be located in either the Root or a Track
+         object.
+
+      -  'T' - the field is located in a Track object.
+
+      -  'S' - the field is located in the Selection Parameters object.
+
+   *  JSON Type - the JSON type of the field value, which must be one of
+      String, Array, Number, Object or Boolean.
+
+   *  Specification - a URL to the specification which defines the usage
+      of the field within the catalog, per the Specification Required
+      policy of [RFC5226].
 
 Acknowledgments
 
@@ -1018,6 +1176,11 @@ Normative References
               Internet-Draft, draft-ietf-moq-transport-03, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-moq-
               transport-03>.
+
+   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
+              IANA Considerations Section in RFCs", RFC 5226,
+              DOI 10.17487/RFC5226, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5226>.
 
    [WebCodecs]
               "WebCodecs", July 2023,
