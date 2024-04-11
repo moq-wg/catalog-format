@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 11 October 2024                                          Akamai
+Expires: 13 October 2024                                          Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                            9 April 2024
+                                                           11 April 2024
 
 
                 Common Catalog Format for moq-transport
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 October 2024.
+   This Internet-Draft will expire on 13 October 2024.
 
 Copyright Notice
 
@@ -84,34 +84,35 @@ Table of Contents
        3.2.1.  Streaming format
        3.2.2.  Streaming format version
        3.2.3.  Supports delta updates
-       3.2.4.  Tracks
-       3.2.5.  Catalogs
-       3.2.6.  Catalog object
-       3.2.7.  Tracks object
-       3.2.8.  Track namespace
-       3.2.9.  Track name
-       3.2.10. Packaging
-       3.2.11. Track operations
-       3.2.12. Track label
-       3.2.13. Render group
-       3.2.14. Alternate group
-       3.2.15. Initialization data
-       3.2.16. Initialization track
-       3.2.17. Selection parameters
-       3.2.18. Dependencies
-       3.2.19. Temporal ID
-       3.2.20. Spatial ID
-       3.2.21. Codec
-       3.2.22. Mimetype
-       3.2.23. Framerate
-       3.2.24. Bitrate
-       3.2.25. Width
-       3.2.26. Height
-       3.2.27. Audio sample rate
-       3.2.28. Channel configuration
-       3.2.29. Display width
-       3.2.30. Display height
-       3.2.31. Language
+       3.2.4.  Common track fields
+       3.2.5.  Tracks
+       3.2.6.  Catalogs
+       3.2.7.  Catalog object
+       3.2.8.  Tracks object
+       3.2.9.  Track namespace
+       3.2.10. Track name
+       3.2.11. Packaging
+       3.2.12. Track operations
+       3.2.13. Track label
+       3.2.14. Render group
+       3.2.15. Alternate group
+       3.2.16. Initialization data
+       3.2.17. Initialization track
+       3.2.18. Selection parameters
+       3.2.19. Dependencies
+       3.2.20. Temporal ID
+       3.2.21. Spatial ID
+       3.2.22. Codec
+       3.2.23. Mimetype
+       3.2.24. Framerate
+       3.2.25. Bitrate
+       3.2.26. Width
+       3.2.27. Height
+       3.2.28. Audio sample rate
+       3.2.29. Channel configuration
+       3.2.30. Display width
+       3.2.31. Display height
+       3.2.32. Language
      3.3.  Catalog Patch
      3.4.  Catalog Examples
        3.4.1.  Time-aligned Audio/Video Tracks with single quality
@@ -220,83 +221,86 @@ Table of Contents
    |Supports delta|supportsDeltaUpdates  |opt     |RC      |Boolean|Section   |
    |updates       |                      |        |        |       |3.2.3     |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Tracks        |tracks                |opt     |R       |Array  |Section   |
-   |              |                      |        |        |       |3.2.4     |
+   |Common Track  |commonTrackFields     |opt     |R       |Object |Section   |
+   |Fields        |                      |        |        |       |3.2.4     |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Catalogs      |catalogs              |opt     |R       |Array  |Section   |
+   |Tracks        |tracks                |opt     |R       |Array  |Section   |
    |              |                      |        |        |       |3.2.5     |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Track         |namespace             |opt     |RTC     |String |Section   |
-   |namespace     |                      |        |        |       |3.2.8     |
+   |Catalogs      |catalogs              |opt     |R       |Array  |Section   |
+   |              |                      |        |        |       |3.2.6     |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Track name    |name                  |yes     |TC      |String |Section   |
-   |              |                      |        |        |       |3.2.9     |
+   |Track         |namespace             |opt     |TFC     |String |Section   |
+   |namespace     |                      |        |        |       |3.2.9     |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Packaging     |packaging             |yes     |RT      |String |Section   |
+   |Track name    |name                  |yes     |TFC     |String |Section   |
    |              |                      |        |        |       |3.2.10    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Track         |operation             |yes     |RT      |String |Section   |
-   |operation     |                      |        |        |       |3.2.11    |
+   |Packaging     |packaging             |yes     |TF      |String |Section   |
+   |              |                      |        |        |       |3.2.11    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Track label   |label                 |opt     |RT      |String |Section   |
-   |              |                      |        |        |       |3.2.12    |
+   |Track         |operation             |yes     |TF      |String |Section   |
+   |operation     |                      |        |        |       |3.2.12    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Render group  |renderGroup           |opt     |RT      |Number |Section   |
+   |Track label   |label                 |opt     |TF      |String |Section   |
    |              |                      |        |        |       |3.2.13    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Alternate     |altGroup              |opt     |RT      |Number |Section   |
-   |group         |                      |        |        |       |3.2.14    |
+   |Render group  |renderGroup           |opt     |TF      |Number |Section   |
+   |              |                      |        |        |       |3.2.14    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Initialization|initData              |opt     |RT      |String |Section   |
-   |data          |                      |        |        |       |3.2.15    |
+   |Alternate     |altGroup              |opt     |TF      |Number |Section   |
+   |group         |                      |        |        |       |3.2.15    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Initialization|initTrack             |opt     |RT      |String |Section   |
-   |track         |                      |        |        |       |3.2.16    |
+   |Initialization|initData              |opt     |TF      |String |Section   |
+   |data          |                      |        |        |       |3.2.16    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Selection     |selectionParams       |opt     |RT      |Object |Section   |
-   |parameters    |                      |        |        |       |3.2.17    |
+   |Initialization|initTrack             |opt     |TF      |String |Section   |
+   |track         |                      |        |        |       |3.2.17    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Selection     |selectionParams       |opt     |TF      |Object |Section   |
+   |parameters    |                      |        |        |       |3.2.18    |
    +--------------+----------------------+--------+--------+-------+----------+
    |Dependencies  |depends               |opt     |T       |Array  |Section   |
-   |              |                      |        |        |       |3.2.18    |
-   +--------------+----------------------+--------+--------+-------+----------+
-   |Temporal ID   |temporalId            |opt     |T       |Number |Section   |
    |              |                      |        |        |       |3.2.19    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Spatial ID    |spatialId             |opt     |T       |Number |Section   |
+   |Temporal ID   |temporalId            |opt     |T       |Number |Section   |
    |              |                      |        |        |       |3.2.20    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Codec         |codec                 |opt     |S       |String |Section   |
+   |Spatial ID    |spatialId             |opt     |T       |Number |Section   |
    |              |                      |        |        |       |3.2.21    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Mime type     |mimeType              |opt     |S       |String |Section   |
+   |Codec         |codec                 |opt     |S       |String |Section   |
    |              |                      |        |        |       |3.2.22    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Framerate     |framerate             |opt     |S       |Number |Section   |
+   |Mime type     |mimeType              |opt     |S       |String |Section   |
    |              |                      |        |        |       |3.2.23    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Bitrate       |bitrate               |opt     |S       |Number |Section   |
+   |Framerate     |framerate             |opt     |S       |Number |Section   |
    |              |                      |        |        |       |3.2.24    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Width         |width                 |opt     |S       |Number |Section   |
+   |Bitrate       |bitrate               |opt     |S       |Number |Section   |
    |              |                      |        |        |       |3.2.25    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Height        |height                |opt     |S       |Number |Section   |
+   |Width         |width                 |opt     |S       |Number |Section   |
    |              |                      |        |        |       |3.2.26    |
    +--------------+----------------------+--------+--------+-------+----------+
+   |Height        |height                |opt     |S       |Number |Section   |
+   |              |                      |        |        |       |3.2.27    |
+   +--------------+----------------------+--------+--------+-------+----------+
    |Audio sample  |samplerate            |opt     |S       |Number |Section   |
-   |rate          |                      |        |        |       |3.2.27    |
+   |rate          |                      |        |        |       |3.2.28    |
    +--------------+----------------------+--------+--------+-------+----------+
    |Channel       |channelConfig         |opt     |S       |String |Section   |
-   |configuration |                      |        |        |       |3.2.28    |
+   |configuration |                      |        |        |       |3.2.29    |
    +--------------+----------------------+--------+--------+-------+----------+
    |Display width |displayWidth          |opt     |S       |Number |Section   |
-   |              |                      |        |        |       |3.2.29    |
-   +--------------+----------------------+--------+--------+-------+----------+
-   |Display height|displayHeight         |opt     |S       |Number |Section   |
    |              |                      |        |        |       |3.2.30    |
    +--------------+----------------------+--------+--------+-------+----------+
-   |Language      |lang                  |opt     |S       |String |Section   |
+   |Display height|displayHeight         |opt     |S       |Number |Section   |
    |              |                      |        |        |       |3.2.31    |
+   +--------------+----------------------+--------+--------+-------+----------+
+   |Language      |lang                  |opt     |S       |String |Section   |
+   |              |                      |        |        |       |3.2.32    |
    +--------------+----------------------+--------+--------+-------+----------+
 
                                   Table 1
@@ -311,16 +315,13 @@ Table of Contents
    *  'RC' - the field may be located in either the Root or a Catalog
       object.
 
-   *  'RTC' - the field may be located in either the Root, or a Track
-      object or a Catalog object.
+   *  'TFC' - the field may be located in either a Track object, the
+      Common Track Fields object or a Catalog object.
 
-   *  'TC' - the field may be located in either a Track object or a
-      Catalog object.
+   *  'TF' - the field may be located in either a Track object or a
+      Common Track Fields object
 
-   *  'RT' - the field may be located in either the Root or a Track
-      object.
-
-   *  'T' - the field is located in a Track object.
+   *  'T' - the field is located in a Track object
 
    *  'S' - the field is located in the Selection Parameters object.
 
@@ -347,28 +348,35 @@ Table of Contents
    present if its value is true, but may be omitted if the value is
    false.
 
-3.2.4.  Tracks
+3.2.4.  Common track fields
 
-   An array of track objects Section 3.2.7.  If the 'tracks' field is
+   An object holding a collection of Track Fields (objects with a
+   location of TF or TFC in table 1) which are to be inherited by all
+   tracks.  A field defined at the Track object level always supercedes
+   any value inherited from the Common Track Fields object.
+
+3.2.5.  Tracks
+
+   An array of track objects Section 3.2.8.  If the 'tracks' field is
    present then the 'catalog' field MUST NOT be present.
 
-3.2.5.  Catalogs
+3.2.6.  Catalogs
 
-   An array of catalog objects Section 3.2.6.  If the 'catalogs' field
+   An array of catalog objects Section 3.2.7.  If the 'catalogs' field
    is present then the 'tracks' field MUST NOT be present.  A catalog
    MUST NOT list itself in the catalog array.
 
-3.2.6.  Catalog object
+3.2.7.  Catalog object
 
    A catalog object is a collection of fields whose location is
-   specified as 'RC', 'TC' or 'RTC' in Table 1.
+   specified as 'RC' or 'TFC' in Table 1.
 
-3.2.7.  Tracks object
+3.2.8.  Tracks object
 
    A track object is a collection of fields whose location is specified
-   as 'RT', 'TC' or 'RTC' in Table 1.
+   as 'TFC', 'TF' or 'T' in Table 1.
 
-3.2.8.  Track namespace
+3.2.9.  Track namespace
 
    The name space under which the track name is defined.  See section
    2.3 of [MoQTransport].  If the track namespace is declared in the
@@ -379,13 +387,13 @@ Table of Contents
    optional.  If it is not declared at the root or track level, then
    each track MUST inherit the namespace of the catalog track.
 
-3.2.9.  Track name
+3.2.10.  Track name
 
    A string defining the name of the track.  See section 2.3 of
    [MoQTransport].  Within the catalog, track names MUST be unique per
    namespace.
 
-3.2.10.  Packaging
+3.2.11.  Packaging
 
    A string defining the type of payload encapsulation.  Allowed values
    are strings as defined in Table 2.
@@ -402,7 +410,7 @@ Table of Contents
 
                                  Table 2
 
-3.2.11.  Track operations
+3.2.12.  Track operations
 
    Each track description can specify an optional operation value that
    identifies the catalog producer's intent.  Track operation is an
@@ -436,13 +444,13 @@ Table of Contents
    The default track operation is 'add'.  This value does not need to be
    declared in the track object.
 
-3.2.12.  Track label
+3.2.13.  Track label
 
    A string defining a human-readable label for the track.  Examples
    might be "Overhead camera view" or "Deutscher Kommentar".  Note that
    the [JSON] spec requires UTF-8 support by decoders.
 
-3.2.13.  Render group
+3.2.14.  Render group
 
    An integer specifying a group of tracks which are designed to be
    rendered together.  Tracks with the same group number SHOULD be
@@ -450,31 +458,31 @@ Table of Contents
    accompany one another.  A common example would be tying together
    audio and video tracks.
 
-3.2.14.  Alternate group
+3.2.15.  Alternate group
 
    An integer specifying a group of tracks which are alternate versions
    of one-another.  Alternate tracks represent the same media content,
    but differ in their selection properties.  Alternate tracks SHOULD
-   have matching framerate Section 3.2.23 and media time sequences.  A
+   have matching framerate Section 3.2.24 and media time sequences.  A
    subscriber typically subscribes to one track from a set of tracks
    specifying the same alternate group number.  A common example would
    be a set video tracks of the same content offered in alternate
    bitrates.
 
-3.2.15.  Initialization data
+3.2.16.  Initialization data
 
    A string holding Base64 [BASE64] encoded initialization data for the
    track.
 
-3.2.16.  Initialization track
+3.2.17.  Initialization track
 
    A string specifying the track name of another track which holds
    initialization data for the current track.  Initialization tracks
-   MUST NOT be added to the tracks array Section 3.2.4.  They are
+   MUST NOT be added to the tracks array Section 3.2.5.  They are
    referenced only via the initialization track field of the track which
    they initialize.
 
-3.2.17.  Selection parameters
+3.2.18.  Selection parameters
 
    An object holding a series of name/value pairs which a subscriber can
    use to select tracks for subscription.  If present, the selection
@@ -484,78 +492,78 @@ Table of Contents
    declaration of a selection parameter at the track level overrides the
    inherited root value.
 
-3.2.18.  Dependencies
+3.2.19.  Dependencies
 
    Certain tracks may depend on other tracks for decoding.  Dependencies
-   holds an array of track names Section 3.2.9 on which the current
+   holds an array of track names Section 3.2.10 on which the current
    track is dependent.  Since only the track name is signaled, the
    namespace of the dependencies is assumed to match that of the track
    declaring the dependencies.
 
-3.2.19.  Temporal ID
+3.2.20.  Temporal ID
 
    A number identifying the temporal layer/sub-layer encoding of the
    track, starting with 0 for the base layer, and increasing with higher
    temporal fidelity.
 
-3.2.20.  Spatial ID
+3.2.21.  Spatial ID
 
    A number identifying the spatial layer encoding of the track,
    starting with 0 for the base layer, and increasing with higher
    fidelity.
 
-3.2.21.  Codec
+3.2.22.  Codec
 
    A string defining the codec used to encode the track.  For LOC
    packaged content, the string codec registrations are defined in Sect
    3 and Section 4 of [WEBCODECS-CODEC-REGISTRY].  For CMAF packaged
    content, the string codec registrations are defined in XXX.
 
-3.2.22.  Mimetype
+3.2.23.  Mimetype
 
    A string defining the mime type [MIME] of the track.  This parameter
    is typically supplied with CMAF packaged content.
 
-3.2.23.  Framerate
+3.2.24.  Framerate
 
    A number defining the framerate of the track, expressed as frames per
    second.
 
-3.2.24.  Bitrate
+3.2.25.  Bitrate
 
    A number defining the bitrate of track, expressed in bits second.
 
-3.2.25.  Width
+3.2.26.  Width
 
    A number expressing the encoded width of the track content in pixels.
 
-3.2.26.  Height
+3.2.27.  Height
 
    A number expressing the encoded height of the video frames in pixels.
 
-3.2.27.  Audio sample rate
+3.2.28.  Audio sample rate
 
    The number of audio frame samples per second.  This property SHOULD
    only accompany audio codecs.
 
-3.2.28.  Channel configuration
+3.2.29.  Channel configuration
 
    A string specifying the audio channel configuration.  This property
    SHOULD only accompany audio codecs.  A string is used in order to
    provide the flexibility to describe complex channel configurations
    for multi-channel and Next Generation Audio schemas.
 
-3.2.29.  Display width
+3.2.30.  Display width
 
    A number expressing the intended display width of the track content
    in pixels.
 
-3.2.30.  Display height
+3.2.31.  Display height
 
    A number expressing the intended display height of the track content
    in pixels.
 
-3.2.31.  Language
+3.2.32.  Language
 
    A string defining the dominant language of the track.  The string
    MUST be one of the standard Tags for Identifying Languages as defined
@@ -612,9 +620,11 @@ Table of Contents
      "version": 1,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
-     "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
-     "renderGroup": 1,
+     "commonTrackFields": {
+        "namespace": "conference.example.com/conference123/alice",
+        "packaging": "loc",
+        "renderGroup": 1
+     },
      "tracks": [
        {
          "name": "video",
@@ -641,8 +651,10 @@ Table of Contents
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "supportsDeltaUpdates": true,
-     "renderGroup": 1,
-     "packaging": "loc",
+     "commonTrackFields": {
+        "renderGroup": 1,
+        "packaging": "loc"
+     },
      "tracks":[
        {
          "name": "hd",
@@ -661,7 +673,7 @@ Table of Contents
        },
        {
          "name": "audio",
-         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
+         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
        }
       ]
    }
@@ -699,18 +711,20 @@ Table of Contents
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "supportsDeltaUpdates": true,
-     "namespace": "conference.example.com/conference123/alice",
-     "renderGroup": 1,
-     "packaging": "loc",
+     "commonTrackFields": {
+        "namespace": "conference.example.com/conference123/alice",
+        "renderGroup": 1,
+        "packaging": "loc"
+     },
      "tracks":[
        {
          "name": "480p15",
-         "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":15},
+         "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":15}
        },
        {
          "name": "480p30",
          "selectionParams": {"codec":"av01.0.04M.10.0.110.09","width":640,"height":480,"bitrate":3000000,"framerate":30},
-         "depends": ["480p15"],
+         "depends": ["480p15"]
        },
        {
          "name": "1080p15",
@@ -725,7 +739,7 @@ Table of Contents
        },
        {
          "name": "audio",
-         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
+         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000}
        }
       ]
    }
@@ -784,9 +798,11 @@ Table of Contents
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
      "supportsDeltaUpdates": true,
-     "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
-     "renderGroup":1,
+     "commonTrackFields": {
+        "namespace": "sports.example.com/games/08-08-23/12345",
+        "packaging": "cmaf",
+        "renderGroup":1
+     },
      "tracks": [
        {
          "name": "video_4k",
@@ -831,19 +847,21 @@ Table of Contents
      "version": 1,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
-     "namespace": "output.example.com/event/12345",
-     "renderGroup":1
+     "commonTrackFields": {
+        "namespace": "output.example.com/event/12345",
+        "renderGroup":1
+     },
      "tracks": [
        {
          "name": "video0",
          "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4","width":1280,"height":720,"framerate":30,"bitrate":4952892},
          "initTrack":"init_video_720",
-         "packaging":"cmaf",
+         "packaging":"cmaf"
        },
        {
          "name": "audio",
          "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2","bitrate":32000},
-         "packaging": "loc",
+         "packaging": "loc"
        }
       ]
    }
@@ -852,25 +870,28 @@ Table of Contents
 
    This example shows catalog for a sports broadcast sending time-
    aligned audio and video tracks using CMAF packaging.  Init segments
-   are delivered as inband data.
+   are delivered as inband data.  The data has been truncated for
+   clarity.
 
    {
      "version": 1,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
-     "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
-     "renderGroup":1,
+     "commonTrackFields": {
+        "namespace": "sports.example.com/games/08-08-23/12345",
+        "packaging": "cmaf",
+        "renderGroup":1
+     },
      "tracks": [
        {
          "name": "video_1080",
          "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4","width":1920,"height":1080,"framerate":30,"bitrate":9914554},
-   "initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAADLW1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA4bXZleAAAABBtZWhkAAAAAAPwOXgAAAAgdHJleAAAAAAAAAABAAAAAQAAA+gAAAAAAAEAAAAAAkd0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAABQAAAAIWAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAAAAAAD6AABAAAAAAG/bWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAABdwAAAAAAVxwAAAAAAQGhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAAAfTWFpbmNvbmNlcHQgVmlkZW8gTWVkaWEgSGFuZGxlcgAAAVdtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADkc3RibAAAAJhzdHNkAAAAAAAAAAEAAACIYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAUAAhYASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADJhdmNDAU1AH//hABpnTUAfllKAoAi/NNQYGBkAAAMAAQAAAwAwhAEABWjpCTUgAAAAEHN0dHMAAAAAAAAAAAAAABBzdHNjAAAAAAAAAAAAAAAUc3RzegAAAAAAAAAAAAAAAAAAABBzdGNvAAAAAAAAAAAAAAAzaGRscgAAAAAAAAAAYWxpcwAAAAAAAAAAAAAAAEFsaWFzIERhdGEgSGFuZGxlcgAAAAA6dWR0YQAAABepVElNAAsAADAwOjAwOjAwOjAwAAAADqlUU0MAAgAAMjQAAAANqVRTWgABAAAx"
+         "initData":"AAAAGG...BAAAx"
        },
        {
          "name": "audio_aac",
          "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4","samplerate":48000,"channelConfig":"2","bitrate":67071},
-   "initData":"AAAAGGZ0eXBpc282AAAAAWlzbzZkYXNoAAAARWZyZWVJc29NZWRpYSBGaWxlIFByb2R1Y2VkIHdpdGggR1BBQyAxLjAuMS1yZXYwLWdkODUzOGU4YS1tYXN0ZXIAAAACzG1vb3YAAABsbXZoZAAAAADfdnly33Z5cgABX5AAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA4bXZleAAAABBtZWhkAAAAAAPwSAAAAAAgdHJleAAAAAAAAAACAAAAAQAABAAAAAAAAgAAAAAAAeZ0cmFrAAAAXHRraGQAAAAB33Y1w992eXIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAGCbWRpYQAAACBtZGhkAAAAAN92NcPfdnlyAAC7gAAAAAAVxwAAAAAARGhkbHIAAAAAAAAAAHNvdW4AAAAAAAAAAAAAAAAjTWFpbmNvbmNlcHQgTVA0IFNvdW5kIE1lZGlhIEhhbmRsZXIAAAEWbWluZgAAABBzbWhkAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAACnc3RibAAAAFtzdHNkAAAAAAAAAAEAAABLbXA0YQAAAAAAAAABAAAAAAAAAAAAAgAQAAAAALuAAAAAAAAnZXNkcwAAAAADGQAAAAQRQBUABgAACBXTAATXtwUCEZAGAQIAAAAQc3R0cwAAAAAAAAAAAAAAEHN0c2MAAAAAAAAAAAAAABRzdHN6AAAAAAAAAAAAAAAAAAAAEHN0Y28AAAAAAAAAAAAAADNoZGxyAAAAAAAAAABhbGlzAAAAAAAAAAAAAAAAQWxpYXMgRGF0YSBIYW5kbGVyAAAAADp1ZHRhAAAAF6lUSU0ACwAAMDA6MDA6MDA6MDAAAAAOqVRTQwACAAAyNAAAAA2pVFNaAAEAADE="
+         "initData":"AAAAGG...EAADE="
        }
       ]
    }
@@ -885,9 +906,11 @@ Table of Contents
      "version": 1,
      "streamingFormat": 1,
      "streamingFormatVersion": "0.2",
-     "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
-     "renderGroup": 1,
+     "commonTrackFields": {
+        "namespace": "conference.example.com/conference123/alice",
+        "packaging": "loc",
+        "renderGroup": 1
+     },
      "tracks": [
        {
          "name": "video",
