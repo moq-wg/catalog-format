@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-11T00:29:23.967339+00:00",
+  "timestamp": "2024-04-14T00:34:57.584241+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -429,15 +429,15 @@
       "id": "I_kwDOKMx0ks59nesV",
       "title": "Add a new root object to hold inheritable track fields",
       "url": "https://github.com/moq-wg/catalog-format/issues/37",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "In the current design, any track fields such as selectionParams, initTrack, renderGroup, packaging etc  can be added at the root level. This design does not promote extensibility as it prohibits adding future fields to the root that should not be interpreted as inheritable track fields.\r\n\r\nProposal is to add a new root object called \"commonTrackFields\" to explicitly hold fields intended to be inherited by all tracks. Example:\r\n\r\n```\r\n{\r\n    \"version\": 1,\r\n    \"streamingFormat\": 1,\r\n    \"streamingFormatVersion\": \"0.2\",\r\n    \"commonTrackFields\": {\r\n        \"packaging\": \"cmaf\",\r\n        \"renderGroup\": 1,\r\n        \"altGroup\": 1\r\n    },\r\n    \"tracks\": [\r\n        {\r\n            \"name\": \"video_4k\",\r\n            \"selectionParams\": {\r\n                \"codec\": \"avc1.640033\",\r\n                \"mimeType\": \"video/mp4\",\r\n                \"width\": 3840,\r\n                \"height\": 2160,\r\n                \"framerate\": 30,\r\n                \"bitrate\": 14931538\r\n            },\r\n            \"initTrack\": \"init_video_4k\"\r\n        },\r\n        {\r\n            \"name\": \"video_1080\",\r\n            \"selectionParams\": {\r\n                \"codec\": \"avc1.640028\",\r\n                \"mimeType\": \"video/mp4\",\r\n                \"width\": 1920,\r\n                \"height\": 1080,\r\n                \"framerate\": 30,\r\n                \"bitrate\": 9914554\r\n            },\r\n            \"initTrack\": \"init_video_1080\"\r\n        },\r\n        {\r\n            \"name\": \"video_720\",\r\n            \"selectionParams\": {\r\n                \"codec\": \"avc1.64001f\",\r\n                \"mimeType\": \"video/mp4\",\r\n                \"width\": 1280,\r\n                \"height\": 720,\r\n                \"framerate\": 30,\r\n                \"bitrate\": 4952892\r\n            },\r\n            \"initTrack\": \"init_video_720\"\r\n        },\r\n        {\r\n            \"name\": \"audio_aac\",\r\n            \"selectionParams\": {\r\n                \"codec\": \"mp4a.40.5\",\r\n                \"mimeType\": \"audio/mp4\",\r\n                \"samplerate\": 48000,\r\n                \"channelConfig\": \"2\",\r\n                \"bitrate\": 67071\r\n            },\r\n            \"initTrack\": \"init_audio_aac\",\r\n            \"altGroup\": 2\r\n        },\r\n        {\r\n            \"name\": \"audio_ec3\",\r\n            \"selectionParms\": {\r\n                \"codec\": \"ec-3\",\r\n                \"mimeType\": \"audio/mp4\",\r\n                \"samplerate\": 48000,\r\n                \"channelConfig\": \"F801\",\r\n                \"bitrate\": 256000\r\n            },\r\n            \"initTrack\": \"init_audio_ec3\",\r\n            \"altGroup\": 2\r\n        }\r\n    ]\r\n}\r\n```\r\n",
       "createdAt": "2024-01-30T10:37:21Z",
-      "updatedAt": "2024-01-30T17:52:46Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-11T09:03:52Z",
+      "closedAt": "2024-04-11T09:03:52Z",
       "comments": []
     },
     {
@@ -1146,24 +1146,26 @@
       "id": "PR_kwDOKMx0ks5ouZfS",
       "title": "Add a new root object to hold inheritable track fields. ",
       "url": "https://github.com/moq-wg/catalog-format/pull/42",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wilaw",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add a new root object to hold inheritable track fields. \r\nUpdate all examples.\r\n\r\nFixes #37",
       "createdAt": "2024-03-05T14:22:58Z",
-      "updatedAt": "2024-04-09T10:27:47Z",
+      "updatedAt": "2024-04-11T09:03:55Z",
       "baseRepository": "moq-wg/catalog-format",
       "baseRefName": "main",
       "baseRefOid": "5c523e96a9d89479f978440fedf1a976f916904b",
       "headRepository": "moq-wg/catalog-format",
       "headRefName": "wilaw-patch-4",
       "headRefOid": "07b667029f583ed350890645c1b88892497d627e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-04-11T09:03:51Z",
+      "mergedAt": "2024-04-11T09:03:51Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "82588b9513e219f85cc7f79e4b66e3d18426d6f6"
+      },
       "comments": [
         {
           "author": "suhasHere",
@@ -1187,7 +1189,21 @@
           "updatedAt": "2024-03-05T17:55:23Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKMx0ks52yU_s",
+          "commit": {
+            "abbreviatedOid": "07b6670"
+          },
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-11T00:30:22Z",
+          "updatedAt": "2024-04-11T00:30:22Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
