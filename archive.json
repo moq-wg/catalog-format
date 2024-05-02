@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-30T00:28:34.962088+00:00",
+  "timestamp": "2024-05-02T00:29:11.419197+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -508,7 +508,7 @@
       "labels": [],
       "body": "I think it would make more sense for the \"streaming format\" field to be a string rather than an integer.  (It should still be IANA-registered, though.)",
       "createdAt": "2024-03-28T19:10:02Z",
-      "updatedAt": "2024-03-28T22:37:12Z",
+      "updatedAt": "2024-05-01T22:27:10Z",
       "closedAt": null,
       "comments": [
         {
@@ -545,6 +545,13 @@
           "body": "Note for clarity: `[A-Za-z0-9_.-]` is standard regular expression syntax (Posix ERE or PCRE or whatever): square brackets are delimiters, `-` is a range operator except when at the beginning or the end.\r\n\r\nSo my suggestion is that tokens can contain alphanumerics, underscore, period, or dash, but nothing else.",
           "createdAt": "2024-03-28T22:37:10Z",
           "updatedAt": "2024-03-28T22:37:10Z"
+        },
+        {
+          "author": "scottlamb",
+          "authorAssociation": "NONE",
+          "body": "How does the streaming format number (defined in section 3.2.1) relate to the packaging (defined in section 3.2.9)? It seems to be one-to-one? But the \"mixed-format-catalog\" example (section 3.4.8) seems to arbitrarily pick one format to declare at the catalog level, then declare the correct packaging at the track level.\r\n\r\nWhat I'm getting at is: streaming format seems to be (a) redundant with the packaging, and (b) incorrectly declared at the catalog rather than track level. Should it be removed rather than turned into a string?",
+          "createdAt": "2024-05-01T22:27:09Z",
+          "updatedAt": "2024-05-01T22:27:09Z"
         }
       ]
     },
