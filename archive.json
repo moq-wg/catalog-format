@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-02T00:29:11.419197+00:00",
+  "timestamp": "2024-05-05T00:32:05.958445+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -311,7 +311,7 @@
       "labels": [],
       "body": "`Alternate tracks SHOULD have matching framerate [Section 3.2.24](https://www.ietf.org/archive/id/draft-wilaw-moq-catalogformat-01.html#framerate) and media time sequences.`\r\n\r\nDifferent video representations can easily have different frame rates. I don't see the reason for this \"SHOULD.\"",
       "createdAt": "2023-09-30T10:43:37Z",
-      "updatedAt": "2023-11-03T17:48:22Z",
+      "updatedAt": "2024-05-03T09:20:57Z",
       "closedAt": null,
       "comments": [
         {
@@ -334,6 +334,20 @@
           "body": "> Constraining alt tracks to have a matching framerate makes player audio/video sync simpler .\r\n\r\nMaybe, but frame rate changes do not require decoder re-initialization. So, I view this as an unnecessary constraint. ",
           "createdAt": "2023-11-03T17:48:22Z",
           "updatedAt": "2023-11-03T17:48:22Z"
+        },
+        {
+          "author": "scottlamb",
+          "authorAssociation": "NONE",
+          "body": "> Constraining alt tracks to have a matching framerate makes player audio/video sync simpler .\r\n\r\nCould you explain more please? I'm trying to understand and not getting it. I'm assuming the \"framerate\" mention is only relevant to video tracks, and alternate tracks having the same frame rate then is meant to ease switching from one video track to another. And it looks like they're meant to be independent (not SVC layers or something). The player needs to start the new track at a key frame (I'm ignoring periodic infra refresh...), so I don't see how non-key frames coming at the same rate/time is helpful.\r\n\r\nIn fact, I assume the player will switch at a group boundary, since that's a key frame and a join point. So matching group boundaries makes sense; and I see something to that effect in 3.2.15:\r\n\r\n> Tracks with the same [render] group number SHOULD be rendered simultaneously, are usually time-aligned and are designed to accompany one another.\r\n\r\nWhat I don't see is a way to say \"end my subscription to track old and start my subscription to track new at the same group number\"; it doesn't seem obvious to me you can achieve that with `UNSUBSCRIBE SubcribeId=$OldTrackSubscription` (\"Objects should stop being sent as soon as possible\") + `SUBSCRIBE ...` with no waste. But I suppose that's a matter for the transport spec. [**edit:** just saw that an `SUBSCRIBE_UPDATE` has been added since `draft-ietf-moq-transport-03`. Still not \"atomically switch at an upcoming group boundary\" but picking the some group number _n_ later than it's yet seen, narrowing the old subscription to &lt; n, and starting the new at _n_ seems better than using `UNSUBSCRIBE` anyway.]",
+          "createdAt": "2024-05-02T15:32:38Z",
+          "updatedAt": "2024-05-02T16:15:29Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The player needs to start the new track at a key frame (I'm ignoring periodic infra refresh...), so I don't see how non-key frames coming at the same rate/time is helpful.\r\n\r\nThe frame rate for the decoder is typically set in the decoder via the init segment. All segmented media players (and likely moqt players) will re-initialize as they switch tracks, so therefore it should be possible to switch video framerates between tracks. I guess the hesitation in allowing this stems from the last 10 years of fragile ISOBMFF decoders. I think we can afford to be more forward facing with moqt and not inherit this legacy concern, and therefore I would support removing the constraint that `Alternate tracks SHOULD have matching framerate.`\r\n\r\n> What I don't see is a way to say \"end my subscription to track old and start my subscription to track new at the same group number\"\r\n\r\nThe API for subscriptions, as you point out, is defined by the [moqt](https://github.com/moq-wg/moq-transport) spec and not by this catalog spec. The purpose of the catalog is to provide the player all the information it needs to select a track for subscription and to initialize and encode the content that it will receive. The mechanics of that subscription are defined by [moqt](https://github.com/moq-wg/moq-transport). The logic of when to switch will be defined by a streaming format spec, such as [WARP](https://github.com/moq-wg/warp-streaming-format). \r\n\r\n> [edit: just saw that an SUBSCRIBE_UPDATE has been added since draft-ietf-moq-transport-03. Still not \"atomically switch at an upcoming group boundary\" but picking the some group number n later than it's yet seen, narrowing the old subscription to < n, and starting the new at n seems better than using UNSUBSCRIBE anyway.]\r\n\r\nYeah, we debated having an explicit SWITCH (trackFrom, trackTo, groupID) command, but it was deferred in favor of a lower level SUBSCRIBE with startGroup and endGroup as well as SUBSCRIBE_UPDATE. But if there are other fans of SWITCH() (I am one of them) then we should speak up and file an issue. \r\n",
+          "createdAt": "2024-05-03T09:20:57Z",
+          "updatedAt": "2024-05-03T09:20:57Z"
         }
       ]
     },
@@ -508,7 +522,7 @@
       "labels": [],
       "body": "I think it would make more sense for the \"streaming format\" field to be a string rather than an integer.  (It should still be IANA-registered, though.)",
       "createdAt": "2024-03-28T19:10:02Z",
-      "updatedAt": "2024-05-01T22:27:10Z",
+      "updatedAt": "2024-05-03T09:57:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -552,6 +566,27 @@
           "body": "How does the streaming format number (defined in section 3.2.1) relate to the packaging (defined in section 3.2.9)? It seems to be one-to-one? But the \"mixed-format-catalog\" example (section 3.4.8) seems to arbitrarily pick one format to declare at the catalog level, then declare the correct packaging at the track level.\r\n\r\nWhat I'm getting at is: streaming format seems to be (a) redundant with the packaging, and (b) incorrectly declared at the catalog rather than track level. Should it be removed rather than turned into a string?",
           "createdAt": "2024-05-01T22:27:09Z",
           "updatedAt": "2024-05-01T22:27:09Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> How does the streaming format number (defined in section 3.2.1) relate to the packaging (defined in section 3.2.9)? It seems to be one-to-one?\r\n\r\nNot quite. A streaming format format can support multiple packaging formats. For example, WARP will support both CMAF and LOC packaging. The packaging just dictates how the audio and video is encapulsated. The encapsulation is one component of a streaming format. Signaling, naming, client and publisher behavior etc can be common between the different encapsulation types. \r\n\r\n![Screenshot 2024-05-02 at 9 38 54\u202fAM](https://github.com/moq-wg/catalog-format/assets/2762250/5be6b51b-b66b-4d24-965d-4aab772ee022)\r\n\r\nA WARP catalog would declare a streaming format number of \"1\" (or whatever we register it at IANA with) and then also must define the packaging type for each track, as it could be either CMAF or LOC. \r\n\r\n> But the \"mixed-format-catalog\" example (section 3.4.8) seems to arbitrarily pick one format to declare at the catalog level, then declare the correct packaging at the track level.\r\n\r\nThis example defines a streamingFormat of 1 (which indicates that WARP streaming format is being used) and then indicates that the video is packaged as CMAF but the audio track is packaged as Opus inside Low Overhead Container. This is likely to be a popular combination for non-DRM'd content, since the CMAF overhead inside low bitrate audio tracks can be unnecessarily large compared to LOC. \r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"commonTrackFields\": {\r\n     \"namespace\": \"output.example.com/event/12345\",\r\n     \"renderGroup\":1\r\n  },\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"video0\",\r\n      \"selectionParams\":{\"codec\":\"avc1.64001f\",\"mimeType\":\"video/mp4\",\"width\":1280,\"height\":720,\"framerate\":30,\"bitrate\":4952892},\r\n      \"initTrack\":\"init_video_720\",\r\n      \"packaging\":\"cmaf\"\r\n    },\r\n    {\r\n      \"name\": \"audio\",\r\n      \"selectionParams\":{\"codec\":\"opus\",\"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":32000},\r\n      \"packaging\": \"loc\"\r\n    }\r\n   ]\r\n}\r\n```",
+          "createdAt": "2024-05-02T07:39:38Z",
+          "updatedAt": "2024-05-02T07:39:38Z"
+        },
+        {
+          "author": "scottlamb",
+          "authorAssociation": "NONE",
+          "body": "Thanks for the clarification! Pardon the tangent, but I think there are several things that added to my confusion.\r\n\r\n1. Section 3.2.1 doesn't say that the streaming format defines \"signaling, naming, client and publisher behavior\"; should it? And perhaps a bit more detail than that because honestly I'm still guessing a bit at what those terms mean in this context.\r\n2. Section 3.4.8 is referred to as mixed \"format\" which I took to mean \"streaming format\". Perhaps it should just say \"packaging\" instead?\r\n3. [draft-law-moq-warpstreamingformat-latest](https://moq-wg.github.io/warp-streaming-format/draft-law-moq-warpstreamingformat.html) refers exclusively to CMAF. Should it indicate it can be used with other packaging formats?\r\n4. [draft-mzanaty-moq-loc-03](https://datatracker.ietf.org/doc/draft-mzanaty-moq-loc/) (btw, is there a later draft and/or github repo for this one?) declares a separate streaming format 2; it wasn't immediately obvious to me the packaging it declares was meant to be used independently of the streaming format it declares.",
+          "createdAt": "2024-05-02T12:16:16Z",
+          "updatedAt": "2024-05-02T12:16:16Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Section 3.2.1 doesn't say that the streaming format defines \"signaling, naming, client and publisher behavior\"; should it?\r\n\r\nIt could and I guess there is no harm in adding that. At some point we need an overview document that describes how all the various specs interop to provide a streaming solution, basically a prose version of the [diagram](https://github.com/moq-wg/catalog-format/issues/44#issuecomment-2089813401). Not sure where that should reside?\r\n\r\n\r\n> Section 3.4.8 is referred to as mixed \"format\" which I took to mean \"streaming format\". Perhaps it should just say \"packaging\" instead?\r\n\r\nIndeed it should. Good catch.\r\n\r\n> [draft-law-moq-warpstreamingformat-latest](https://moq-wg.github.io/warp-streaming-format/draft-law-moq-warpstreamingformat.html) refers exclusively to CMAF. Should it indicate it can be used with other packaging formats?\r\n\r\nYes it should.  I am waiting for the LOC reference doc to be supplied to add in LOC packaging. But it would make sense to at least add a placeholder for LOC to make it clear that WARP is intended to support multiple packaging formats. I opened this [issue](https://github.com/moq-wg/warp-streaming-format/issues/24) for that purpose. \r\n\r\n>  it wasn't immediately obvious to me the packaging it declares was meant to be used independently of the streaming format it declares.\r\n\r\nI agree. I asked Mo and Suhas if they would break that spec into two parts, one that references the packaging istelf and the other for the streaming format. See this [email ](https://mailarchive.ietf.org/arch/browse/moq/?q=Low%20Overhead%20Container%20(LOC)%20updated%20to%2003)on the moq list . If you agree, please chime in to that thread. \r\n\r\n> (btw, is there a later draft and/or github repo for this one?)\r\n\r\nNot as of today. That's the latest. \r\n\r\n\r\n\r\n",
+          "createdAt": "2024-05-03T09:53:12Z",
+          "updatedAt": "2024-05-03T09:57:14Z"
         }
       ]
     },
@@ -576,6 +611,30 @@
           "body": "The JSON spec requires UTF-8 support by decoders, so it seems sensible to inherit that flexibility. We should state this explicitly in the spec.  I'd like to support our Chinese, Korean and Japanese colleagues with the ability to specify namespace and names in their character sets. \r\n\r\n```\r\n\"namespace\" : \"\u7279\u522b\u9879\u76ee/2025\u5e745\u67081\u65e5\"\r\n\"name\":\"\u89c6\u9891\"\r\n```\r\n\r\nIf a streaming format wishes to further constrain these names to be URIs, or ASCII, it may do so, however the catalog spec itself should not force those restrictions. \r\n\r\nSimilarly, if a streaming format wishes to support binary namespace and names, these can be encoded as base64 strings in the catalog and the application would understand how to convert them to their wire format. \r\n\r\n```\r\n\"namespace\" : \"c2FtcGxlbmFtZXNwYWNl\"\r\n\"name\":\"c2FtcGxlbmFtZQ==\"\r\n```",
           "createdAt": "2024-04-02T10:01:41Z",
           "updatedAt": "2024-04-02T10:01:41Z"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "I_kwDOKMx0ks6HluN6",
+      "title": "Add a field to allow suggested relative track prioritization",
+      "url": "https://github.com/moq-wg/catalog-format/issues/46",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The use case is a client subscribing to 3 tracks concurrently (say, audio, video and slides) but wanting to request the relay, under congestion conditions, to send the audio with higher priority than the slides and the slides with higher priority than the video. It might be a simple numerical value, with lower numbers equalling higher priority and could look something like this:\r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"supportsDeltaUpdates\": true,\r\n  \"commonTrackFields\": {\r\n     \"renderGroup\": 1,\r\n     \"packaging\": \"loc\"\r\n  },\r\n  \"tracks\":[\r\n    {\r\n      \"name\": \"video-hd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":1920,\"height\":1080,\"bitrate\":5000000,\"framerate\":30},\r\n      \"altGroup\":1,\r\n      relativeTrackPriority: 4\r\n    },\r\n    {\r\n      \"name\": \"video-sd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":720,\"height\":640,\"bitrate\":3000000,\"framerate\":30},\r\n      \"altGroup\":1,\r\n      relativeTrackPriority: 3\r\n    },\r\n    {\r\n      \"name\": \"slides\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":1920,\"height\":1080\"bitrate\":1000000,\"framerate\":15},\r\n      relativeTrackPriority: 2\r\n    },\r\n    {\r\n      \"name\": \"audio\",\r\n      \"selectionParams\":{\"codec\":\"opus\",\"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":32000},\r\n      relativeTrackPriority: 1\r\n    }\r\n   ]\r\n}\r\n```\r\n\r\nCatalogs SHOULD indicate a relativeTrackPriority for all tracks if they supply if for any track, otherwise the client is left in an ambiguous state. Tracks MAY be assigned equal priority. Absence of a relativeTrackPriority among all tracks value SHOULD be interpreted to all tracks having an equal priority. \r\n\r\nThis issue assumes MOQT support for relative track prioritization will eventually be added :)",
+      "createdAt": "2024-05-02T07:27:50Z",
+      "updatedAt": "2024-05-04T23:36:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1 .. This is very much needed. ",
+          "createdAt": "2024-05-04T23:36:37Z",
+          "updatedAt": "2024-05-04T23:36:37Z"
         }
       ]
     }
