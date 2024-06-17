@@ -19,7 +19,7 @@ venue:
   type: "Working Group"
   mail: "moq@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/moq/"
-  github: "moq-wg/catalog-formatt"
+  github: "moq-wg/catalog-format"
   latest: "https://moq-wg.github.io/catalog-format/draft-ietf-moq-catalogformat.html"
 
 author:
