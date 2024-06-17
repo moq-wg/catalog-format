@@ -40,7 +40,7 @@ About This Document
    https://www.ietf.org/mailman/listinfo/moq/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/moq-wg/catalog-formatt.
+   https://github.com/moq-wg/catalog-format.
 
 Status of This Memo
 
