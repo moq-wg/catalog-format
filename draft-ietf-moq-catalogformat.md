@@ -2,7 +2,7 @@
 title: "Common Catalog Format for moq-transport"
 category: info
 
-docname: draft-wilaw-moq-catalogformat-latest
+docname: draft-ietf-moq-catalogformat-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -19,8 +19,8 @@ venue:
   type: "Working Group"
   mail: "moq@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/moq/"
-  github: "wilaw/catalog-format"
-  latest: "https://wilaw.github.io/catalog-format/draft-wilaw-moq-catalogformat.html"
+  github: "moq-wg/catalog-formatt"
+  latest: "https://moq-wg.github.io/catalog-format/draft-ietf-moq-catalogformat.html"
 
 author:
 
