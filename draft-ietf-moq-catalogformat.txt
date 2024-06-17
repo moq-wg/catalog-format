@@ -5,14 +5,14 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Informational                                    W. Law
-Expires: 13 October 2024                                          Akamai
+Expires: 19 December 2024                                         Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                           11 April 2024
+                                                            17 June 2024
 
 
                 Common Catalog Format for moq-transport
-                  draft-wilaw-moq-catalogformat-latest
+                  draft-ietf-moq-catalogformat-latest
 
 Abstract
 
@@ -29,11 +29,10 @@ About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   The latest revision of this draft can be found at
-   https://wilaw.github.io/catalog-format/draft-wilaw-moq-
-   catalogformat.html.  Status information for this document may be
-   found at https://datatracker.ietf.org/doc/draft-wilaw-moq-
-   catalogformat/.
+   The latest revision of this draft can be found at https://moq-
+   wg.github.io/catalog-format/draft-ietf-moq-catalogformat.html.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-moq-catalogformat/.
 
    Discussion of this document takes place on the Media Over QUIC
    Working Group mailing list (mailto:moq@ietf.org), which is archived
@@ -41,7 +40,7 @@ About This Document
    https://www.ietf.org/mailman/listinfo/moq/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/wilaw/catalog-format.
+   https://github.com/moq-wg/catalog-formatt.
 
 Status of This Memo
 
@@ -58,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 October 2024.
+   This Internet-Draft will expire on 19 December 2024.
 
 Copyright Notice
 
@@ -1173,9 +1172,9 @@ Normative References
    [MoQTransport]
               Curley, L., Pugin, K., Nandakumar, S., Vasiliev, V., and
               I. Swett, "Media over QUIC Transport", Work in Progress,
-              Internet-Draft, draft-ietf-moq-transport-03, 4 March 2024,
+              Internet-Draft, draft-ietf-moq-transport-04, 29 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-moq-
-              transport-03>.
+              transport-04>.
 
    [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
               IANA Considerations Section in RFCs", RFC 5226,
