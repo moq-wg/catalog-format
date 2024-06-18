@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-16T00:35:02.150535+00:00",
+  "timestamp": "2024-06-18T00:32:14.493510+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -1267,6 +1267,48 @@
           "body": "",
           "createdAt": "2024-04-11T00:30:22Z",
           "updatedAt": "2024-04-11T00:30:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOKMx0ks5yuiRW",
+      "title": "Create draft-ietf-moq-catalogformat.md",
+      "url": "https://github.com/moq-wg/catalog-format/pull/47",
+      "state": "MERGED",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Renaming file post-workgroup adoption.",
+      "createdAt": "2024-06-17T18:27:28Z",
+      "updatedAt": "2024-06-17T19:36:57Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "82588b9513e219f85cc7f79e4b66e3d18426d6f6",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "8d7c70c0aed01fae7250b251227a73f8f81e0f8c",
+      "closedAt": "2024-06-17T19:36:53Z",
+      "mergedAt": "2024-06-17T19:36:53Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "a5da0a729cf985643424a195aa163e03fc16f90c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKMx0ks5-lgnK",
+          "commit": {
+            "abbreviatedOid": "8d7c70c"
+          },
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-17T19:36:40Z",
+          "updatedAt": "2024-06-17T19:36:40Z",
           "comments": []
         }
       ]
