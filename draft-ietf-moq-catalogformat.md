@@ -65,39 +65,106 @@ informative:
 
 --- abstract
 
-This specification defines a Common Catalog specification for streaming formats implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC Transport (MOQT) defines a publish/subscribe based unified media delivery protocol for delivering media for streaming and interactive applications over QUIC. The catalog describes the content made available by a publisher, including information necessary for subscribers to select, subscribe and initialize tracks.
-
+This specification defines a Common Catalog specification for streaming formats
+implementing the MOQ Transport Protocol [MOQTransport]. Media over QUIC
+Transport (MOQT) defines a publish/subscribe based unified media delivery
+protocol for delivering media for streaming and interactive applications over
+QUIC. The catalog describes the content made available by a publisher, including
+information necessary for subscribers to select, subscribe and initialize
+tracks.
 
 --- middle
 
 # Introduction
 
-MOQT [MOQTransport] defines a transport protocol that utilizes the QUIC network protocol [QUIC] and WebTransport[WebTrans] to move objects between publishers, subscribers and intermediaries. Tracks are identified using a tuple of the Track Namespace and the Track Name. A MOQT Catalog is a specialized track which captures details of all the tracks output by a publisher, including the identities, media profiles, initialization data and inter-track relationships. The mapping of media characteristics of objects with the tracks, as well as relative prioritization of those objects, are captured in separate MoQ Streaming Format specifications. This specification defines a JSON encoded catalog.
+MOQT [MOQTransport] defines a transport protocol that utilizes the QUIC network
+protocol [QUIC] and WebTransport[WebTrans] to move objects between publishers,
+subscribers and intermediaries. Tracks are identified using a tuple of the Track
+Namespace and the Track Name. A MOQT Catalog is a specialized track which
+captures details of all the tracks output by a publisher, including the
+identities, media profiles, initialization data and inter-track relationships.
+The mapping of media characteristics of objects with the tracks, as well as
+relative prioritization of those objects, are captured in separate MoQ
+Streaming Format specifications. This specification defines a JSON encoded
+catalog.
 
 
 # Conventions and Definitions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in RFC 2119 [RFC2119].
 
 
 # Catalog {#catalog}
 
-A Catalog is a MOQT Object that provides information about tracks from a given publisher. A Catalog is used by publishers for advertising their output and for subscribers in consuming that output. The payload of the Catalog object is opaque to Relays and can be end-to-end encrypted. The Catalog provides the names and namespaces of the tracks being produced, along with the relationship between tracks, properties of the tracks that consumers may use for selection and any relevant initialization data.
+A Catalog is a MOQT Object that provides information about tracks from a given
+publisher. A Catalog is used by publishers for advertising their output and for
+subscribers in consuming that output. The payload of the Catalog object is
+opaque to Relays and can be end-to-end encrypted. The Catalog provides the names
+and namespaces of the tracks being produced, along with the relationship between
+tracks, properties of the tracks that consumers may use for selection and any
+relevant initialization data.
 
-A special case of the catalog exists which describes other catalogs instead of tracks. A catalog might describe tracks, or catalogs, but never both at the same time.
+A special case of the catalog exists which describes other catalogs instead of
+tracks. A catalog might describe tracks, or catalogs, but never both at the same
+time.
 
-## Catalog version {#catalogversion}
-Versions of this catalog specification are defined using monotonically increasing integers. There is no guarantee that future catalog versions are backwards compatible and field definitions and interpretation may change between versions. A subscriber MUST NOT attempt to parse a catalog version which it does not understand.
 
-This document defines version 1.
 
 ## Catalog Fields
 
-A catalog is a JSON [JSON] document, comprised of a series of mandatory and optional fields. At a minimum, a catalog MUST provide all mandatory fields and one of either a 'tracks' field or a 'catalogs' field.  A producer MAY add additional fields to the ones described in this draft. Custom field names MUST NOT collide with field names described in this draft. To prevent custom field name collisions with future versions, custom field names SHOULD be prefixed using reverse domain name notation e.g "com.example-size". The order of field names within the JSON document is not important. Any track or catalog field declared at the root level is inherited by all tracks or catalogs. Any track or catalog field declared within a track or catalog object overwrites any inherited value.
+A catalog is a JSON [JSON] document, comprised of a series of mandatory and
+optional fields. At a minimum, a catalog MUST provide all mandatory fields and
+one of either a 'tracks' field or a 'catalogs' field.  A producer MAY add
+additional fields to the ones described in this draft. Custom field names MUST
+NOT collide with field names described in this draft. To prevent custom field
+name collisions with future versions, custom field names SHOULD be prefixed
+using reverse domain name notation e.g "com.example-size". The order of field
+names within the JSON document is not important. Any track or catalog field
+declared at the root level is inherited by all tracks or catalogs. Any track or
+catalog field declared within a track or catalog object overwrites any inherited
+value.
+
 
 A parser MUST ignore fields it does not understand.
 
 Table 1 provides an overview of all fields defined by this document.
+
+| Field                   |  Name                  |           Definition      |
+|:========================|:=======================|:==========================|
+| Catalog version         | version                | {{catalogversion}}        |
+| Streaming format        | streamingFormat        | {{streamingformat}}       |
+| Streaming format version| streamingFormatVersion | {{streamingformatversion}}|
+| Supports delta updates  | supportsDeltaUpdates   | {{supportsdeltaupdates}}  |
+| Common Track Fields     | commonTrackFields      | {{commontrackfields}}     |
+| Tracks                  | tracks                 | {{tracks}}                |
+| Catalogs                | catalogs               | {{catalogs}}              |
+| Track namespace         | namespace              | {{tracknamespace}}        |
+| Track name              | name                   | {{trackname}}             |
+| Packaging               | packaging              | {{packaging}}             |
+| Track operation         | operation              | {{trackoperations}}       |
+| Track label             | label                  | {{tracklabel}}            |
+| Render group            | renderGroup            | {{rendergroup}}           |
+| Alternate group         | altGroup               | {{altgroup}}              |
+| Initialization data     | initData               | {{initdata}}              |
+| Initialization track    | initTrack              | {{inittrack}}             |
+| Selection parameters    | selectionParams        | {{selectionparameters}}   |
+| Dependencies            | depends                | {{dependencies}}          |
+| Temporal ID             | temporalId             | {{temporalid}}            |
+| Spatial ID              | spatialId              | {{spatialid}}             |
+| Codec                   | codec                  | {{codec}}                 |
+| Mime type               | mimeType               | {{mimetype}}              |
+| Framerate               | framerate              | {{framerate}}             |
+| Bitrate                 | bitrate                | {{bitrate}}               |
+| Width                   | width                  | {{width}}                 |
+| Height                  | height                 | {{height}}                |
+| Audio sample rate       | samplerate             | {{audiosamplerate}}       |
+| Channel configuration   | channelConfig          | {{channelconfiguration}}  |
+| Display width           | displayWidth           | {{displaywidth}}          |
+| Display height          | displayHeight          | {{displayheight}}         |
+| Language                | lang                   | {{language}}              |
+
 
 | Field                   |  Name                  | Required |  Location |  JSON type |           Definition       |
 |:========================|:=======================|:=========|:==========|:===========|:===========================|
@@ -133,54 +200,91 @@ Table 1 provides an overview of all fields defined by this document.
 | Display height          | displayHeight          |  opt     |   S       |  Number    | {{displayheight}}          |
 | Language                | lang                   |  opt     |   S       |  String    | {{language}}               |
 
+Table 2 defines the allowed locations for these fields within the document
 
+| Location |                Allowed locations for the field                |
+|:=========|:==============================================================|
+| R        | The Root of the JSON object                                   |
+| RC       | The Root or a Catalog object                                  |
+| TFC      | A Track object, Common Track Fields object or Catalog object. |
+| TF       | A Track object or a Common Track Fields object                |  
+| T        | Track object                                                  |
+| S        | Selection Parameters object.                                  |
 
-Required: 'yes' indicates a mandatory field  in non-patch catalogs, 'opt' indicates an optional field
+## Catalog version {#catalogversion}
+Location: R    Required: Yes    Json Type: String 
+Versions of this catalog specification are defined using monotonically
+increasing integers. There is no guarantee that future catalog versions are
+backwards compatible and field definitions and interpretation may change between
+versions. A subscriber MUST NOT attempt to parse a catalog version which it does
+not understand.
 
-Location:
-
-*  'R' - the field is located in the Root of the JSON object.
-*  'RC' - the field may be located in either the Root or a Catalog object.
-*  'TFC' - the field may be located in either a Track object, the Common Track Fields object or a Catalog object.
-*  'TF' - the field may be located in either a Track object or a Common Track Fields object
-*  'T' - the field is located in a Track object
-*  'S' - the field is located in the Selection Parameters object.
-
+This document defines version 1.
 
 ### Streaming format {#streamingformat}
-A number indicating the streaming format type. Every MoQ Streaming Format normatively referencing this catalog format MUST register itself in the "MoQ Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
+Location: RC    Required: Yes    Json Type: String 
+A number indicating the streaming format type. Every MoQ Streaming Format
+normatively referencing this catalog format MUST register itself in the "MoQ
+Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
 
 ### Streaming format version {#streamingformatversion}
-A string indicating the version of the streaming format to which this catalog applies. The structure of the version string is defined by the streaming format.
+Location: RC    Required: Yes    Json Type: String 
+A string indicating the version of the streaming format to which this catalog
+applies. The structure of the version string is defined by the streaming format.
 
 ### Supports delta updates {#supportsdeltaupdates}
-A boolean that if true indicates that the publisher MAY issue incremental (delta) updates - see {{patch}}. If false or absent, then the publisher gaurantees that they will NOT issue any incremental updates and that any future updates to the catalog will be independent. The default value is false. This field MUST be present if its value is true, but may be omitted if the value is false.
+Location: RC    Required: Optional    Json Type: Boolean
+A boolean that if true indicates that the publisher MAY issue incremental
+(delta) updates - see {{patch}}. If false or absent, then the publisher
+gaurantees that they will NOT issue any incremental updates and that any future
+updates to the catalog will be independent. The default value is false. This
+field MUST be present if its value is true, but may be omitted if the value is
+false.
 
 ### Common track fields {#commontrackfields}
-An object holding a collection of Track Fields (objects with a location of TF or TFC in table 1) which are to be inherited by all tracks. A field defined at the Track object level always supercedes any value inherited from the Common Track Fields object.
+Location: R    Required: Optional    Json Type: Object
+An object holding a collection of Track Fields (objects with a location of TF
+or TFC in table 1) which are to be inherited by all tracks. A field defined at
+the Track object level always supercedes any value inherited from the Common
+Track Fields object.
 
 ### Tracks {#tracks}
-An array of track objects {{trackobject}}. If the 'tracks' field is present then the 'catalog' field MUST NOT be present.
+Location: R    Required: Optional    Json Type: Array
+An array of track objects {{trackobject}}. If the 'tracks' field is present
+then the 'catalog' field MUST NOT be present.
 
 ### Catalogs {#catalogs}
-An array of catalog objects {{catalogobject}}. If the 'catalogs' field is present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list itself in the catalog array.
+Location: R    Required: Optional    Json Type: Array
+An array of catalog objects {{catalogobject}}. If the 'catalogs' field is
+present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list
+itself in the catalog array.
 
 ### Catalog object {#catalogobject}
-A catalog object is a collection of fields whose location is specified as 'RC' or 'TFC' in Table 1.
+A catalog object is a collection of fields whose location is specified as 'RC'
+or 'TFC' in Table 2.
 
 ### Tracks object {#trackobject}
-A track object is a collection of fields whose location is specified as 'TFC', 'TF' or 'T' in Table 1.
+A track object is a collection of fields whose location is specified as 'TFC',
+'TF' or 'T' in Table 2.
 
 ### Track namespace {#tracknamespace}
-The name space under which the track name is defined. See section 2.3 of {{MoQTransport}}. If the track namespace is declared in the root of the JSON document, then its value is inherited by all tracks and catalogs and it does not need to be re-declared within each track or catalog object. A namespace declared in a track object or catalog object overwrites any inherited name space. The track namespace is optional. If it is not declared at the root or track level, then each track MUST inherit the namespace of the catalog track.
+Location: TFC    Required: Optional    Json Type: String
+The name space under which the track name is defined. See section 2.3 of
+{{MoQTransport}}. The track namespace is optional. If it is not declared within
+the Common Track Fields object or within a track, then each track MUST inherit
+the namespace of the catalog track. A namespace declared in a track object or
+catalog object overwrites any inherited name space.
 
 ### Track name {#trackname}
-A string defining the name of the track. See section 2.3 of {{MoQTransport}}. Within the catalog, track names MUST be unique per namespace.
+Location: TFC    Required: Yes   Json Type: String
+A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
+Within the catalog, track names MUST be unique per namespace.
 
 ### Packaging {#packaging}
-A string defining the type of payload encapsulation. Allowed values are strings as defined in Table 2.
+A string defining the type of payload encapsulation. Allowed values are strings
+as defined in Table 3.
 
-Table 2: Allowed packaging values
+Table 3: Allowed packaging values
 
 | Name            |   Value   |      Draft       |
 |:================|:==========|:=================|
@@ -201,18 +305,21 @@ as defined below.
 * Delete: Indicates that media producer is no longer producing media on the
 associated track. Subscribers SHOULD terminate their subscriptions.
 
-A catalog update in which all previously added tracks are deleted SHOULD be interpreted by a subscriber to indicate that the publisher has terminated the broadcast.
+A catalog update in which all previously added tracks are deleted SHOULD be
+interpreted by a subscriber to indicate that the publisher has terminated the
+broadcast.
 
-Table 3 defines the numerical values for the track operations.
+Table 4 defines the numerical values for the track operations.
 
-Table 3: Allowed track operations
+Table 4: Allowed track operations
 
 | Name            | Value  | Default value  |
 |:================|:=======|:===============|
 | Add             | add    |    yes         |
 | Delete          | delete |                |
 
-The default track operation is 'add'. This value does not need to be declared in the track object.
+The default track operation is 'add'. This value does not need to be declared
+in the track object.
 
 
 ### Track label {#tracklabel}
