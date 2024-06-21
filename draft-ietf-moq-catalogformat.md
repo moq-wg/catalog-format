@@ -187,7 +187,7 @@ not understand.
 This document defines version 1.
 
 ### Streaming format {#streamingformat}
-Location: RC    Required: Yes    Json Type: String 
+Location: RC    Required: Yes    Json Type: String
 A number indicating the streaming format type. Every MoQ Streaming Format
 normatively referencing this catalog format MUST register itself in the "MoQ
 Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
