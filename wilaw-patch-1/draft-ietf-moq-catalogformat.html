@@ -1312,6 +1312,9 @@ tracks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-moq-streaming-format-type-r" class="internal xref">MoQ Streaming Format Type Registry</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-common-catalog-field-regist" class="internal xref">Common Catalog Field Registry</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
@@ -2566,23 +2569,21 @@ registry is:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
-<p id="section-5.1-3">+===================+============================================+
-| Name              | Description                                |
-+===================+============================================+
-| Server Version    | The version of the server                  |
-+-------------------+--------------------------------------------+
-| Protocol Version  | The version of the protocol                |
-|                   | (different servers can have same protocol) |
-+-------------------+--------------------------------------------+
-| Capabilities      | What features the server has implemented   |
-+-------------------+--------------------------------------------+<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">No RFC is provided for the initial entry as it is reserved. Every MoQ
+<p id="section-5.1-3">No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
 itself a unique type identifier. The type registry can be updated by
-incrementally expanding by allocating and reserving new type identifiers.
-&lt;---------------------------- 80 characters -----------------------------------&gt;
-## Common Catalog Field Registry<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The initial entries in the registry are:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+incrementally expanding by allocating and reserving new type identifiers.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="common-catalog-field-registry">
+<section id="section-5.2">
+        <h3 id="name-common-catalog-field-regist">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-common-catalog-field-regist" class="section-name selfRef">Common Catalog Field Registry</a>
+        </h3>
+<p id="section-5.2-1">This document creates a new IANA registry for the Common Catalog fields.  The
+registry is called "MoQ Common Catalog Fields".  This registry is managed by
+the IANA according to the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The
+initial entries in the registry are:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-5">
           <caption><a href="#table-5" class="selfRef">Table 5</a></caption>
 <thead>
@@ -2830,48 +2831,54 @@ incrementally expanding by allocating and reserving new type identifiers.
             </tr>
           </tbody>
         </table>
-<p id="section-5.1-7">Any registration for a new Field name MUST provide the following information:<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Any registration for a new Field name MUST provide the following information:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-8.1">
-            <p id="section-5.1-8.1.1">Descriptive Name - a descriptive name for the field.<a href="#section-5.1-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">Descriptive Name - a descriptive name for the field.<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-8.2">
-            <p id="section-5.1-8.2.1">Field Name - the JSON field name, as will be used inside the JSON catalog.<a href="#section-5.1-8.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">Field Name - the JSON field name, as will be used inside the JSON catalog.<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-8.3">
-            <p id="section-5.1-8.3.1">Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.<a href="#section-5.1-8.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">Required - the string "yes" if the field is required in all catalogs and
+"opt" if it is not.<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-8.4">
-            <p id="section-5.1-8.4.1">Location - a string defining the permissible locations for the field within the catalog:<a href="#section-5.1-8.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.4">
+            <p id="section-5.2-4.4.1">Location - a string defining the permissible locations for the field within
+the catalog:<a href="#section-5.2-4.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-8.4.2.1">
-                <p id="section-5.1-8.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.1-8.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.4.2.1">
+                <p id="section-5.2-4.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.2-4.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.2">
-                <p id="section-5.1-8.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.1-8.4.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.2">
+                <p id="section-5.2-4.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.2-4.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.3">
-                <p id="section-5.1-8.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-5.1-8.4.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.3">
+                <p id="section-5.2-4.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object
+or a Catalog object.<a href="#section-5.2-4.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.4">
-                <p id="section-5.1-8.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-5.1-8.4.2.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.4">
+                <p id="section-5.2-4.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog
+object.<a href="#section-5.2-4.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.5">
-                <p id="section-5.1-8.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.1-8.4.2.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.5">
+                <p id="section-5.2-4.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.2-4.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.6">
-                <p id="section-5.1-8.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.1-8.4.2.6.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.6">
+                <p id="section-5.2-4.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.2-4.4.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-8.4.2.7">
-                <p id="section-5.1-8.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.1-8.4.2.7.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-4.4.2.7">
+                <p id="section-5.2-4.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.2-4.4.2.7.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-5.1-8.5">
-            <p id="section-5.1-8.5.1">JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.<a href="#section-5.1-8.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.5">
+            <p id="section-5.2-4.5.1">JSON Type  - the JSON type of the field value, which must be one of
+String, Array, Number, Object or Boolean.<a href="#section-5.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-8.6">
-            <p id="section-5.1-8.6.1">Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>.<a href="#section-5.1-8.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.6">
+            <p id="section-5.2-4.6.1">Specification - a URL to the specification which defines the usage of the
+field within the catalog, per the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>.<a href="#section-5.2-4.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

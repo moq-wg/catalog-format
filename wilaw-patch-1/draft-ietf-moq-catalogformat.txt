@@ -133,6 +133,7 @@ Table of Contents
    4.  Security Considerations
    5.  IANA Considerations
      5.1.  MoQ Streaming Format Type Registry
+     5.2.  Common Catalog Field Registry
    Acknowledgments
    Normative References
    Authors' Addresses
@@ -1018,24 +1019,13 @@ Table of Contents
 
                                   Table 4
 
-   +===================+============================================+ |
-   Name | Description |
-   +===================+============================================+ |
-   Server Version | The version of the server |
-   +-------------------+--------------------------------------------+ |
-   Protocol Version | The version of the protocol | | | (different
-   servers can have same protocol) |
-   +-------------------+--------------------------------------------+ |
-   Capabilities | What features the server has implemented |
-   +-------------------+--------------------------------------------+
-
    No RFC is provided for the initial entry as it is reserved.  Every
    MoQ streaming format draft normatively referencing this catalog
    format MUST register itself a unique type identifier.  The type
    registry can be updated by incrementally expanding by allocating and
-   reserving new type identifiers. <---------------------------- 80
-   characters -----------------------------------> ## Common Catalog
-   Field Registry
+   reserving new type identifiers.
+
+5.2.  Common Catalog Field Registry
 
    This document creates a new IANA registry for the Common Catalog
    fields.  The registry is called "MoQ Common Catalog Fields".  This
