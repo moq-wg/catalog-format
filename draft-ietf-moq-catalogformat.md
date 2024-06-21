@@ -866,28 +866,17 @@ registry is:
 
 
 
-+-------------------+--------------------------------------------+-------------------+
-| Name              | Description                                | Example           |
-+===================+============================================+===================+
-| Server Version    | The version of the server                  | 0.20.0            |
-+-------------------+--------------------------------------------+-------------------+
-| Protocol Version  | The version of the protocol                | 0.1.0             |
-|                   | (different servers can have same protocol) |                   |
-+-------------------+--------------------------------------------+-------------------+
-| Capabilities      | What features the server has implemented   | "search"          |
-+-------------------+--------------------------------------------+-------------------+
++===================+============================================+
+| Name              | Description                                |
++===================+============================================+
+| Server Version    | The version of the server                  |
++-------------------+--------------------------------------------+
+| Protocol Version  | The version of the protocol                |
+|                   | (different servers can have same protocol) |
++-------------------+--------------------------------------------+
+| Capabilities      | What features the server has implemented   |
++-------------------+--------------------------------------------+
 
-
-----------------------------------------------------------------------
-Name              Description                                 Example
------------------ ------------------------------------------- --------
-Server Version    The version of the server                   0.20.0
-
-Protocol Version  The version of the protocol                 0.1.0
-                  (different servers can have same protocol)
-
-Capabilities      What features the server has implemented    "search"
-----------------------------------------------------------------------
 
 No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
