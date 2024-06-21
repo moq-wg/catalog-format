@@ -172,12 +172,12 @@ Table 2 defines the allowed locations for these fields within the document
 | R        | The Root of the JSON object                                   |
 | RC       | The Root or a Catalog object                                  |
 | TFC      | A Track object, Common Track Fields object or Catalog object. |
-| TF       | A Track object or a Common Track Fields object                |  
+| TF       | A Track object or a Common Track Fields object                |
 | T        | Track object                                                  |
 | S        | Selection Parameters object.                                  |
 
 ## Catalog version {#catalogversion}
-Location: R    Required: Yes    Json Type: String 
+Location: R    Required: Yes    Json Type: String
 Versions of this catalog specification are defined using monotonically
 increasing integers. There is no guarantee that future catalog versions are
 backwards compatible and field definitions and interpretation may change between
@@ -193,7 +193,7 @@ normatively referencing this catalog format MUST register itself in the "MoQ
 Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
 
 ### Streaming format version {#streamingformatversion}
-Location: RC    Required: Yes    Json Type: String 
+Location: RC    Required: Yes    Json Type: String
 A string indicating the version of the streaming format to which this catalog
 applies. The structure of the version string is defined by the streaming format.
 
