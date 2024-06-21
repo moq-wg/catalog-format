@@ -1312,6 +1312,9 @@ tracks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-moq-streaming-format-type-r" class="internal xref">MoQ Streaming Format Type Registry</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-capabilities-what-features-" class="internal xref">Capabilities      What features the server has implemented    "search"</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
@@ -1652,13 +1655,13 @@ value.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
         <h3 id="name-catalog-version">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-catalog-version" class="section-name selfRef">Catalog version</a>
         </h3>
-<p id="section-3.2-1">Location: R    Required: Yes    Json Type: String\
-Versions of this catalog specification are defined using monotonically
+<p id="section-3.2-1">Location: R    Required: Yes    Json Type: String<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Versions of this catalog specification are defined using monotonically
 increasing integers. There is no guarantee that future catalog versions are
 backwards compatible and field definitions and interpretation may change between
 versions. A subscriber MUST NOT attempt to parse a catalog version which it does
-not understand.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">This document defines version 1.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+not understand.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">This document defines version 1.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <div id="streamingformat">
 <section id="section-3.2.1">
           <h4 id="name-streaming-format">
@@ -1675,9 +1678,9 @@ Streaming Format Type" table. See <a href="#ianaconsiderations" class="auto inte
           <h4 id="name-streaming-format-version">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-streaming-format-version" class="section-name selfRef">Streaming format version</a>
           </h4>
-<p id="section-3.2.2-1">Location: RC    Required: Yes    Json Type: String
-A string indicating the version of the streaming format to which this catalog
-applies. The structure of the version string is defined by the streaming format.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">Location: RC    Required: Yes    Json Type: String<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-2">A string indicating the version of the streaming format to which this catalog
+applies. The structure of the version string is defined by the streaming format.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="supportsdeltaupdates">
@@ -1685,13 +1688,13 @@ applies. The structure of the version string is defined by the streaming format.
           <h4 id="name-supports-delta-updates">
 <a href="#section-3.2.3" class="section-number selfRef">3.2.3. </a><a href="#name-supports-delta-updates" class="section-name selfRef">Supports delta updates</a>
           </h4>
-<p id="section-3.2.3-1">Location: RC    Required: Optional    Json Type: Boolean
-A boolean that if true indicates that the publisher MAY issue incremental
+<p id="section-3.2.3-1">Location: RC    Required: Optional    Json Type: Boolean<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-2">A boolean that if true indicates that the publisher MAY issue incremental
 (delta) updates - see <a href="#patch" class="auto internal xref">Section 3.3</a>. If false or absent, then the publisher
 gaurantees that they will NOT issue any incremental updates and that any future
 updates to the catalog will be independent. The default value is false. This
 field MUST be present if its value is true, but may be omitted if the value is
-false.<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
+false.<a href="#section-3.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="commontrackfields">
@@ -1699,11 +1702,11 @@ false.<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
           <h4 id="name-common-track-fields">
 <a href="#section-3.2.4" class="section-number selfRef">3.2.4. </a><a href="#name-common-track-fields" class="section-name selfRef">Common track fields</a>
           </h4>
-<p id="section-3.2.4-1">Location: R    Required: Optional    Json Type: Object
-An object holding a collection of Track Fields (objects with a location of TF
+<p id="section-3.2.4-1">Location: R    Required: Optional    Json Type: Object<a href="#section-3.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.4-2">An object holding a collection of Track Fields (objects with a location of TF
 or TFC in table 1) which are to be inherited by all tracks. A field defined at
 the Track object level always supercedes any value inherited from the Common
-Track Fields object.<a href="#section-3.2.4-1" class="pilcrow">¶</a></p>
+Track Fields object.<a href="#section-3.2.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tracks">
@@ -1711,9 +1714,9 @@ Track Fields object.<a href="#section-3.2.4-1" class="pilcrow">¶</a></p>
           <h4 id="name-tracks">
 <a href="#section-3.2.5" class="section-number selfRef">3.2.5. </a><a href="#name-tracks" class="section-name selfRef">Tracks</a>
           </h4>
-<p id="section-3.2.5-1">Location: R    Required: Optional    Json Type: Array
-An array of track objects <a href="#trackobject" class="auto internal xref">Section 3.2.8</a>. If the 'tracks' field is present
-then the 'catalog' field MUST NOT be present.<a href="#section-3.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.5-1">Location: R    Required: Optional    Json Type: Array<a href="#section-3.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.5-2">An array of track objects <a href="#trackobject" class="auto internal xref">Section 3.2.8</a>. If the 'tracks' field is present
+then the 'catalog' field MUST NOT be present.<a href="#section-3.2.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="catalogs">
@@ -1721,10 +1724,10 @@ then the 'catalog' field MUST NOT be present.<a href="#section-3.2.5-1" class="p
           <h4 id="name-catalogs">
 <a href="#section-3.2.6" class="section-number selfRef">3.2.6. </a><a href="#name-catalogs" class="section-name selfRef">Catalogs</a>
           </h4>
-<p id="section-3.2.6-1">Location: R    Required: Optional    Json Type: Array
-An array of catalog objects <a href="#catalogobject" class="auto internal xref">Section 3.2.7</a>. If the 'catalogs' field is
+<p id="section-3.2.6-1">Location: R    Required: Optional    Json Type: Array<a href="#section-3.2.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.6-2">An array of catalog objects <a href="#catalogobject" class="auto internal xref">Section 3.2.7</a>. If the 'catalogs' field is
 present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list
-itself in the catalog array.<a href="#section-3.2.6-1" class="pilcrow">¶</a></p>
+itself in the catalog array.<a href="#section-3.2.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="catalogobject">
@@ -1750,12 +1753,12 @@ or 'TFC' in Table 2.<a href="#section-3.2.7-1" class="pilcrow">¶</a></p>
           <h4 id="name-track-namespace">
 <a href="#section-3.2.9" class="section-number selfRef">3.2.9. </a><a href="#name-track-namespace" class="section-name selfRef">Track namespace</a>
           </h4>
-<p id="section-3.2.9-1">Location: TFC    Required: Optional    Json Type: String
-The name space under which the track name is defined. See section 2.3 of
+<p id="section-3.2.9-1">Location: TFC    Required: Optional    Json Type: String<a href="#section-3.2.9-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.9-2">The name space under which the track name is defined. See section 2.3 of
 <span>[<a href="#MoQTransport" class="cite xref">MoQTransport</a>]</span>. The track namespace is optional. If it is not declared within
 the Common Track Fields object or within a track, then each track MUST inherit
 the namespace of the catalog track. A namespace declared in a track object or
-catalog object overwrites any inherited name space.<a href="#section-3.2.9-1" class="pilcrow">¶</a></p>
+catalog object overwrites any inherited name space.<a href="#section-3.2.9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="trackname">
@@ -1763,9 +1766,9 @@ catalog object overwrites any inherited name space.<a href="#section-3.2.9-1" cl
           <h4 id="name-track-name">
 <a href="#section-3.2.10" class="section-number selfRef">3.2.10. </a><a href="#name-track-name" class="section-name selfRef">Track name</a>
           </h4>
-<p id="section-3.2.10-1">Location: TFC    Required: Yes   Json Type: String
-A string defining the name of the track. See section 2.3 of <span>[<a href="#MoQTransport" class="cite xref">MoQTransport</a>]</span>.
-Within the catalog, track names MUST be unique per namespace.<a href="#section-3.2.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.10-1">Location: TFC    Required: Yes   Json Type: String<a href="#section-3.2.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.10-2">A string defining the name of the track. See section 2.3 of <span>[<a href="#MoQTransport" class="cite xref">MoQTransport</a>]</span>.
+Within the catalog, track names MUST be unique per namespace.<a href="#section-3.2.10-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="packaging">
@@ -1773,10 +1776,10 @@ Within the catalog, track names MUST be unique per namespace.<a href="#section-3
           <h4 id="name-packaging">
 <a href="#section-3.2.11" class="section-number selfRef">3.2.11. </a><a href="#name-packaging" class="section-name selfRef">Packaging</a>
           </h4>
-<p id="section-3.2.11-1">Location: TF    Required: Yes   Json Type: String
-A string defining the type of payload encapsulation. Allowed values are strings
-as defined in Table 3.<a href="#section-3.2.11-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.11-2">Table 3: Allowed packaging values<a href="#section-3.2.11-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.11-1">Location: TF    Required: Yes   Json Type: String<a href="#section-3.2.11-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.11-2">A string defining the type of payload encapsulation. Allowed values are strings
+as defined in Table 3.<a href="#section-3.2.11-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.11-3">Table 3: Allowed packaging values<a href="#section-3.2.11-3" class="pilcrow">¶</a></p>
 <table class="center" id="table-3">
             <caption><a href="#table-3" class="selfRef">Table 3</a></caption>
 <thead>
@@ -1806,10 +1809,10 @@ as defined in Table 3.<a href="#section-3.2.11-1" class="pilcrow">¶</a></p>
           <h4 id="name-track-label">
 <a href="#section-3.2.12" class="section-number selfRef">3.2.12. </a><a href="#name-track-label" class="section-name selfRef">Track label</a>
           </h4>
-<p id="section-3.2.12-1">Location: TF    Required: Optional   Json Type: String
-A string defining a human-readable label for the track. Examples might be
+<p id="section-3.2.12-1">Location: TF    Required: Optional   Json Type: String<a href="#section-3.2.12-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.12-2">A string defining a human-readable label for the track. Examples might be
 "Overhead camera view" or "Deutscher Kommentar". Note that the <span>[<a href="#JSON" class="cite xref">JSON</a>]</span> spec
-requires UTF-8 support by decoders.<a href="#section-3.2.12-1" class="pilcrow">¶</a></p>
+requires UTF-8 support by decoders.<a href="#section-3.2.12-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rendergroup">
@@ -1817,11 +1820,11 @@ requires UTF-8 support by decoders.<a href="#section-3.2.12-1" class="pilcrow">�
           <h4 id="name-render-group">
 <a href="#section-3.2.13" class="section-number selfRef">3.2.13. </a><a href="#name-render-group" class="section-name selfRef">Render group</a>
           </h4>
-<p id="section-3.2.13-1">Location: TF    Required: Optional   Json Type: Number
-An integer specifying a group of tracks which are designed to be rendered
+<p id="section-3.2.13-1">Location: TF    Required: Optional   Json Type: Number<a href="#section-3.2.13-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.13-2">An integer specifying a group of tracks which are designed to be rendered
 together. Tracks with the same group number SHOULD be rendered simultaneously,
 are usually time-aligned and are designed to accompany one another. A common
-example would be tying together audio and video tracks.<a href="#section-3.2.13-1" class="pilcrow">¶</a></p>
+example would be tying together audio and video tracks.<a href="#section-3.2.13-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="altgroup">
@@ -1829,14 +1832,14 @@ example would be tying together audio and video tracks.<a href="#section-3.2.13-
           <h4 id="name-alternate-group">
 <a href="#section-3.2.14" class="section-number selfRef">3.2.14. </a><a href="#name-alternate-group" class="section-name selfRef">Alternate group</a>
           </h4>
-<p id="section-3.2.14-1">Location: TF    Required: Optional   Json Type: Number
-An integer specifying a group of tracks which are alternate versions of
+<p id="section-3.2.14-1">Location: TF    Required: Optional   Json Type: Number<a href="#section-3.2.14-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.14-2">An integer specifying a group of tracks which are alternate versions of
 one-another. Alternate tracks represent the same media content, but differ in
 their selection properties. Alternate tracks SHOULD have matching framerate
 <a href="#framerate" class="auto internal xref">Section 3.2.23</a> and media time sequences. A subscriber typically subscribes to
 one track from a set of tracks specifying the same alternate group number. A
 common example would be a set video tracks of the same content offered in
-alternate bitrates.<a href="#section-3.2.14-1" class="pilcrow">¶</a></p>
+alternate bitrates.<a href="#section-3.2.14-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="initdata">
@@ -1844,8 +1847,8 @@ alternate bitrates.<a href="#section-3.2.14-1" class="pilcrow">¶</a></p>
           <h4 id="name-initialization-data">
 <a href="#section-3.2.15" class="section-number selfRef">3.2.15. </a><a href="#name-initialization-data" class="section-name selfRef">Initialization data</a>
           </h4>
-<p id="section-3.2.15-1">Location: TF    Required: Optional   Json Type: String
-A string holding Base64 <span>[<a href="#BASE64" class="cite xref">BASE64</a>]</span> encoded initialization data for the track.<a href="#section-3.2.15-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.15-1">Location: TF    Required: Optional   Json Type: String<a href="#section-3.2.15-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.15-2">A string holding Base64 <span>[<a href="#BASE64" class="cite xref">BASE64</a>]</span> encoded initialization data for the track.<a href="#section-3.2.15-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="inittrack">
@@ -1853,11 +1856,11 @@ A string holding Base64 <span>[<a href="#BASE64" class="cite xref">BASE64</a>]</
           <h4 id="name-initialization-track">
 <a href="#section-3.2.16" class="section-number selfRef">3.2.16. </a><a href="#name-initialization-track" class="section-name selfRef">Initialization track</a>
           </h4>
-<p id="section-3.2.16-1">Location: TF    Required: Optional   Json Type: String
-A string specifying the track name of another track which holds initialization
+<p id="section-3.2.16-1">Location: TF    Required: Optional   Json Type: String<a href="#section-3.2.16-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.16-2">A string specifying the track name of another track which holds initialization
 data for the current track. Initialization tracks MUST NOT be added to the
 tracks array <a href="#tracks" class="auto internal xref">Section 3.2.5</a>. They are referenced only via the initialization track
-field of the track which they initialize.<a href="#section-3.2.16-1" class="pilcrow">¶</a></p>
+field of the track which they initialize.<a href="#section-3.2.16-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="selectionparameters">
@@ -1865,13 +1868,13 @@ field of the track which they initialize.<a href="#section-3.2.16-1" class="pilc
           <h4 id="name-selection-parameters">
 <a href="#section-3.2.17" class="section-number selfRef">3.2.17. </a><a href="#name-selection-parameters" class="section-name selfRef">Selection parameters</a>
           </h4>
-<p id="section-3.2.17-1">Location: TF    Required: Optional   Json Type: Object
-An object holding a series of name/value pairs which a subscriber can use to
+<p id="section-3.2.17-1">Location: TF    Required: Optional   Json Type: Object<a href="#section-3.2.17-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.17-2">An object holding a series of name/value pairs which a subscriber can use to
 select tracks for subscription. If present, the selection parameters object
 MUST NOT be empty. Any selection parameters declared at the root level are
 inherited by all tracks. A selection parameters object may exist at both the
 root and track level. Any declaration of a selection parameter at the track
-level overrides the inherited root value.<a href="#section-3.2.17-1" class="pilcrow">¶</a></p>
+level overrides the inherited root value.<a href="#section-3.2.17-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="dependencies">
@@ -1879,11 +1882,11 @@ level overrides the inherited root value.<a href="#section-3.2.17-1" class="pilc
           <h4 id="name-dependencies">
 <a href="#section-3.2.18" class="section-number selfRef">3.2.18. </a><a href="#name-dependencies" class="section-name selfRef">Dependencies</a>
           </h4>
-<p id="section-3.2.18-1">Location: T    Required: Optional   Json Type: Array
-Certain tracks may depend on other tracks for decoding. Dependencies holds an
+<p id="section-3.2.18-1">Location: T    Required: Optional   Json Type: Array<a href="#section-3.2.18-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.18-2">Certain tracks may depend on other tracks for decoding. Dependencies holds an
 array of track names <a href="#trackname" class="auto internal xref">Section 3.2.10</a> on which the current track is dependent.
 Since only the track name is signaled, the namespace of the dependencies is
-assumed to match that of the track declaring the dependencies.<a href="#section-3.2.18-1" class="pilcrow">¶</a></p>
+assumed to match that of the track declaring the dependencies.<a href="#section-3.2.18-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="temporalid">
@@ -1891,10 +1894,10 @@ assumed to match that of the track declaring the dependencies.<a href="#section-
           <h4 id="name-temporal-id">
 <a href="#section-3.2.19" class="section-number selfRef">3.2.19. </a><a href="#name-temporal-id" class="section-name selfRef">Temporal ID</a>
           </h4>
-<p id="section-3.2.19-1">Location: T    Required: Optional   Json Type: Number
-A number identifying the temporal layer/sub-layer encoding of the track,
+<p id="section-3.2.19-1">Location: T    Required: Optional   Json Type: Number<a href="#section-3.2.19-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.19-2">A number identifying the temporal layer/sub-layer encoding of the track,
 starting with 0 for the base layer, and increasing with higher temporal
-fidelity.<a href="#section-3.2.19-1" class="pilcrow">¶</a></p>
+fidelity.<a href="#section-3.2.19-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="spatialid">
@@ -1902,9 +1905,9 @@ fidelity.<a href="#section-3.2.19-1" class="pilcrow">¶</a></p>
           <h4 id="name-spatial-id">
 <a href="#section-3.2.20" class="section-number selfRef">3.2.20. </a><a href="#name-spatial-id" class="section-name selfRef">Spatial ID</a>
           </h4>
-<p id="section-3.2.20-1">Location: T    Required: Optional   Json Type: Number
-A number identifying the spatial layer encoding of the track, starting with 0
-for the base layer, and increasing with higher fidelity.<a href="#section-3.2.20-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.20-1">Location: T    Required: Optional   Json Type: Number<a href="#section-3.2.20-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.20-2">A number identifying the spatial layer encoding of the track, starting with 0
+for the base layer, and increasing with higher fidelity.<a href="#section-3.2.20-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="codec">
@@ -1912,11 +1915,11 @@ for the base layer, and increasing with higher fidelity.<a href="#section-3.2.20
           <h4 id="name-codec">
 <a href="#section-3.2.21" class="section-number selfRef">3.2.21. </a><a href="#name-codec" class="section-name selfRef">Codec</a>
           </h4>
-<p id="section-3.2.21-1">Location: S    Required: Optional   Json Type: String
-A string defining the codec used to encode the track.
+<p id="section-3.2.21-1">Location: S    Required: Optional   Json Type: String<a href="#section-3.2.21-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.21-2">A string defining the codec used to encode the track.
 For LOC packaged content, the string codec registrations are defined in Sect 3
 and Section 4 of <span>[<a href="#WEBCODECS-CODEC-REGISTRY" class="cite xref">WEBCODECS-CODEC-REGISTRY</a>]</span>. For CMAF packaged content, the
-string codec registrations are defined in XXX.<a href="#section-3.2.21-1" class="pilcrow">¶</a></p>
+string codec registrations are defined in XXX.<a href="#section-3.2.21-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="mimetype">
@@ -1924,9 +1927,9 @@ string codec registrations are defined in XXX.<a href="#section-3.2.21-1" class=
           <h4 id="name-mimetype">
 <a href="#section-3.2.22" class="section-number selfRef">3.2.22. </a><a href="#name-mimetype" class="section-name selfRef">Mimetype</a>
           </h4>
-<p id="section-3.2.22-1">Location: S    Required: Optional   Json Type: String
-A string defining the mime type <span>[<a href="#MIME" class="cite xref">MIME</a>]</span> of the track. This parameter is typically
-supplied with CMAF packaged content.<a href="#section-3.2.22-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.22-1">Location: S    Required: Optional   Json Type: String<a href="#section-3.2.22-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.22-2">A string defining the mime type <span>[<a href="#MIME" class="cite xref">MIME</a>]</span> of the track. This parameter is typically
+supplied with CMAF packaged content.<a href="#section-3.2.22-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="framerate">
@@ -1934,8 +1937,8 @@ supplied with CMAF packaged content.<a href="#section-3.2.22-1" class="pilcrow">
           <h4 id="name-framerate">
 <a href="#section-3.2.23" class="section-number selfRef">3.2.23. </a><a href="#name-framerate" class="section-name selfRef">Framerate</a>
           </h4>
-<p id="section-3.2.23-1">Location: S    Required: Optional   Json Type: Number
-A number defining the framerate of the track, expressed as frames per second.<a href="#section-3.2.23-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.23-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.23-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.23-2">A number defining the framerate of the track, expressed as frames per second.<a href="#section-3.2.23-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="bitrate">
@@ -1943,8 +1946,8 @@ A number defining the framerate of the track, expressed as frames per second.<a 
           <h4 id="name-bitrate">
 <a href="#section-3.2.24" class="section-number selfRef">3.2.24. </a><a href="#name-bitrate" class="section-name selfRef">Bitrate</a>
           </h4>
-<p id="section-3.2.24-1">Location: S    Required: Optional   Json Type: Number
-A number defining the bitrate of track, expressed in bits second.<a href="#section-3.2.24-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.24-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.24-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.24-2">A number defining the bitrate of track, expressed in bits second.<a href="#section-3.2.24-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="width">
@@ -1952,8 +1955,8 @@ A number defining the bitrate of track, expressed in bits second.<a href="#secti
           <h4 id="name-width">
 <a href="#section-3.2.25" class="section-number selfRef">3.2.25. </a><a href="#name-width" class="section-name selfRef">Width</a>
           </h4>
-<p id="section-3.2.25-1">Location: S    Required: Optional   Json Type: Number
-A number expressing the encoded width of the track content in pixels.<a href="#section-3.2.25-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.25-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.25-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.25-2">A number expressing the encoded width of the track content in pixels.<a href="#section-3.2.25-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="height">
@@ -1961,8 +1964,8 @@ A number expressing the encoded width of the track content in pixels.<a href="#s
           <h4 id="name-height">
 <a href="#section-3.2.26" class="section-number selfRef">3.2.26. </a><a href="#name-height" class="section-name selfRef">Height</a>
           </h4>
-<p id="section-3.2.26-1">Location: S    Required: Optional   Json Type: Number
-A number expressing the encoded height of the video frames in pixels.<a href="#section-3.2.26-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.26-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.26-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.26-2">A number expressing the encoded height of the video frames in pixels.<a href="#section-3.2.26-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="audiosamplerate">
@@ -1970,9 +1973,9 @@ A number expressing the encoded height of the video frames in pixels.<a href="#s
           <h4 id="name-audio-sample-rate">
 <a href="#section-3.2.27" class="section-number selfRef">3.2.27. </a><a href="#name-audio-sample-rate" class="section-name selfRef">Audio sample rate</a>
           </h4>
-<p id="section-3.2.27-1">Location: S    Required: Optional   Json Type: Number
-The number of audio frame samples per second. This property SHOULD only
-accompany audio codecs.<a href="#section-3.2.27-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.27-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.27-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.27-2">The number of audio frame samples per second. This property SHOULD only
+accompany audio codecs.<a href="#section-3.2.27-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="channelconfiguration">
@@ -1980,11 +1983,11 @@ accompany audio codecs.<a href="#section-3.2.27-1" class="pilcrow">¶</a></p>
           <h4 id="name-channel-configuration">
 <a href="#section-3.2.28" class="section-number selfRef">3.2.28. </a><a href="#name-channel-configuration" class="section-name selfRef">Channel configuration</a>
           </h4>
-<p id="section-3.2.28-1">Location: S    Required: Optional   Json Type: String
-A string specifying the audio channel configuration. This property SHOULD only
+<p id="section-3.2.28-1">Location: S    Required: Optional   Json Type: String<a href="#section-3.2.28-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.28-2">A string specifying the audio channel configuration. This property SHOULD only
 accompany audio codecs. A string is used in order to provide the flexibility to
 describe complex channel configurations for multi-channel and Next Generation
-Audio schemas.<a href="#section-3.2.28-1" class="pilcrow">¶</a></p>
+Audio schemas.<a href="#section-3.2.28-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="displaywidth">
@@ -1992,8 +1995,8 @@ Audio schemas.<a href="#section-3.2.28-1" class="pilcrow">¶</a></p>
           <h4 id="name-display-width">
 <a href="#section-3.2.29" class="section-number selfRef">3.2.29. </a><a href="#name-display-width" class="section-name selfRef">Display width</a>
           </h4>
-<p id="section-3.2.29-1">Location: S    Required: Optional   Json Type: Number
-A number expressing the intended display width of the track content in pixels.<a href="#section-3.2.29-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.29-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.29-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.29-2">A number expressing the intended display width of the track content in pixels.<a href="#section-3.2.29-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="displayheight">
@@ -2001,8 +2004,8 @@ A number expressing the intended display width of the track content in pixels.<a
           <h4 id="name-display-height">
 <a href="#section-3.2.30" class="section-number selfRef">3.2.30. </a><a href="#name-display-height" class="section-name selfRef">Display height</a>
           </h4>
-<p id="section-3.2.30-1">Location: S    Required: Optional   Json Type: Number
-A number expressing the intended display height of the track content in pixels.<a href="#section-3.2.30-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.30-1">Location: S    Required: Optional   Json Type: Number<a href="#section-3.2.30-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.30-2">A number expressing the intended display height of the track content in pixels.<a href="#section-3.2.30-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="language">
@@ -2010,9 +2013,9 @@ A number expressing the intended display height of the track content in pixels.<
           <h4 id="name-language">
 <a href="#section-3.2.31" class="section-number selfRef">3.2.31. </a><a href="#name-language" class="section-name selfRef">Language</a>
           </h4>
-<p id="section-3.2.31-1">Location: S    Required: Optional   Json Type: String
-A string defining the dominant language of the track. The string MUST be one of
-the standard Tags for Identifying Languages as defined by <span>[<a href="#LANG" class="cite xref">LANG</a>]</span>.<a href="#section-3.2.31-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.31-1">Location: S    Required: Optional   Json Type: String<a href="#section-3.2.31-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.31-2">A string defining the dominant language of the track. The string MUST be one of
+the standard Tags for Identifying Languages as defined by <span>[<a href="#LANG" class="cite xref">LANG</a>]</span>.<a href="#section-3.2.31-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2566,13 +2569,36 @@ registry is:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
-<p id="section-5.1-3">No RFC is provided for the initial entry as it is reserved. Every MoQ
+<p id="section-5.1-3">+-------------------+--------------------------------------------+-------------------+
+| Name              | Description                                | Example           |
++===================+============================================+===================+
+| Server Version    | The version of the server                  | 0.20.0            |
++-------------------+--------------------------------------------+-------------------+
+| Protocol Version  | The version of the protocol                | 0.1.0             |
+|                   | (different servers can have same protocol) |                   |
++-------------------+--------------------------------------------+-------------------+
+| Capabilities      | What features the server has implemented   | "search"          |
++-------------------+--------------------------------------------+-------------------+<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4"></p>
+<p id="section-5.1-5">Name              Description                                 Example
+----------------- ------------------------------------------- --------
+Server Version    The version of the server                   0.20.0<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-6">Protocol Version  The version of the protocol                 0.1.0
+                  (different servers can have same protocol)<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="capabilities-what-features-the-server-has-implemented-search">
+<section id="section-5.2">
+        <h3 id="name-capabilities-what-features-">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-capabilities-what-features-" class="section-name selfRef">Capabilities      What features the server has implemented    "search"</a>
+        </h3>
+<p id="section-5.2-1">No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
 itself a unique type identifier. The type registry can be updated by
 incrementally expanding by allocating and reserving new type identifiers.
 &lt;---------------------------- 80 characters -----------------------------------&gt;
-## Common Catalog Field Registry<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The initial entries in the registry are:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+## Common Catalog Field Registry<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>. The initial entries in the registry are:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <table class="center" id="table-5">
           <caption><a href="#table-5" class="selfRef">Table 5</a></caption>
 <thead>
@@ -2820,48 +2846,48 @@ incrementally expanding by allocating and reserving new type identifiers.
             </tr>
           </tbody>
         </table>
-<p id="section-5.1-6">Any registration for a new Field name MUST provide the following information:<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">Any registration for a new Field name MUST provide the following information:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-7.1">
-            <p id="section-5.1-7.1.1">Descriptive Name - a descriptive name for the field.<a href="#section-5.1-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-5.1">
+            <p id="section-5.2-5.1.1">Descriptive Name - a descriptive name for the field.<a href="#section-5.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-7.2">
-            <p id="section-5.1-7.2.1">Field Name - the JSON field name, as will be used inside the JSON catalog.<a href="#section-5.1-7.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-5.2">
+            <p id="section-5.2-5.2.1">Field Name - the JSON field name, as will be used inside the JSON catalog.<a href="#section-5.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-7.3">
-            <p id="section-5.1-7.3.1">Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.<a href="#section-5.1-7.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-5.3">
+            <p id="section-5.2-5.3.1">Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.<a href="#section-5.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-7.4">
-            <p id="section-5.1-7.4.1">Location - a string defining the permissible locations for the field within the catalog:<a href="#section-5.1-7.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-5.4">
+            <p id="section-5.2-5.4.1">Location - a string defining the permissible locations for the field within the catalog:<a href="#section-5.2-5.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-7.4.2.1">
-                <p id="section-5.1-7.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.1-7.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-5.4.2.1">
+                <p id="section-5.2-5.4.2.1.1">'R' - the field is located in the Root of the JSON object.<a href="#section-5.2-5.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.2">
-                <p id="section-5.1-7.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.1-7.4.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.2">
+                <p id="section-5.2-5.4.2.2.1">'RC' - the field may be located in either the Root or a Catalog object.<a href="#section-5.2-5.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.3">
-                <p id="section-5.1-7.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-5.1-7.4.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.3">
+                <p id="section-5.2-5.4.2.3.1">'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.<a href="#section-5.2-5.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.4">
-                <p id="section-5.1-7.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-5.1-7.4.2.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.4">
+                <p id="section-5.2-5.4.2.4.1">'TC' - the field may be located in either a Track object or a Catalog object.<a href="#section-5.2-5.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.5">
-                <p id="section-5.1-7.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.1-7.4.2.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.5">
+                <p id="section-5.2-5.4.2.5.1">'RT' - the field may be located in either the Root or a Track object.<a href="#section-5.2-5.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.6">
-                <p id="section-5.1-7.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.1-7.4.2.6.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.6">
+                <p id="section-5.2-5.4.2.6.1">'T' - the field is located in a Track object.<a href="#section-5.2-5.4.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.1-7.4.2.7">
-                <p id="section-5.1-7.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.1-7.4.2.7.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.2-5.4.2.7">
+                <p id="section-5.2-5.4.2.7.1">'S' - the field is located in the Selection Parameters object.<a href="#section-5.2-5.4.2.7.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-5.1-7.5">
-            <p id="section-5.1-7.5.1">JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.<a href="#section-5.1-7.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-5.5">
+            <p id="section-5.2-5.5.1">JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.<a href="#section-5.2-5.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-7.6">
-            <p id="section-5.1-7.6.1">Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>.<a href="#section-5.1-7.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-5.6">
+            <p id="section-5.2-5.6.1">Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of <span>[<a href="#RFC5226" class="cite xref">RFC5226</a>]</span>.<a href="#section-5.2-5.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

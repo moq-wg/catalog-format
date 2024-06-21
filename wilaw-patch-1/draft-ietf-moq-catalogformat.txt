@@ -133,6 +133,8 @@ Table of Contents
    4.  Security Considerations
    5.  IANA Considerations
      5.1.  MoQ Streaming Format Type Registry
+     5.2.  Capabilities What features the server has implemented
+           "search"
    Acknowledgments
    Normative References
    Authors' Addresses
@@ -308,12 +310,13 @@ Table of Contents
 
 3.2.  Catalog version
 
-   Location: R Required: Yes Json Type: String\ Versions of this catalog
-   specification are defined using monotonically increasing integers.
-   There is no guarantee that future catalog versions are backwards
-   compatible and field definitions and interpretation may change
-   between versions.  A subscriber MUST NOT attempt to parse a catalog
-   version which it does not understand.
+   Location: R Required: Yes Json Type: String
+
+   Versions of this catalog specification are defined using
+   monotonically increasing integers.  There is no guarantee that future
+   catalog versions are backwards compatible and field definitions and
+   interpretation may change between versions.  A subscriber MUST NOT
+   attempt to parse a catalog version which it does not understand.
 
    This document defines version 1.
 
@@ -328,40 +331,47 @@ Table of Contents
 
 3.2.2.  Streaming format version
 
-   Location: RC Required: Yes Json Type: String A string indicating the
-   version of the streaming format to which this catalog applies.  The
-   structure of the version string is defined by the streaming format.
+   Location: RC Required: Yes Json Type: String
+
+   A string indicating the version of the streaming format to which this
+   catalog applies.  The structure of the version string is defined by
+   the streaming format.
 
 3.2.3.  Supports delta updates
 
-   Location: RC Required: Optional Json Type: Boolean A boolean that if
-   true indicates that the publisher MAY issue incremental (delta)
-   updates - see Section 3.3.  If false or absent, then the publisher
-   gaurantees that they will NOT issue any incremental updates and that
-   any future updates to the catalog will be independent.  The default
-   value is false.  This field MUST be present if its value is true, but
-   may be omitted if the value is false.
+   Location: RC Required: Optional Json Type: Boolean
+
+   A boolean that if true indicates that the publisher MAY issue
+   incremental (delta) updates - see Section 3.3.  If false or absent,
+   then the publisher gaurantees that they will NOT issue any
+   incremental updates and that any future updates to the catalog will
+   be independent.  The default value is false.  This field MUST be
+   present if its value is true, but may be omitted if the value is
+   false.
 
 3.2.4.  Common track fields
 
-   Location: R Required: Optional Json Type: Object An object holding a
-   collection of Track Fields (objects with a location of TF or TFC in
-   table 1) which are to be inherited by all tracks.  A field defined at
-   the Track object level always supercedes any value inherited from the
-   Common Track Fields object.
+   Location: R Required: Optional Json Type: Object
+
+   An object holding a collection of Track Fields (objects with a
+   location of TF or TFC in table 1) which are to be inherited by all
+   tracks.  A field defined at the Track object level always supercedes
+   any value inherited from the Common Track Fields object.
 
 3.2.5.  Tracks
 
-   Location: R Required: Optional Json Type: Array An array of track
-   objects Section 3.2.8.  If the 'tracks' field is present then the
-   'catalog' field MUST NOT be present.
+   Location: R Required: Optional Json Type: Array
+
+   An array of track objects Section 3.2.8.  If the 'tracks' field is
+   present then the 'catalog' field MUST NOT be present.
 
 3.2.6.  Catalogs
 
-   Location: R Required: Optional Json Type: Array An array of catalog
-   objects Section 3.2.7.  If the 'catalogs' field is present then the
-   'tracks' field MUST NOT be present.  A catalog MUST NOT list itself
-   in the catalog array.
+   Location: R Required: Optional Json Type: Array
+
+   An array of catalog objects Section 3.2.7.  If the 'catalogs' field
+   is present then the 'tracks' field MUST NOT be present.  A catalog
+   MUST NOT list itself in the catalog array.
 
 3.2.7.  Catalog object
 
@@ -375,25 +385,29 @@ Table of Contents
 
 3.2.9.  Track namespace
 
-   Location: TFC Required: Optional Json Type: String The name space
-   under which the track name is defined.  See section 2.3 of
-   [MoQTransport].  The track namespace is optional.  If it is not
-   declared within the Common Track Fields object or within a track,
+   Location: TFC Required: Optional Json Type: String
+
+   The name space under which the track name is defined.  See section
+   2.3 of [MoQTransport].  The track namespace is optional.  If it is
+   not declared within the Common Track Fields object or within a track,
    then each track MUST inherit the namespace of the catalog track.  A
    namespace declared in a track object or catalog object overwrites any
    inherited name space.
 
 3.2.10.  Track name
 
-   Location: TFC Required: Yes Json Type: String A string defining the
-   name of the track.  See section 2.3 of [MoQTransport].  Within the
-   catalog, track names MUST be unique per namespace.
+   Location: TFC Required: Yes Json Type: String
+
+   A string defining the name of the track.  See section 2.3 of
+   [MoQTransport].  Within the catalog, track names MUST be unique per
+   namespace.
 
 3.2.11.  Packaging
 
-   Location: TF Required: Yes Json Type: String A string defining the
-   type of payload encapsulation.  Allowed values are strings as defined
-   in Table 3.
+   Location: TF Required: Yes Json Type: String
+
+   A string defining the type of payload encapsulation.  Allowed values
+   are strings as defined in Table 3.
 
    Table 3: Allowed packaging values
 
@@ -409,27 +423,30 @@ Table of Contents
 
 3.2.12.  Track label
 
-   Location: TF Required: Optional Json Type: String A string defining a
-   human-readable label for the track.  Examples might be "Overhead
-   camera view" or "Deutscher Kommentar".  Note that the [JSON] spec
-   requires UTF-8 support by decoders.
+   Location: TF Required: Optional Json Type: String
+
+   A string defining a human-readable label for the track.  Examples
+   might be "Overhead camera view" or "Deutscher Kommentar".  Note that
+   the [JSON] spec requires UTF-8 support by decoders.
 
 3.2.13.  Render group
 
-   Location: TF Required: Optional Json Type: Number An integer
-   specifying a group of tracks which are designed to be rendered
-   together.  Tracks with the same group number SHOULD be rendered
-   simultaneously, are usually time-aligned and are designed to
+   Location: TF Required: Optional Json Type: Number
+
+   An integer specifying a group of tracks which are designed to be
+   rendered together.  Tracks with the same group number SHOULD be
+   rendered simultaneously, are usually time-aligned and are designed to
    accompany one another.  A common example would be tying together
    audio and video tracks.
 
 3.2.14.  Alternate group
 
-   Location: TF Required: Optional Json Type: Number An integer
-   specifying a group of tracks which are alternate versions of one-
-   another.  Alternate tracks represent the same media content, but
-   differ in their selection properties.  Alternate tracks SHOULD have
-   matching framerate Section 3.2.23 and media time sequences.  A
+   Location: TF Required: Optional Json Type: Number
+
+   An integer specifying a group of tracks which are alternate versions
+   of one-another.  Alternate tracks represent the same media content,
+   but differ in their selection properties.  Alternate tracks SHOULD
+   have matching framerate Section 3.2.23 and media time sequences.  A
    subscriber typically subscribes to one track from a set of tracks
    specifying the same alternate group number.  A common example would
    be a set video tracks of the same content offered in alternate
@@ -437,112 +454,137 @@ Table of Contents
 
 3.2.15.  Initialization data
 
-   Location: TF Required: Optional Json Type: String A string holding
-   Base64 [BASE64] encoded initialization data for the track.
+   Location: TF Required: Optional Json Type: String
+
+   A string holding Base64 [BASE64] encoded initialization data for the
+   track.
 
 3.2.16.  Initialization track
 
-   Location: TF Required: Optional Json Type: String A string specifying
-   the track name of another track which holds initialization data for
-   the current track.  Initialization tracks MUST NOT be added to the
-   tracks array Section 3.2.5.  They are referenced only via the
-   initialization track field of the track which they initialize.
+   Location: TF Required: Optional Json Type: String
+
+   A string specifying the track name of another track which holds
+   initialization data for the current track.  Initialization tracks
+   MUST NOT be added to the tracks array Section 3.2.5.  They are
+   referenced only via the initialization track field of the track which
+   they initialize.
 
 3.2.17.  Selection parameters
 
-   Location: TF Required: Optional Json Type: Object An object holding a
-   series of name/value pairs which a subscriber can use to select
-   tracks for subscription.  If present, the selection parameters object
-   MUST NOT be empty.  Any selection parameters declared at the root
-   level are inherited by all tracks.  A selection parameters object may
-   exist at both the root and track level.  Any declaration of a
-   selection parameter at the track level overrides the inherited root
-   value.
+   Location: TF Required: Optional Json Type: Object
+
+   An object holding a series of name/value pairs which a subscriber can
+   use to select tracks for subscription.  If present, the selection
+   parameters object MUST NOT be empty.  Any selection parameters
+   declared at the root level are inherited by all tracks.  A selection
+   parameters object may exist at both the root and track level.  Any
+   declaration of a selection parameter at the track level overrides the
+   inherited root value.
 
 3.2.18.  Dependencies
 
-   Location: T Required: Optional Json Type: Array Certain tracks may
-   depend on other tracks for decoding.  Dependencies holds an array of
-   track names Section 3.2.10 on which the current track is dependent.
-   Since only the track name is signaled, the namespace of the
-   dependencies is assumed to match that of the track declaring the
-   dependencies.
+   Location: T Required: Optional Json Type: Array
+
+   Certain tracks may depend on other tracks for decoding.  Dependencies
+   holds an array of track names Section 3.2.10 on which the current
+   track is dependent.  Since only the track name is signaled, the
+   namespace of the dependencies is assumed to match that of the track
+   declaring the dependencies.
 
 3.2.19.  Temporal ID
 
-   Location: T Required: Optional Json Type: Number A number identifying
-   the temporal layer/sub-layer encoding of the track, starting with 0
-   for the base layer, and increasing with higher temporal fidelity.
+   Location: T Required: Optional Json Type: Number
+
+   A number identifying the temporal layer/sub-layer encoding of the
+   track, starting with 0 for the base layer, and increasing with higher
+   temporal fidelity.
 
 3.2.20.  Spatial ID
 
-   Location: T Required: Optional Json Type: Number A number identifying
-   the spatial layer encoding of the track, starting with 0 for the base
-   layer, and increasing with higher fidelity.
+   Location: T Required: Optional Json Type: Number
+
+   A number identifying the spatial layer encoding of the track,
+   starting with 0 for the base layer, and increasing with higher
+   fidelity.
 
 3.2.21.  Codec
 
-   Location: S Required: Optional Json Type: String A string defining
-   the codec used to encode the track.  For LOC packaged content, the
-   string codec registrations are defined in Sect 3 and Section 4 of
-   [WEBCODECS-CODEC-REGISTRY].  For CMAF packaged content, the string
-   codec registrations are defined in XXX.
+   Location: S Required: Optional Json Type: String
+
+   A string defining the codec used to encode the track.  For LOC
+   packaged content, the string codec registrations are defined in Sect
+   3 and Section 4 of [WEBCODECS-CODEC-REGISTRY].  For CMAF packaged
+   content, the string codec registrations are defined in XXX.
 
 3.2.22.  Mimetype
 
-   Location: S Required: Optional Json Type: String A string defining
-   the mime type [MIME] of the track.  This parameter is typically
-   supplied with CMAF packaged content.
+   Location: S Required: Optional Json Type: String
+
+   A string defining the mime type [MIME] of the track.  This parameter
+   is typically supplied with CMAF packaged content.
 
 3.2.23.  Framerate
 
-   Location: S Required: Optional Json Type: Number A number defining
-   the framerate of the track, expressed as frames per second.
+   Location: S Required: Optional Json Type: Number
+
+   A number defining the framerate of the track, expressed as frames per
+   second.
 
 3.2.24.  Bitrate
 
-   Location: S Required: Optional Json Type: Number A number defining
-   the bitrate of track, expressed in bits second.
+   Location: S Required: Optional Json Type: Number
+
+   A number defining the bitrate of track, expressed in bits second.
 
 3.2.25.  Width
 
-   Location: S Required: Optional Json Type: Number A number expressing
-   the encoded width of the track content in pixels.
+   Location: S Required: Optional Json Type: Number
+
+   A number expressing the encoded width of the track content in pixels.
 
 3.2.26.  Height
 
-   Location: S Required: Optional Json Type: Number A number expressing
-   the encoded height of the video frames in pixels.
+   Location: S Required: Optional Json Type: Number
+
+   A number expressing the encoded height of the video frames in pixels.
 
 3.2.27.  Audio sample rate
 
-   Location: S Required: Optional Json Type: Number The number of audio
-   frame samples per second.  This property SHOULD only accompany audio
-   codecs.
+   Location: S Required: Optional Json Type: Number
+
+   The number of audio frame samples per second.  This property SHOULD
+   only accompany audio codecs.
 
 3.2.28.  Channel configuration
 
-   Location: S Required: Optional Json Type: String A string specifying
-   the audio channel configuration.  This property SHOULD only accompany
-   audio codecs.  A string is used in order to provide the flexibility
-   to describe complex channel configurations for multi-channel and Next
-   Generation Audio schemas.
+   Location: S Required: Optional Json Type: String
+
+   A string specifying the audio channel configuration.  This property
+   SHOULD only accompany audio codecs.  A string is used in order to
+   provide the flexibility to describe complex channel configurations
+   for multi-channel and Next Generation Audio schemas.
 
 3.2.29.  Display width
 
-   Location: S Required: Optional Json Type: Number A number expressing
-   the intended display width of the track content in pixels.
+   Location: S Required: Optional Json Type: Number
+
+   A number expressing the intended display width of the track content
+   in pixels.
 
 3.2.30.  Display height
 
-   Location: S Required: Optional Json Type: Number A number expressing
-   the intended display height of the track content in pixels.
+   Location: S Required: Optional Json Type: Number
+
+   A number expressing the intended display height of the track content
+   in pixels.
 
 3.2.31.  Language
 
-   Location: S Required: Optional Json Type: String A string defining
-   the dominant language of the track.  The string MUST be one of the
-   standard Tags for Identifying Languages as defined by [LANG].
+   Location: S Required: Optional Json Type: String
+
+   A string defining the dominant language of the track.  The string
+   MUST be one of the standard Tags for Identifying Languages as defined
+   by [LANG].
 
 3.3.  Catalog Patch
 
@@ -977,6 +1019,28 @@ Table of Contents
          +--------+----------+-----------------------------------+
 
                                   Table 4
+
+   +-------------------+--------------------------------------------+---
+   ----------------+ | Name | Description | Example | +=================
+   ==+============================================+===================+ 
+   | Server Version | The version of the server | 0.20.0 | +------------
+   -------+--------------------------------------------+----------------
+   ---+ | Protocol Version | The version of the protocol | 0.1.0 | | |
+   (different servers can have same protocol) | | +-------------------+-
+   -------------------------------------------+-------------------+ |
+   Capabilities | What features the server has implemented | "search" | 
+   +-------------------+--------------------------------------------+---
+   ----------------+
+
+
+   Name Description Example -----------------
+   ------------------------------------------- -------- Server Version
+   The version of the server 0.20.0
+
+   Protocol Version The version of the protocol 0.1.0 (different servers
+   can have same protocol)
+
+5.2.  Capabilities What features the server has implemented "search"
 
    No RFC is provided for the initial entry as it is reserved.  Every
    MoQ streaming format draft normatively referencing this catalog
