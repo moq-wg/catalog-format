@@ -308,7 +308,7 @@ Table of Contents
 
 3.2.  Catalog version
 
-   Location: R Required: Yes Json Type: String Versions of this catalog
+   Location: R Required: Yes Json Type: String\ Versions of this catalog
    specification are defined using monotonically increasing integers.
    There is no guarantee that future catalog versions are backwards
    compatible and field definitions and interpretation may change
@@ -319,10 +319,12 @@ Table of Contents
 
 3.2.1.  Streaming format
 
-   Location: RC Required: Yes Json Type: String A number indicating the
-   streaming format type.  Every MoQ Streaming Format normatively
-   referencing this catalog format MUST register itself in the "MoQ
-   Streaming Format Type" table.  See Section 5 for additional details.
+   Location: RC Required: Yes Json Type: String
+
+   A number indicating the streaming format type.  Every MoQ Streaming
+   Format normatively referencing this catalog format MUST register
+   itself in the "MoQ Streaming Format Type" table.  See Section 5 for
+   additional details.
 
 3.2.2.  Streaming format version
 
