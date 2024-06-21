@@ -177,7 +177,7 @@ Table 2 defines the allowed locations for these fields within the document
 | S        | Selection Parameters object.                                  |
 
 ## Catalog version {#catalogversion}
-Location: R    Required: Yes    Json Type: String
+Location: R    Required: Yes    Json Type: String\
 Versions of this catalog specification are defined using monotonically
 increasing integers. There is no guarantee that future catalog versions are
 backwards compatible and field definitions and interpretation may change between
@@ -188,6 +188,7 @@ This document defines version 1.
 
 ### Streaming format {#streamingformat}
 Location: RC    Required: Yes    Json Type: String
+
 A number indicating the streaming format type. Every MoQ Streaming Format
 normatively referencing this catalog format MUST register itself in the "MoQ
 Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
