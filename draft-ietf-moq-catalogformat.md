@@ -866,26 +866,17 @@ registry is:
 
 
 
-+===================+============================================+
-| Name              | Description                                |
-+===================+============================================+
-| Server Version    | The version of the server                  |
-+-------------------+--------------------------------------------+
-| Protocol Version  | The version of the protocol                |
-|                   | (different servers can have same protocol) |
-+-------------------+--------------------------------------------+
-| Capabilities      | What features the server has implemented   |
-+-------------------+--------------------------------------------+
-
-
 No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
 itself a unique type identifier. The type registry can be updated by
 incrementally expanding by allocating and reserving new type identifiers.
-<---------------------------- 80 characters ----------------------------------->
+
 ## Common Catalog Field Registry
 
-This document creates a new IANA registry for the Common Catalog fields.  The registry is called "MoQ Common Catalog Fields".  This registry is managed by the IANA according to the Specification Required policy of [RFC5226]. The initial entries in the registry are:
+This document creates a new IANA registry for the Common Catalog fields.  The
+registry is called "MoQ Common Catalog Fields".  This registry is managed by
+the IANA according to the Specification Required policy of [RFC5226]. The
+initial entries in the registry are:
 
 | Descriptive Name        |  Field Name            | Required |  Location |  JSON type |                         Specification                             |
 |:========================|:=======================|:=========|:==========|:===========|:==================================================================|
@@ -923,17 +914,24 @@ Any registration for a new Field name MUST provide the following information:
 
 * Descriptive Name - a descriptive name for the field.
 * Field Name - the JSON field name, as will be used inside the JSON catalog.
-* Required - the string "yes" if the field is required in all catalogs and "opt" if it is not.
-* Location - a string defining the permissible locations for the field within the catalog:
+* Required - the string "yes" if the field is required in all catalogs and
+"opt" if it is not.
+* Location - a string defining the permissible locations for the field within
+the catalog:
   * 'R' - the field is located in the Root of the JSON object.
   * 'RC' - the field may be located in either the Root or a Catalog object.
-  * 'RTC' - the field may be located in either the Root, or a Track object or a Catalog object.
-  * 'TC' - the field may be located in either a Track object or a Catalog object.
+  * 'RTC' - the field may be located in either the Root, or a Track object
+  or a Catalog object.
+  * 'TC' - the field may be located in either a Track object or a Catalog
+  object.
   * 'RT' - the field may be located in either the Root or a Track object.
   * 'T' - the field is located in a Track object.
   * 'S' - the field is located in the Selection Parameters object.
-* JSON Type  - the JSON type of the field value, which must be one of String, Array, Number, Object or Boolean.
-* Specification - a URL to the specification which defines the usage of the field within the catalog, per the Specification Required policy of [RFC5226].
+* JSON Type  - the JSON type of the field value, which must be one of
+String, Array, Number, Object or Boolean.
+* Specification - a URL to the specification which defines the usage of the
+field within the catalog, per the Specification Required policy of [RFC5226].
+
 
 
 
