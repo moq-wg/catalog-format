@@ -165,40 +165,6 @@ Table 1 provides an overview of all fields defined by this document.
 | Language                | lang                   | {{language}}              |
 
 
-| Field                   |  Name                  | Required |  Location |  JSON type |           Definition       |
-|:========================|:=======================|:=========|:==========|:===========|:===========================|
-| Catalog version         | version                |  yes     |   R       |  String    | {{catalogversion}}         |
-| Streaming format        | streamingFormat        |  yes     |   RC      |  String    | {{streamingformat}}        |
-| Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | {{streamingformatversion}} |
-| Supports delta updates  | supportsDeltaUpdates   |  opt     |   RC      |  Boolean   | {{supportsdeltaupdates}}   |
-| Common Track Fields     | commonTrackFields      |  opt     |   R       |  Object    | {{commontrackfields}}      |
-| Tracks                  | tracks                 |  opt     |   R       |  Array     | {{tracks}}                 |
-| Catalogs                | catalogs               |  opt     |   R       |  Array     | {{catalogs}}               |
-| Track namespace         | namespace              |  opt     |   TFC     |  String    | {{tracknamespace}}         |
-| Track name              | name                   |  yes     |   TFC     |  String    | {{trackname}}              |
-| Packaging               | packaging              |  yes     |   TF      |  String    | {{packaging}}              |
-| Track operation         | operation              |  yes     |   TF      |  String    | {{trackoperations}}        |
-| Track label             | label                  |  opt     |   TF      |  String    | {{tracklabel}}             |
-| Render group            | renderGroup            |  opt     |   TF      |  Number    | {{rendergroup}}            |
-| Alternate group         | altGroup               |  opt     |   TF      |  Number    | {{altgroup}}               |
-| Initialization data     | initData               |  opt     |   TF      |  String    | {{initdata}}               |
-| Initialization track    | initTrack              |  opt     |   TF      |  String    | {{inittrack}}              |
-| Selection parameters    | selectionParams        |  opt     |   TF      |  Object    | {{selectionparameters}}    |
-| Dependencies            | depends                |  opt     |   T       |  Array     | {{dependencies}}           |
-| Temporal ID             | temporalId             |  opt     |   T       |  Number    | {{temporalid}}             |
-| Spatial ID              | spatialId              |  opt     |   T       |  Number    | {{spatialid}}              |
-| Codec                   | codec                  |  opt     |   S       |  String    | {{codec}}                  |
-| Mime type               | mimeType               |  opt     |   S       |  String    | {{mimetype}}               |
-| Framerate               | framerate              |  opt     |   S       |  Number    | {{framerate}}              |
-| Bitrate                 | bitrate                |  opt     |   S       |  Number    | {{bitrate}}                |
-| Width                   | width                  |  opt     |   S       |  Number    | {{width}}                  |
-| Height                  | height                 |  opt     |   S       |  Number    | {{height}}                 |
-| Audio sample rate       | samplerate             |  opt     |   S       |  Number    | {{audiosamplerate}}        |
-| Channel configuration   | channelConfig          |  opt     |   S       |  String    | {{channelconfiguration}}   |
-| Display width           | displayWidth           |  opt     |   S       |  Number    | {{displaywidth}}           |
-| Display height          | displayHeight          |  opt     |   S       |  Number    | {{displayheight}}          |
-| Language                | lang                   |  opt     |   S       |  String    | {{language}}               |
-
 Table 2 defines the allowed locations for these fields within the document
 
 | Location |                Allowed locations for the field                |
