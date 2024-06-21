@@ -177,7 +177,8 @@ Table 2 defines the allowed locations for these fields within the document
 | S        | Selection Parameters object.                                  |
 
 ## Catalog version {#catalogversion}
-Location: R    Required: Yes    Json Type: String\
+Location: R    Required: Yes    Json Type: String
+
 Versions of this catalog specification are defined using monotonically
 increasing integers. There is no guarantee that future catalog versions are
 backwards compatible and field definitions and interpretation may change between
@@ -195,11 +196,13 @@ Streaming Format Type" table. See {{ianaconsiderations}} for additional details.
 
 ### Streaming format version {#streamingformatversion}
 Location: RC    Required: Yes    Json Type: String
+
 A string indicating the version of the streaming format to which this catalog
 applies. The structure of the version string is defined by the streaming format.
 
 ### Supports delta updates {#supportsdeltaupdates}
 Location: RC    Required: Optional    Json Type: Boolean
+
 A boolean that if true indicates that the publisher MAY issue incremental
 (delta) updates - see {{patch}}. If false or absent, then the publisher
 gaurantees that they will NOT issue any incremental updates and that any future
@@ -209,6 +212,7 @@ false.
 
 ### Common track fields {#commontrackfields}
 Location: R    Required: Optional    Json Type: Object
+
 An object holding a collection of Track Fields (objects with a location of TF
 or TFC in table 1) which are to be inherited by all tracks. A field defined at
 the Track object level always supercedes any value inherited from the Common
@@ -216,11 +220,13 @@ Track Fields object.
 
 ### Tracks {#tracks}
 Location: R    Required: Optional    Json Type: Array
+
 An array of track objects {{trackobject}}. If the 'tracks' field is present
 then the 'catalog' field MUST NOT be present.
 
 ### Catalogs {#catalogs}
 Location: R    Required: Optional    Json Type: Array
+
 An array of catalog objects {{catalogobject}}. If the 'catalogs' field is
 present then the 'tracks' field MUST NOT be present. A catalog MUST NOT list
 itself in the catalog array.
@@ -235,6 +241,7 @@ A track object is a collection of fields whose location is specified as 'TFC',
 
 ### Track namespace {#tracknamespace}
 Location: TFC    Required: Optional    Json Type: String
+
 The name space under which the track name is defined. See section 2.3 of
 {{MoQTransport}}. The track namespace is optional. If it is not declared within
 the Common Track Fields object or within a track, then each track MUST inherit
@@ -243,11 +250,13 @@ catalog object overwrites any inherited name space.
 
 ### Track name {#trackname}
 Location: TFC    Required: Yes   Json Type: String
+
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
 Within the catalog, track names MUST be unique per namespace.
 
 ### Packaging {#packaging}
 Location: TF    Required: Yes   Json Type: String
+
 A string defining the type of payload encapsulation. Allowed values are strings
 as defined in Table 3.
 
@@ -260,12 +269,14 @@ Table 3: Allowed packaging values
 
 ### Track label {#tracklabel}
 Location: TF    Required: Optional   Json Type: String
+
 A string defining a human-readable label for the track. Examples might be
 "Overhead camera view" or "Deutscher Kommentar". Note that the {{JSON}} spec
 requires UTF-8 support by decoders.
 
 ### Render group {#rendergroup}
 Location: TF    Required: Optional   Json Type: Number
+
 An integer specifying a group of tracks which are designed to be rendered
 together. Tracks with the same group number SHOULD be rendered simultaneously,
 are usually time-aligned and are designed to accompany one another. A common
@@ -273,6 +284,7 @@ example would be tying together audio and video tracks.
 
 ### Alternate group {#altgroup}
 Location: TF    Required: Optional   Json Type: Number
+
 An integer specifying a group of tracks which are alternate versions of
 one-another. Alternate tracks represent the same media content, but differ in
 their selection properties. Alternate tracks SHOULD have matching framerate
@@ -283,10 +295,12 @@ alternate bitrates.
 
 ### Initialization data {#initdata}
 Location: TF    Required: Optional   Json Type: String
+
 A string holding Base64 [BASE64] encoded initialization data for the track.
 
 ### Initialization track {#inittrack}
 Location: TF    Required: Optional   Json Type: String
+
 A string specifying the track name of another track which holds initialization
 data for the current track. Initialization tracks MUST NOT be added to the
 tracks array {{tracks}}. They are referenced only via the initialization track
@@ -294,6 +308,7 @@ field of the track which they initialize.
 
 ### Selection parameters {#selectionparameters}
 Location: TF    Required: Optional   Json Type: Object
+
 An object holding a series of name/value pairs which a subscriber can use to
 select tracks for subscription. If present, the selection parameters object
 MUST NOT be empty. Any selection parameters declared at the root level are
@@ -303,6 +318,7 @@ level overrides the inherited root value.
 
 ### Dependencies {#dependencies}
 Location: T    Required: Optional   Json Type: Array
+
 Certain tracks may depend on other tracks for decoding. Dependencies holds an
 array of track names {{trackname}} on which the current track is dependent.
 Since only the track name is signaled, the namespace of the dependencies is
@@ -310,17 +326,20 @@ assumed to match that of the track declaring the dependencies.
 
 ### Temporal ID {#temporalid}
 Location: T    Required: Optional   Json Type: Number
+
 A number identifying the temporal layer/sub-layer encoding of the track,
 starting with 0 for the base layer, and increasing with higher temporal
 fidelity.
 
 ### Spatial ID {#spatialid}
 Location: T    Required: Optional   Json Type: Number
+
 A number identifying the spatial layer encoding of the track, starting with 0
 for the base layer, and increasing with higher fidelity.
 
 ### Codec {#codec}
 Location: S    Required: Optional   Json Type: String
+
 A string defining the codec used to encode the track.
 For LOC packaged content, the string codec registrations are defined in Sect 3
 and Section 4 of {{WEBCODECS-CODEC-REGISTRY}}. For CMAF packaged content, the
@@ -328,32 +347,39 @@ string codec registrations are defined in XXX.
 
 ### Mimetype {#mimetype}
 Location: S    Required: Optional   Json Type: String
+
 A string defining the mime type [MIME] of the track. This parameter is typically
 supplied with CMAF packaged content.
 
 ### Framerate {#framerate}
 Location: S    Required: Optional   Json Type: Number
+
 A number defining the framerate of the track, expressed as frames per second.
 
 ### Bitrate {#bitrate}
 Location: S    Required: Optional   Json Type: Number
+
 A number defining the bitrate of track, expressed in bits second.
 
 ### Width {#width}
 Location: S    Required: Optional   Json Type: Number
+
 A number expressing the encoded width of the track content in pixels.
 
 ### Height {#height}
 Location: S    Required: Optional   Json Type: Number
+
 A number expressing the encoded height of the video frames in pixels.
 
 ### Audio sample rate {#audiosamplerate}
 Location: S    Required: Optional   Json Type: Number
+
 The number of audio frame samples per second. This property SHOULD only
 accompany audio codecs.
 
 ### Channel configuration {#channelconfiguration}
 Location: S    Required: Optional   Json Type: String
+
 A string specifying the audio channel configuration. This property SHOULD only
 accompany audio codecs. A string is used in order to provide the flexibility to
 describe complex channel configurations for multi-channel and Next Generation
@@ -362,14 +388,17 @@ Audio schemas.
 
 ### Display width {#displaywidth}
 Location: S    Required: Optional   Json Type: Number
+
 A number expressing the intended display width of the track content in pixels.
 
 ### Display height {#displayheight}
 Location: S    Required: Optional   Json Type: Number
+
 A number expressing the intended display height of the track content in pixels.
 
 ### Language {#language}
 Location: S    Required: Optional   Json Type: String
+
 A string defining the dominant language of the track. The string MUST be one of
 the standard Tags for Identifying Languages as defined by [LANG].
 
@@ -834,6 +863,31 @@ registry is:
 | 0x0000 |   Reserved  | https://datatracker.ietf.org/doc/   |
 |        |             | draft-wilaw-moq-catalogformat/      |
 |:-------|:------------|:------------------------------------|
+
+
+
++-------------------+--------------------------------------------+-------------------+
+| Name              | Description                                | Example           |
++===================+============================================+===================+
+| Server Version    | The version of the server                  | 0.20.0            |
++-------------------+--------------------------------------------+-------------------+
+| Protocol Version  | The version of the protocol                | 0.1.0             |
+|                   | (different servers can have same protocol) |                   |
++-------------------+--------------------------------------------+-------------------+
+| Capabilities      | What features the server has implemented   | "search"          |
++-------------------+--------------------------------------------+-------------------+
+
+
+----------------------------------------------------------------------
+Name              Description                                 Example
+----------------- ------------------------------------------- --------
+Server Version    The version of the server                   0.20.0
+
+Protocol Version  The version of the protocol                 0.1.0
+                  (different servers can have same protocol)
+
+Capabilities      What features the server has implemented    "search"
+----------------------------------------------------------------------
 
 No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
