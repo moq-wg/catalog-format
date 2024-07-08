@@ -1,9 +1,9 @@
 ---
 title: "Common Catalog Format for moq-transport"
-category: info
+category: std
 
 docname: draft-ietf-moq-catalogformat-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+submissiontype: IETF 
 number:
 date:
 consensus: true
@@ -879,194 +879,194 @@ Location: R<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Streaming format
-Field Name: streamingFormat
-Required: yes
-Location: RC
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Streaming format<br/>
+Field Name: streamingFormat<br/>
+Required: yes<br/>
+Location: RC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Streaming format version
-Field Name: streamingFormatVersion
-Required: yes
-Location: RC
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Streaming format version<br/>
+Field Name: streamingFormatVersion<br/>
+Required: yes<br/>
+Location: RC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Tracks
-Field Name: stracks
-Required: opt
-Location: R
-JSON Type: Array
-Specification: [MoQCatalog]
+Descriptive Name: Tracks<br/>
+Field Name: stracks<br/>
+Required: opt<br/>
+Location: R<br/>
+JSON Type: Array<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Catalogs
-Field Name: catalogs
-Required: opt
-Location: R
-JSON Type: Array
-Specification: [MoQCatalog]
+Descriptive Name: Catalogs<br/>
+Field Name: catalogs<br/>
+Required: opt<br/>
+Location: R<br/>
+JSON Type: Array<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Track namespace
-Field Name: namespace
-Required: opt
-Location: RTC
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Track namespace<br/>
+Field Name: namespace<br/>
+Required: opt<br/>
+Location: RTC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Track name
-Field Name: name
-Required: yes
-Location: TC
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Track name<br/>
+Field Name: name<br/>
+Required: yes<br/>
+Location: TC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Packaging
-Field Name: packaging
-Required: yes
-Location: RT
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Packaging<br/>
+Field Name: packaging<br/>
+Required: yes<br/>
+Location: RT<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Track label
-Field Name: label
-Required: opt
-Location: RT
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Track label<br/>
+Field Name: label<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Render group
-Field Name: renderGroup
-Required: opt
-Location: RT
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Render group<br/>
+Field Name: renderGroup<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Alternate group
-Field Name: altGroup
-Required: opt
-Location: RT
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Alternate group<br/>
+Field Name: altGroup<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Initialization data
-Field Name: initData
-Required: opt
-Location: RT
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Initialization data<br/>
+Field Name: initData<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Initialization track
-Field Name: initTrack
-Required: opt
-Location: RT
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Initialization track<br/>
+Field Name: initTrack<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Selection parameters
-Field Name: selectionParams
-Required: opt
-Location: RT
-JSON Type: Object
-Specification: [MoQCatalog]
+Descriptive Name: Selection parameters<br/>
+Field Name: selectionParams<br/>
+Required: opt<br/>
+Location: RT<br/>
+JSON Type: Object<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Dependencies
-Field Name: depends
-Required: opt
-Location: T
-JSON Type: Array
-Specification: [MoQCatalog]
+Descriptive Name: Dependencies<br/>
+Field Name: depends<br/>
+Required: opt<br/>
+Location: T<br/>
+JSON Type: Array<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Temporal ID
-Field Name: temporalId
-Required: opt
-Location: T
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Temporal ID<br/>
+Field Name: temporalId<br/>
+Required: opt<br/>
+Location: T<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Spatial ID
-Field Name: spatialId
-Required: opt
-Location: T
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Spatial ID<br/>
+Field Name: spatialId<br/>
+Required: opt<br/>
+Location: T<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Codec
-Field Name: codec
-Required: opt
-Location: S
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Codec<br/>
+Field Name: codec<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: MIME type
-Field Name: mimeType
-Required: opt
-Location: S
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: MIME type<br/>
+Field Name: mimeType<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Framerate
-Field Name: framerate
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Framerate<br/>
+Field Name: framerate<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Bitrate
-Field Name: bitrate
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Bitrate<br/>
+Field Name: bitrate<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Width
-Field Name: width
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Width<br/>
+Field Name: width<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Height
-Field Name: height
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Height<br/>
+Field Name: height<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Audio sample rate
-Field Name: samplerate
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Audio sample rate<br/>
+Field Name: samplerate<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Channel configuration
-Field Name: channelConfig
-Required: opt
-Location: S
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Channel configuration<br/>
+Field Name: channelConfig<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Display width
-Field Name: displayWidth
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Display width<br/>
+Field Name: displayWidth<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Display height
-Field Name: displayHeight
-Required: opt
-Location: S
-JSON Type: Number
-Specification: [MoQCatalog]
+Descriptive Name: Display height<br/>
+Field Name: displayHeight<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: Number<br/>
+Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Language
-Field Name: lang
-Required: opt
-Location: S
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Language<br/>
+Field Name: lang<br/>
+Required: opt<br/>
+Location: S<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
 
 Any registration for a new Field name MUST provide the following information:
