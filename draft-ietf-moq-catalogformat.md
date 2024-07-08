@@ -879,23 +879,19 @@ Location: R<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
-<pre>
 Descriptive Name: Streaming format
 Field Name: streamingFormat
 Required: yes
 Location: RC
 JSON Type: String
 Specification: [MoQCatalog]
- </pre>
- 
-<pre>
+
 Descriptive Name: Streaming format version
 Field Name: streamingFormatVersion
 Required: yes
 Location: RC
 JSON Type: String
 Specification: [MoQCatalog]
- </pre>
 
 Descriptive Name: Tracks
 Field Name: stracks
