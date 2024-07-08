@@ -3,7 +3,7 @@ title: "Common Catalog Format for moq-transport"
 category: std
 
 docname: draft-ietf-moq-catalogformat-latest
-submissiontype: IETF 
+submissiontype: IETF
 number:
 date:
 consensus: true
