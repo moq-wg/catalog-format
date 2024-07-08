@@ -1033,8 +1033,12 @@ Table of Contents
    Required policy of [RFC5226].  The initial entries in the registry
    are:
 
-   Descriptive Name: Catalog version Field Name: version Required: yes
-   Location: R JSON Type: String Specification: [MoQCatalog]
+   Descriptive Name: Catalog version
+   Field Name: version
+   Required: yes
+   Location: R
+   JSON Type: String
+   Specification: [MoQCatalog]
 
    Descriptive Name: Streaming format Field Name: streamingFormat
    Required: yes Location: RC JSON Type: String Specification:
