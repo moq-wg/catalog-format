@@ -42,11 +42,6 @@ author:
 normative:
   MoQTransport: I-D.ietf-moq-transport
   MoQCatalog: I-D.ietf-moq-catalogformat
-  Framemarking: I-D.ietf-avtext-framemarking
-  WebCodecs:
-    title: "WebCodecs"
-    date: July 2023
-    target: https://www.w3.org/TR/webcodecs/
   WEBCODECS-CODEC-REGISTRY:
     title: "WebCodecs Codec Registry"
     date: July 2023
@@ -264,7 +259,7 @@ Table 3: Allowed packaging values
 
 | Name            |   Value   |      Draft       |
 |:================|:==========|:=================|
-| CMAF            | "cmaf"    | See RFC XXXX     |
+| CMAF            | "cmaf"    | See [CMAF]     |
 | LOC             | "loc"     | See RFC XXXX     |
 
 ### Track label {#tracklabel}
@@ -877,7 +872,7 @@ registry is called "MoQ Common Catalog Fields".  This registry is managed by
 the IANA according to the Specification Required policy of [RFC5226]. The
 initial entries in the registry are:
 
-Descriptive Name: Catalog version 
+Descriptive Name: Catalog version
 Field Name: version
 Required: yes
 Location: R
@@ -955,7 +950,7 @@ JSON Type: Number
 Specification: [MoQCatalog]
 
 Descriptive Name: Initialization data
-Field Name: initData 
+Field Name: initData
 Required: opt
 Location: RT
 JSON Type: String
@@ -969,28 +964,28 @@ JSON Type: String
 Specification: [MoQCatalog]
 
 Descriptive Name: Selection parameters
-Field Name: selectionParams 
+Field Name: selectionParams
 Required: opt
 Location: RT
 JSON Type: Object
 Specification: [MoQCatalog]
 
 Descriptive Name: Dependencies
-Field Name: depends 
+Field Name: depends
 Required: opt
 Location: T
 JSON Type: Array
 Specification: [MoQCatalog]
 
 Descriptive Name: Temporal ID
-Field Name: temporalId  
+Field Name: temporalId
 Required: opt
 Location: T
 JSON Type: Number
 Specification: [MoQCatalog]
 
 Descriptive Name: Spatial ID
-Field Name: spatialId  
+Field Name: spatialId
 Required: opt
 Location: T
 JSON Type: Number
@@ -1038,21 +1033,21 @@ Location: S
 JSON Type: Number
 Specification: [MoQCatalog]
 
-Descriptive Name: Audio sample rate 
+Descriptive Name: Audio sample rate
 Field Name: samplerate
 Required: opt
 Location: S
 JSON Type: Number
 Specification: [MoQCatalog]
 
-Descriptive Name: Channel configuration 
+Descriptive Name: Channel configuration
 Field Name: channelConfig
 Required: opt
 Location: S
 JSON Type: String
 Specification: [MoQCatalog]
 
-Descriptive Name: Display width  
+Descriptive Name: Display width
 Field Name: displayWidth
 Required: opt
 Location: S
@@ -1066,7 +1061,7 @@ Location: S
 JSON Type: Number
 Specification: [MoQCatalog]
 
-Descriptive Name: Language    
+Descriptive Name: Language 
 Field Name: lang
 Required: opt
 Location: S
