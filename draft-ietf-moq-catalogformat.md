@@ -20,8 +20,8 @@ venue:
   mail: "moq@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/moq/"
   github: "moq-wg/catalog-format"
-  latest: "https://moq-wg.github.io/catalog-format/draft-ietf-moq-catalogformat.html"
-
+  latest: "https://moq-wg.github.io/catalog-format/
+           draft-ietf-moq-catalogformat.html"
 author:
 
  -
@@ -41,6 +41,7 @@ author:
 
 normative:
   MoQTransport: I-D.ietf-moq-transport
+  MoQCatalog: I-D.ietf-moq-catalogformat
   Framemarking: I-D.ietf-avtext-framemarking
   WebCodecs:
     title: "WebCodecs"
@@ -51,7 +52,8 @@ normative:
     date: July 2023
     target: https://www.w3.org/TR/webcodecs-codec-registry/
   CMAF:
-    title: "Information technology -- Multimedia application format (MPEG-A) -- Part 19: Common media application format (CMAF) for segmented media"
+    title: "Information technology -- Multimedia application format (MPEG-A) --
+            Part 19: Common media application format (CMAF) for segmented media"
     date: 2020-03
   JSON: RFC8259
   BASE64: RFC4648
@@ -109,8 +111,6 @@ relevant initialization data.
 A special case of the catalog exists which describes other catalogs instead of
 tracks. A catalog might describe tracks, or catalogs, but never both at the same
 time.
-
-
 
 ## Catalog Fields
 
@@ -865,7 +865,6 @@ registry is:
 |:-------|:------------|:------------------------------------|
 
 
-
 No RFC is provided for the initial entry as it is reserved. Every MoQ
 streaming format draft normatively referencing this catalog format MUST register
 itself a unique type identifier. The type registry can be updated by
@@ -878,37 +877,202 @@ registry is called "MoQ Common Catalog Fields".  This registry is managed by
 the IANA according to the Specification Required policy of [RFC5226]. The
 initial entries in the registry are:
 
-| Descriptive Name        |  Field Name            | Required |  Location |  JSON type |                         Specification                             |
-|:========================|:=======================|:=========|:==========|:===========|:==================================================================|
-| Catalog version         | version                |  yes     |   R       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Streaming format        | streamingFormat        |  yes     |   RC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Streaming format version| streamingFormatVersion |  yes     |   RC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Tracks                  | tracks                 |  opt     |   R       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Catalogs                | catalogs               |  opt     |   R       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Track namespace         | namespace              |  opt     |   RTC     |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Track name              | name                   |  yes     |   TC      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Packaging               | packaging              |  yes     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Track operation         | operation              |  yes     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Track label             | label                  |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Render group            | renderGroup            |  opt     |   RT      |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Alternate group         | altGroup               |  opt     |   RT      |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Initialization data     | initData               |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Initialization track    | initTrack              |  opt     |   RT      |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Selection parameters    | selectionParams        |  opt     |   RT      |  Object    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Dependencies            | depends                |  opt     |   T       |  Array     | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Temporal ID             | temporalId             |  opt     |   T       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Spatial ID              | spatialId              |  opt     |   T       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Codec                   | codec                  |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Mime type               | mimeType               |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Framerate               | framerate              |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Bitrate                 | bitrate                |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Width                   | width                  |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Height                  | height                 |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Audio sample rate       | samplerate             |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Channel configuration   | channelConfig          |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Display width           | displayWidth           |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Display height          | displayHeight          |  opt     |   S       |  Number    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
-| Language                | lang                   |  opt     |   S       |  String    | https://datatracker.ietf.org/doc/draft-wilaw-moq-catalogformat/   |
+Descriptive Name: Catalog version 
+Field Name: version
+Required: yes
+Location: R
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Streaming format
+Field Name: streamingFormat
+Required: yes
+Location: RC
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Streaming format version
+Field Name: streamingFormatVersion
+Required: yes
+Location: RC
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Tracks
+Field Name: stracks
+Required: opt
+Location: R
+JSON Type: Array
+Specification: [MoQCatalog]
+
+Descriptive Name: Catalogs
+Field Name: catalogs
+Required: opt
+Location: R
+JSON Type: Array
+Specification: [MoQCatalog]
+
+Descriptive Name: Track namespace
+Field Name: namespace
+Required: opt
+Location: RTC
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Track name
+Field Name: name
+Required: yes
+Location: TC
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Packaging
+Field Name: packaging
+Required: yes
+Location: RT
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Track label
+Field Name: label
+Required: opt
+Location: RT
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Render group
+Field Name: renderGroup
+Required: opt
+Location: RT
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Alternate group
+Field Name: altGroup
+Required: opt
+Location: RT
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Initialization data
+Field Name: initData 
+Required: opt
+Location: RT
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Initialization track
+Field Name: initTrack
+Required: opt
+Location: RT
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Selection parameters
+Field Name: selectionParams 
+Required: opt
+Location: RT
+JSON Type: Object
+Specification: [MoQCatalog]
+
+Descriptive Name: Dependencies
+Field Name: depends 
+Required: opt
+Location: T
+JSON Type: Array
+Specification: [MoQCatalog]
+
+Descriptive Name: Temporal ID
+Field Name: temporalId  
+Required: opt
+Location: T
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Spatial ID
+Field Name: spatialId  
+Required: opt
+Location: T
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Codec
+Field Name: codec
+Required: opt
+Location: S
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: MIME type
+Field Name: mimeType
+Required: opt
+Location: S
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Framerate
+Field Name: framerate
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Bitrate
+Field Name: bitrate
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Width
+Field Name: width
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Height
+Field Name: height
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Audio sample rate 
+Field Name: samplerate
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Channel configuration 
+Field Name: channelConfig
+Required: opt
+Location: S
+JSON Type: String
+Specification: [MoQCatalog]
+
+Descriptive Name: Display width  
+Field Name: displayWidth
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Display height
+Field Name: displayHeight
+Required: opt
+Location: S
+JSON Type: Number
+Specification: [MoQCatalog]
+
+Descriptive Name: Language    
+Field Name: lang
+Required: opt
+Location: S
+JSON Type: String
+Specification: [MoQCatalog]
+
 
 Any registration for a new Field name MUST provide the following information:
 
@@ -931,8 +1095,6 @@ the catalog:
 String, Array, Number, Object or Boolean.
 * Specification - a URL to the specification which defines the usage of the
 field within the catalog, per the Specification Required policy of [RFC5226].
-
-
 
 
 # Acknowledgments
