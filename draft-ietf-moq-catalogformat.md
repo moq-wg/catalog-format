@@ -872,26 +872,30 @@ registry is called "MoQ Common Catalog Fields".  This registry is managed by
 the IANA according to the Specification Required policy of [RFC5226]. The
 initial entries in the registry are:
 
-Descriptive Name: Catalog version
-Field Name: version
-Required: yes
-Location: R
-JSON Type: String
-Specification: [MoQCatalog]
+Descriptive Name: Catalog version<br/>
+Field Name: version<br/>
+Required: yes<br/>
+Location: R<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
 
+<pre>
 Descriptive Name: Streaming format
 Field Name: streamingFormat
 Required: yes
 Location: RC
 JSON Type: String
 Specification: [MoQCatalog]
-
+ </pre>
+ 
+<pre>
 Descriptive Name: Streaming format version
 Field Name: streamingFormatVersion
 Required: yes
 Location: RC
 JSON Type: String
 Specification: [MoQCatalog]
+ </pre>
 
 Descriptive Name: Tracks
 Field Name: stracks
