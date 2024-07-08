@@ -1061,7 +1061,7 @@ Location: S
 JSON Type: Number
 Specification: [MoQCatalog]
 
-Descriptive Name: Language 
+Descriptive Name: Language
 Field Name: lang
 Required: opt
 Location: S
