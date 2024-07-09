@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T00:35:52.026836+00:00",
+  "timestamp": "2024-07-09T00:32:30.123396+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -637,6 +637,22 @@
           "updatedAt": "2024-05-04T23:36:37Z"
         }
       ]
+    },
+    {
+      "number": 48,
+      "id": "I_kwDOKMx0ks6OzeKR",
+      "title": "Reformat to 80 chars",
+      "url": "https://github.com/moq-wg/catalog-format/issues/48",
+      "state": "CLOSED",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Requested by moq chairs for broadest compatibility.\r\n\r\nAlso need to make some editorial changes\r\n1. Change type from Informational to Standards track\r\n2. Remove unused references\r\n3. Remove 'operation' field which is no longer required after the adoption of JSON PATCH",
+      "createdAt": "2024-07-08T14:49:35Z",
+      "updatedAt": "2024-07-08T19:03:16Z",
+      "closedAt": "2024-07-08T19:03:16Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -1309,6 +1325,48 @@
           "body": "",
           "createdAt": "2024-06-17T19:36:40Z",
           "updatedAt": "2024-06-17T19:36:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOKMx0ks50tSXC",
+      "title": "Reformatting to 80chars + editoral fixes",
+      "url": "https://github.com/moq-wg/catalog-format/pull/49",
+      "state": "MERGED",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #48.\r\n\r\nChanges\r\n1. Reformatting to 80 chars, resulting in large modifications to former table structure\r\n2. Removal of some unused references\r\n3. Removal of the \"operation\" field, which is no longer required.",
+      "createdAt": "2024-07-08T14:52:28Z",
+      "updatedAt": "2024-07-08T19:03:18Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "db33599446cf1025835acba4192c6245d5c29e9a",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "2852f87cd650b60528ac327e7f460eb7624ababa",
+      "closedAt": "2024-07-08T19:03:15Z",
+      "mergedAt": "2024-07-08T19:03:15Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "c51f4d32e95bbad1063bfcf7d04643e43020b1f3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKMx0ks6A_jMe",
+          "commit": {
+            "abbreviatedOid": "2852f87"
+          },
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T19:03:02Z",
+          "updatedAt": "2024-07-08T19:03:02Z",
           "comments": []
         }
       ]
