@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-21T00:36:26.196448+00:00",
+  "timestamp": "2024-07-23T00:33:22.741539+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -729,9 +729,17 @@
       "labels": [],
       "body": "I understand the goal of commonTrackFields is to reduce the file size by eliminating some duplication, but is it necessary? It makes decoding more difficult, as some languages don't have a way of merging JSON structs. I'm not sure how to implement it in Go/Rust off the top of my head. It also makes it more difficult to merge catalogs, as you may need to unset commonTrackFields.\r\n\r\nI don't think we should be worried about file size right now and there are many other (easy) techniques we could use instead, like gz compression. The JSON encoding should be the verbose, easy to parse, human readable encoding. We should eventually have an alternative binary encoding that can be converted 1:1 with the JSON encoding, utilizing lookup tables to avoid redundancy.",
       "createdAt": "2024-07-18T16:29:18Z",
-      "updatedAt": "2024-07-18T16:29:43Z",
+      "updatedAt": "2024-07-22T10:28:54Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fair point. If others vote this opinion up, we can remove commonTrackFields. ",
+          "createdAt": "2024-07-22T10:28:53Z",
+          "updatedAt": "2024-07-22T10:28:53Z"
+        }
+      ]
     },
     {
       "number": 54,
@@ -809,9 +817,17 @@
       "labels": [],
       "body": "The current catalog assumes that each track can only contain a single codec (demuxed). We should probably support muxed tracks too, although I'm not sure the best way to do this.\r\n\r\n",
       "createdAt": "2024-07-18T17:03:53Z",
-      "updatedAt": "2024-07-18T17:03:53Z",
+      "updatedAt": "2024-07-22T10:22:37Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Could we just use the existing MSE convention of listing multiple codes separated by a comma? For example:\r\n\r\n`\"codec\":\"avc1.4D4028, mp4a.40.2\"`",
+          "createdAt": "2024-07-22T10:22:35Z",
+          "updatedAt": "2024-07-22T10:22:35Z"
+        }
+      ]
     },
     {
       "number": 59,
@@ -825,7 +841,63 @@
       "labels": [],
       "body": "The current catalog assumes the initTrack uses the same namespace as the track. Should we also support initNamespace?",
       "createdAt": "2024-07-18T17:20:56Z",
-      "updatedAt": "2024-07-18T17:20:56Z",
+      "updatedAt": "2024-07-22T10:14:11Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Two solutions here:\r\n1. As you propose, we add a new attribute called initNamesapce\r\n2. Or we can list the initTrack as its own track, in which case we can use the existing semantics to define its own namesapce. We can use the new 'type' atribute I propose in define it as an init track so that players don;t try to render it. here is what it might look like\r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"supportsDeltaUpdates\": true,\r\n  \"commonTrackFields\": {\r\n     \"namespace\": \"sports.example.com/games/08-08-23/12345\",\r\n     \"packaging\": \"cmaf\",\r\n     \"renderGroup\":1\r\n  },\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"init_video_4k\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_video_1080\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_video_720\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_audio_ec3\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/audio\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"video_4k\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640033\",\"mimeType\":\"video/mp4\",\r\n      \"width\":3840,\"height\":2160,\"framerate\":30,\"bitrate\":14931538},\r\n      \"initTrack\":\"init_video_4k\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"video_1080\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640028\",\"mimeType\":\"video/mp4\",\r\n      \"width\":1920,\"height\":1080,\"framerate\":30,\"bitrate\":9914554},\r\n      \"initTrack\":\"init_video_1080\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"video_720\",\r\n      \"selectionParams\":{\"codec\":\"avc1.64001f\",\"mimeType\":\"video/mp4\",\r\n      \"width\":1280,\"height\":720,\"framerate\":30,\"bitrate\":4952892},\r\n      \"initTrack\":\"init_video_720\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"audio_aac\",\r\n      \"selectionParams\":{\"codec\":\"mp4a.40.5\",\"mimeType\":\"audio/mp4\",\r\n      \"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":67071},\r\n      \"initTrack\":\"init_audio_aac\",\r\n      \"altGroup\": 2\r\n    },\r\n    {\r\n      \"name\": \"audio_ec3\",\r\n      \"selectionParms\":{\"codec\":\"ec-3\",\"mimeType\":\"audio/mp4\",\r\n      \"samplerate\":48000,\"channelConfig\":\"F801\",\"bitrate\":256000},\r\n      \"initTrack\":\"init_audio_ec3\",\r\n      \"altGroup\": 2\r\n    }\r\n   ]\r\n}\r\n\r\n```",
+          "createdAt": "2024-07-22T10:14:10Z",
+          "updatedAt": "2024-07-22T10:14:10Z"
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "I_kwDOKMx0ks6QVNph",
+      "title": "Feedback from IANA",
+      "url": "https://github.com/moq-wg/catalog-format/issues/60",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Dear Authors,\r\n\r\nBefore the IETF meeting, we check working group agendas for documents with IANA-related issues. A question about the current version of this document:\r\n\r\nhttps://urldefense.com/v3/__https://datatracker.ietf.org/doc/html/draft-ietf-moq-catalogformat-01__;!!GjvTz_vk!UDiIapP6JF2wuoJe1n7lmSjTOZq_IsOjjoYYTLn1d0dfy-gwzXpaGbX1M8IBMOUersbQc9BIJrCY_TgIYt3R63k$\r\n\r\nShould the new registries be added to an existing registry group like \u201cQUIC\u201d (at https://urldefense.com/v3/__https://www.iana.org/assignments/quic__;!!GjvTz_vk!UDiIapP6JF2wuoJe1n7lmSjTOZq_IsOjjoYYTLn1d0dfy-gwzXpaGbX1M8IBMOUersbQc9BIJrCY_TgIt-XSTRQ$ ), or should IANA create a new registry group with a name like \u201cMedia over QUIC (MOQ)\u201d? (I have no idea whether this is actually an appropriate name.)\r\n\r\nThis could be addressed by making a change like this:\r\n\r\nOLD: This document creates a new registry, \"MoQ Streaming Format Type\u201d\u2019 in Section 5.1\r\n\r\nNEW: This document creates a new registry called \"MoQ Streaming Format Types\" in a new \u201cMedia over QUIC (MoQ)\u201d registry group.\r\n\r\nOR: This document creates a new registry called \"MoQ Streaming Format Types\" and adds it to the \"foo\u201d registry group.\r\n\r\nAlso, about the reference field in Section 5.1: we would ordinarily expect to list the document that creates the registry (or that reserves the codepoint) in that field.\r\n\r\nIf you have any questions, just let us know. If you'd like to talk in person, you can find us next to the RFC Editor's table from Monday through Thursday. You can also request another review at any time by contacting us at [iana@iana.org](mailto:iana@iana.org).\r\n\r\nFor more information about IANA Considerations section requirements, please see\r\n\r\nhttps://urldefense.com/v3/__https://www.iana.org/help/protocol-registration__;!!GjvTz_vk!UDiIapP6JF2wuoJe1n7lmSjTOZq_IsOjjoYYTLn1d0dfy-gwzXpaGbX1M8IBMOUersbQc9BIJrCY_TgIPX7fGx0$\r\n\r\n",
+      "createdAt": "2024-07-21T15:32:17Z",
+      "updatedAt": "2024-07-21T15:32:17Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 61,
+      "id": "I_kwDOKMx0ks6QYxcE",
+      "title": "Add a track attribute for 'type'",
+      "url": "https://github.com/moq-wg/catalog-format/issues/61",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There are a number of use-cases in which it is necessary for the streaming application to be able to declare the 'type' of a track. For example, a 'data channel', or a 'timeline' track. The attribute can be a String. We may want to set a max length. This field is optional. The application using the catalog format would define the contents of this field. \r\n\r\n```\r\n\"tracks\":[\r\n    {\r\n      \"name\": \"game-instructions\",\r\n      \"type\": \"datachannel\"\r\n    },\r\n    {\r\n      \"name\": \"media-timeline\",\r\n      \"type\": \"timeline\"\r\n    },\r\n    {\r\n      \"name\": \"hd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":1920,\"height\":1080,\r\n      \"bitrate\":5000000,\"framerate\":30},\r\n      \"altGroup\":1\r\n    },\r\n    {\r\n      \"name\": \"md\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":720,\"height\":640,\r\n      \"bitrate\":3000000,\"framerate\":30},\r\n      \"altGroup\":1\r\n    },\r\n    {\r\n      \"name\": \"sd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":192,\"height\":144,\r\n      \"bitrate\":500000,\"framerate\":30},\r\n      \"altGroup\":1\r\n    },\r\n    {\r\n      \"name\": \"audio\",\r\n      \"selectionParams\":{\"codec\":\"opus\",\"samplerate\":48000,\"channelConfig\":\"2\",\r\n      \"bitrate\":32000}\r\n    }\r\n   ]\r\n```",
+      "createdAt": "2024-07-22T09:37:07Z",
+      "updatedAt": "2024-07-22T09:37:07Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 62,
+      "id": "I_kwDOKMx0ks6QY_Ag",
+      "title": "Packaging field is too media specific",
+      "url": "https://github.com/moq-wg/catalog-format/issues/62",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently we have a track attribute called \"packaging\" which has two allowable values - \"loc\" and \"cmaf\". These are very media specific. We have many uses for tracks (transmitting different data types other than audio and video, such as game instructons, position, timeline data) with many different formatting options.\r\n\r\nSuggestion is to remove the \"packaging\" field and its defined enumerations and replace it with a \"Format\" field of type String. We may want to define a max length. The allowed contents of the \"format\" field would be defined by the relevant application specification. \r\n\r\n```\r\n\"tracks\":[\r\n    {\r\n      \"name\": \"game-instructions\",\r\n      \"type\": \"datachannel\",\r\n      \"format\": \"CBOR-special\"\r\n    },\r\n    {\r\n      \"name\": \"media-timeline\",\r\n      \"type\": \"timeline\",\r\n      \"format\": \"csv\"\r\n    },\r\n    {\r\n      \"name\": \"hd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":1920,\"height\":1080,\r\n      \"bitrate\":5000000,\"framerate\":30},\r\n      \"altGroup\":1,\r\n      \"format\": \"cmaf\"\r\n    },\r\n    {\r\n      \"name\": \"sd\",\r\n      \"selectionParams\": {\"codec\":\"av01\",\"width\":192,\"height\":144,\r\n      \"bitrate\":500000,\"framerate\":30},\r\n      \"altGroup\":1,\r\n      \"format\": \"cmaf\"\r\n    },\r\n    {\r\n      \"name\": \"audio\",\r\n      \"selectionParams\":{\"codec\":\"opus\",\"samplerate\":48000,\"channelConfig\":\"2\",\r\n      \"bitrate\":32000},\r\n      \"format\": \"loc\"\r\n    }\r\n   ]\r\n```\r\n\r\n\r\n",
+      "createdAt": "2024-07-22T10:03:18Z",
+      "updatedAt": "2024-07-22T10:03:18Z",
       "closedAt": null,
       "comments": []
     }
