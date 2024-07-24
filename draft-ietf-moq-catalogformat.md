@@ -137,7 +137,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalogs                | catalogs               | {{catalogs}}              |
 | Track namespace         | namespace              | {{tracknamespace}}        |
 | Track name              | name                   | {{trackname}}             |
-| Format                  | format                 | {{format}}                |
+| Track format            | format                 | {{format}}                |
 | Track label             | label                  | {{tracklabel}}            |
 | Render group            | renderGroup            | {{rendergroup}}           |
 | Alternate group         | altGroup               | {{altgroup}}              |
@@ -249,7 +249,7 @@ Location: TFC    Required: Yes   Json Type: String
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
 Within the catalog, track names MUST be unique per namespace.
 
-### Format {#format}
+### Track format {#format}
 Location: TF    Required: Yes   Json Type: String
 
 A string defining the format of the track. Format may describe the packaging,
@@ -725,6 +725,59 @@ LOC packaged audio.
       "name": "audio",
       "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
       "bitrate":32000},
+      "format": "loc"
+    }
+   ]
+}
+~~~
+
+### Multi-track-format example
+
+This example shows catalog describing a broadcast with many
+different track formats. The format values are defined by the 
+application specification which is referencing this catalog
+specification.
+
+~~~json
+{
+  "version": 1,
+  "streamingFormat": 1,
+  "streamingFormatVersion": "0.2",
+  "commonTrackFields": {
+     "namespace": "output.example.com/event/12345"
+  },
+  "tracks":[
+    {
+      "name": "game-instructions",
+      "type": "datachannel",
+      "format": "CBOR-special"
+    },
+    {
+      "name": "media-timeline",
+      "type": "timeline",
+      "format": "csv"
+    },
+    {
+      "name": "hd",
+      "selectionParams": {"codec":"av01","width":1920,"height":1080,
+      "bitrate":5000000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "sd",
+      "selectionParams": {"codec":"av01","width":192,"height":144,
+      "bitrate":500000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "audio",
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+      "bitrate":32000},
+      "renderGroup":1,
       "format": "loc"
     }
    ]
