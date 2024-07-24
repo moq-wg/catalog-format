@@ -5,10 +5,10 @@
 Media Over QUIC                                            S. Nandakumar
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                                  W. Law
-Expires: 9 January 2025                                           Akamai
+Expires: 25 January 2025                                          Akamai
                                                                M. Zanaty
                                                                    Cisco
-                                                             8 July 2024
+                                                            24 July 2024
 
 
                 Common Catalog Format for moq-transport
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2025.
+   This Internet-Draft will expire on 25 January 2025.
 
 Copyright Notice
 
@@ -90,27 +90,28 @@ Table of Contents
        3.2.8.  Tracks object
        3.2.9.  Track namespace
        3.2.10. Track name
-       3.2.11. Packaging
-       3.2.12. Track label
-       3.2.13. Render group
-       3.2.14. Alternate group
-       3.2.15. Initialization data
-       3.2.16. Initialization track
-       3.2.17. Selection parameters
-       3.2.18. Dependencies
-       3.2.19. Temporal ID
-       3.2.20. Spatial ID
-       3.2.21. Codec
-       3.2.22. Mimetype
-       3.2.23. Framerate
-       3.2.24. Bitrate
-       3.2.25. Width
-       3.2.26. Height
-       3.2.27. Audio sample rate
-       3.2.28. Channel configuration
-       3.2.29. Display width
-       3.2.30. Display height
-       3.2.31. Language
+       3.2.11. Track type
+       3.2.12. Packaging
+       3.2.13. Track label
+       3.2.14. Render group
+       3.2.15. Alternate group
+       3.2.16. Initialization data
+       3.2.17. Initialization track
+       3.2.18. Selection parameters
+       3.2.19. Dependencies
+       3.2.20. Temporal ID
+       3.2.21. Spatial ID
+       3.2.22. Codec
+       3.2.23. Mimetype
+       3.2.24. Framerate
+       3.2.25. Bitrate
+       3.2.26. Width
+       3.2.27. Height
+       3.2.28. Audio sample rate
+       3.2.29. Channel configuration
+       3.2.30. Display width
+       3.2.31. Display height
+       3.2.32. Language
      3.3.  Catalog Patch
      3.4.  Catalog Examples
        3.4.1.  Time-aligned Audio/Video Tracks with single quality
@@ -126,9 +127,10 @@ Table of Contents
        3.4.8.  Mixed format example - CMAF and LOC packaging in the
                same catalog
        3.4.9.  CMAF Tracks with inband init segments
-       3.4.10. Time-aligned Audio/Video Tracks with custom field
+       3.4.10. Use of the track type value
+       3.4.11. Time-aligned Audio/Video Tracks with custom field
                values
-       3.4.11. A catalog referencing catalogs for two different
+       3.4.12. A catalog referencing catalogs for two different
                formats
    4.  Security Considerations
    5.  IANA Considerations
@@ -218,68 +220,71 @@ Table of Contents
    | Track name               | name                   | Section       |
    |                          |                        | 3.2.10        |
    +--------------------------+------------------------+---------------+
-   | Packaging                | packaging              | Section       |
+   | Track type               | type                   | Section       |
    |                          |                        | 3.2.11        |
    +--------------------------+------------------------+---------------+
-   | Track label              | label                  | Section       |
+   | Packaging                | packaging              | Section       |
    |                          |                        | 3.2.12        |
    +--------------------------+------------------------+---------------+
-   | Render group             | renderGroup            | Section       |
+   | Track label              | label                  | Section       |
    |                          |                        | 3.2.13        |
    +--------------------------+------------------------+---------------+
-   | Alternate group          | altGroup               | Section       |
+   | Render group             | renderGroup            | Section       |
    |                          |                        | 3.2.14        |
    +--------------------------+------------------------+---------------+
+   | Alternate group          | altGroup               | Section       |
+   |                          |                        | 3.2.15        |
+   +--------------------------+------------------------+---------------+
    | Initialization           | initData               | Section       |
-   | data                     |                        | 3.2.15        |
+   | data                     |                        | 3.2.16        |
    +--------------------------+------------------------+---------------+
    | Initialization           | initTrack              | Section       |
-   | track                    |                        | 3.2.16        |
+   | track                    |                        | 3.2.17        |
    +--------------------------+------------------------+---------------+
    | Selection                | selectionParams        | Section       |
-   | parameters               |                        | 3.2.17        |
+   | parameters               |                        | 3.2.18        |
    +--------------------------+------------------------+---------------+
    | Dependencies             | depends                | Section       |
-   |                          |                        | 3.2.18        |
-   +--------------------------+------------------------+---------------+
-   | Temporal ID              | temporalId             | Section       |
    |                          |                        | 3.2.19        |
    +--------------------------+------------------------+---------------+
-   | Spatial ID               | spatialId              | Section       |
+   | Temporal ID              | temporalId             | Section       |
    |                          |                        | 3.2.20        |
    +--------------------------+------------------------+---------------+
-   | Codec                    | codec                  | Section       |
+   | Spatial ID               | spatialId              | Section       |
    |                          |                        | 3.2.21        |
    +--------------------------+------------------------+---------------+
-   | Mime type                | mimeType               | Section       |
+   | Codec                    | codec                  | Section       |
    |                          |                        | 3.2.22        |
    +--------------------------+------------------------+---------------+
-   | Framerate                | framerate              | Section       |
+   | Mime type                | mimeType               | Section       |
    |                          |                        | 3.2.23        |
    +--------------------------+------------------------+---------------+
-   | Bitrate                  | bitrate                | Section       |
+   | Framerate                | framerate              | Section       |
    |                          |                        | 3.2.24        |
    +--------------------------+------------------------+---------------+
-   | Width                    | width                  | Section       |
+   | Bitrate                  | bitrate                | Section       |
    |                          |                        | 3.2.25        |
    +--------------------------+------------------------+---------------+
-   | Height                   | height                 | Section       |
+   | Width                    | width                  | Section       |
    |                          |                        | 3.2.26        |
    +--------------------------+------------------------+---------------+
+   | Height                   | height                 | Section       |
+   |                          |                        | 3.2.27        |
+   +--------------------------+------------------------+---------------+
    | Audio sample             | samplerate             | Section       |
-   | rate                     |                        | 3.2.27        |
+   | rate                     |                        | 3.2.28        |
    +--------------------------+------------------------+---------------+
    | Channel                  | channelConfig          | Section       |
-   | configuration            |                        | 3.2.28        |
+   | configuration            |                        | 3.2.29        |
    +--------------------------+------------------------+---------------+
    | Display width            | displayWidth           | Section       |
-   |                          |                        | 3.2.29        |
-   +--------------------------+------------------------+---------------+
-   | Display height           | displayHeight          | Section       |
    |                          |                        | 3.2.30        |
    +--------------------------+------------------------+---------------+
-   | Language                 | lang                   | Section       |
+   | Display height           | displayHeight          | Section       |
    |                          |                        | 3.2.31        |
+   +--------------------------+------------------------+---------------+
+   | Language                 | lang                   | Section       |
+   |                          |                        | 3.2.32        |
    +--------------------------+------------------------+---------------+
 
                                   Table 1
@@ -401,7 +406,15 @@ Table of Contents
    [MoQTransport].  Within the catalog, track names MUST be unique per
    namespace.
 
-3.2.11.  Packaging
+3.2.11.  Track type
+
+   Location: TFC Required: Optional Json Type: String
+
+   A string defining the type of the track.  The allowed values of this
+   field are defined by whichever streaming format is utilizing this
+   catalog format.
+
+3.2.12.  Packaging
 
    Location: TF Required: Yes Json Type: String
 
@@ -420,7 +433,7 @@ Table of Contents
 
                                  Table 3
 
-3.2.12.  Track label
+3.2.13.  Track label
 
    Location: TF Required: Optional Json Type: String
 
@@ -428,7 +441,7 @@ Table of Contents
    might be "Overhead camera view" or "Deutscher Kommentar".  Note that
    the [JSON] spec requires UTF-8 support by decoders.
 
-3.2.13.  Render group
+3.2.14.  Render group
 
    Location: TF Required: Optional Json Type: Number
 
@@ -438,27 +451,27 @@ Table of Contents
    accompany one another.  A common example would be tying together
    audio and video tracks.
 
-3.2.14.  Alternate group
+3.2.15.  Alternate group
 
    Location: TF Required: Optional Json Type: Number
 
    An integer specifying a group of tracks which are alternate versions
    of one-another.  Alternate tracks represent the same media content,
    but differ in their selection properties.  Alternate tracks SHOULD
-   have matching framerate Section 3.2.23 and media time sequences.  A
+   have matching framerate Section 3.2.24 and media time sequences.  A
    subscriber typically subscribes to one track from a set of tracks
    specifying the same alternate group number.  A common example would
    be a set video tracks of the same content offered in alternate
    bitrates.
 
-3.2.15.  Initialization data
+3.2.16.  Initialization data
 
    Location: TF Required: Optional Json Type: String
 
    A string holding Base64 [BASE64] encoded initialization data for the
    track.
 
-3.2.16.  Initialization track
+3.2.17.  Initialization track
 
    Location: TF Required: Optional Json Type: String
 
@@ -468,7 +481,7 @@ Table of Contents
    referenced only via the initialization track field of the track which
    they initialize.
 
-3.2.17.  Selection parameters
+3.2.18.  Selection parameters
 
    Location: TF Required: Optional Json Type: Object
 
@@ -480,7 +493,7 @@ Table of Contents
    declaration of a selection parameter at the track level overrides the
    inherited root value.
 
-3.2.18.  Dependencies
+3.2.19.  Dependencies
 
    Location: T Required: Optional Json Type: Array
 
@@ -490,7 +503,7 @@ Table of Contents
    namespace of the dependencies is assumed to match that of the track
    declaring the dependencies.
 
-3.2.19.  Temporal ID
+3.2.20.  Temporal ID
 
    Location: T Required: Optional Json Type: Number
 
@@ -498,7 +511,7 @@ Table of Contents
    track, starting with 0 for the base layer, and increasing with higher
    temporal fidelity.
 
-3.2.20.  Spatial ID
+3.2.21.  Spatial ID
 
    Location: T Required: Optional Json Type: Number
 
@@ -506,7 +519,7 @@ Table of Contents
    starting with 0 for the base layer, and increasing with higher
    fidelity.
 
-3.2.21.  Codec
+3.2.22.  Codec
 
    Location: S Required: Optional Json Type: String
 
@@ -515,46 +528,46 @@ Table of Contents
    3 and Section 4 of [WEBCODECS-CODEC-REGISTRY].  For CMAF packaged
    content, the string codec registrations are defined in XXX.
 
-3.2.22.  Mimetype
+3.2.23.  Mimetype
 
    Location: S Required: Optional Json Type: String
 
    A string defining the mime type [MIME] of the track.  This parameter
    is typically supplied with CMAF packaged content.
 
-3.2.23.  Framerate
+3.2.24.  Framerate
 
    Location: S Required: Optional Json Type: Number
 
    A number defining the framerate of the track, expressed as frames per
    second.
 
-3.2.24.  Bitrate
+3.2.25.  Bitrate
 
    Location: S Required: Optional Json Type: Number
 
    A number defining the bitrate of track, expressed in bits second.
 
-3.2.25.  Width
+3.2.26.  Width
 
    Location: S Required: Optional Json Type: Number
 
    A number expressing the encoded width of the track content in pixels.
 
-3.2.26.  Height
+3.2.27.  Height
 
    Location: S Required: Optional Json Type: Number
 
    A number expressing the encoded height of the video frames in pixels.
 
-3.2.27.  Audio sample rate
+3.2.28.  Audio sample rate
 
    Location: S Required: Optional Json Type: Number
 
    The number of audio frame samples per second.  This property SHOULD
    only accompany audio codecs.
 
-3.2.28.  Channel configuration
+3.2.29.  Channel configuration
 
    Location: S Required: Optional Json Type: String
 
@@ -563,21 +576,21 @@ Table of Contents
    provide the flexibility to describe complex channel configurations
    for multi-channel and Next Generation Audio schemas.
 
-3.2.29.  Display width
+3.2.30.  Display width
 
    Location: S Required: Optional Json Type: Number
 
    A number expressing the intended display width of the track content
    in pixels.
 
-3.2.30.  Display height
+3.2.31.  Display height
 
    Location: S Required: Optional Json Type: Number
 
    A number expressing the intended display height of the track content
    in pixels.
 
-3.2.31.  Language
+3.2.32.  Language
 
    Location: S Required: Optional Json Type: String
 
@@ -932,7 +945,44 @@ Table of Contents
       ]
    }
 
-3.4.10.  Time-aligned Audio/Video Tracks with custom field values
+3.4.10.  Use of the track type value
+
+   This example shows catalog for a media producer capable of sending
+   LOC packaged, time-aligned audio and video tracks along with a custom
+   timeline track.  The producer decorates each track entry with a
+   custom type.
+
+   {
+     "version": 1,
+     "streamingFormat": 1,
+     "streamingFormatVersion": "0.2",
+     "commonTrackFields": {
+        "namespace": "conference.example.com/conference123/alice",
+        "packaging": "loc",
+        "renderGroup": 1
+     },
+     "tracks": [
+        {
+         "name": "live-timeline",
+         "type": "timeline",
+         "depends":["video","audio"]
+       },
+       {
+         "name": "video",
+         "type": "primary-video",
+         "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,
+         "height":1080,"framerate":30,"bitrate":1500000}
+       },
+       {
+         "name": "audio",
+         "type": "primary-audio",
+         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+         "bitrate":32000}
+       }
+      ]
+   }
+
+3.4.11.  Time-aligned Audio/Video Tracks with custom field values
 
    This example shows catalog for a media producer capable of sending
    LOC packaged, time-aligned audio and video tracks along with custom
@@ -964,7 +1014,7 @@ Table of Contents
       ]
    }
 
-3.4.11.  A catalog referencing catalogs for two different formats
+3.4.12.  A catalog referencing catalogs for two different formats
 
    This example shows the catalog for a media producer that is
    outputting two streaming formats simultaneously under different
@@ -1307,16 +1357,16 @@ Normative References
    [MoQCatalog]
               Nandakumar, S., Law, W., and M. Zanaty, "Common Catalog
               Format for moq-transport", Work in Progress, Internet-
-              Draft, draft-ietf-moq-catalogformat-00, 17 June 2024,
+              Draft, draft-ietf-moq-catalogformat-01, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-moq-
-              catalogformat-00>.
+              catalogformat-01>.
 
    [MoQTransport]
               Curley, L., Pugin, K., Nandakumar, S., Vasiliev, V., and
               I. Swett, "Media over QUIC Transport", Work in Progress,
-              Internet-Draft, draft-ietf-moq-transport-04, 29 May 2024,
+              Internet-Draft, draft-ietf-moq-transport-05, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-moq-
-              transport-04>.
+              transport-05>.
 
    [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
               IANA Considerations Section in RFCs", RFC 5226,
