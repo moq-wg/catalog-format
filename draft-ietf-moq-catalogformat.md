@@ -967,6 +967,13 @@ Location: TC<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
+Descriptive Name: Track type<br/>
+Field Name: type<br/>
+Required: opt<br/>
+Location: TC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
+
 Descriptive Name: Packaging<br/>
 Field Name: packaging<br/>
 Required: yes<br/>
