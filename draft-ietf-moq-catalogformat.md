@@ -734,7 +734,7 @@ LOC packaged audio.
 ### Multi-track-format example
 
 This example shows catalog describing a broadcast with many
-different track formats. The format values are defined by the 
+different track formats. The format values are defined by the
 application specification which is referencing this catalog
 specification.
 
