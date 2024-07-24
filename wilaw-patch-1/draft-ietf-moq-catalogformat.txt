@@ -1132,6 +1132,13 @@ Table of Contents
    JSON Type: String
    Specification: [MoQCatalog]
 
+   Descriptive Name: Track type
+   Field Name: type
+   Required: opt
+   Location: TC
+   JSON Type: String
+   Specification: [MoQCatalog]
+
    Descriptive Name: Packaging
    Field Name: packaging
    Required: yes
