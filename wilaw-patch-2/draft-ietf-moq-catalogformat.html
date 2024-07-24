@@ -1195,7 +1195,7 @@ tracks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                     <p id="section-toc.1-1.3.2.2.2.10.1"><a href="#section-3.2.10" class="auto internal xref">3.2.10</a>. <a href="#name-track-name" class="internal xref">Track name</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.11">
-                    <p id="section-toc.1-1.3.2.2.2.11.1"><a href="#section-3.2.11" class="auto internal xref">3.2.11</a>. <a href="#name-format" class="internal xref">Format</a></p>
+                    <p id="section-toc.1-1.3.2.2.2.11.1"><a href="#section-3.2.11" class="auto internal xref">3.2.11</a>. <a href="#name-track-format" class="internal xref">Track format</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.12">
                     <p id="section-toc.1-1.3.2.2.2.12.1"><a href="#section-3.2.12" class="auto internal xref">3.2.12</a>. <a href="#name-track-label" class="internal xref">Track label</a></p>
@@ -1290,13 +1290,16 @@ tracks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                     <p id="section-toc.1-1.3.2.4.2.8.1"><a href="#section-3.4.8" class="auto internal xref">3.4.8</a>.  <a href="#name-mixed-format-example-cmaf-a" class="internal xref">Mixed format example - CMAF and LOC packaging in the same catalog</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.9">
-                    <p id="section-toc.1-1.3.2.4.2.9.1"><a href="#section-3.4.9" class="auto internal xref">3.4.9</a>.  <a href="#name-cmaf-tracks-with-inband-ini" class="internal xref">CMAF Tracks with inband init segments</a></p>
+                    <p id="section-toc.1-1.3.2.4.2.9.1"><a href="#section-3.4.9" class="auto internal xref">3.4.9</a>.  <a href="#name-multi-track-format-example" class="internal xref">Multi-track-format example</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.10">
-                    <p id="section-toc.1-1.3.2.4.2.10.1"><a href="#section-3.4.10" class="auto internal xref">3.4.10</a>. <a href="#name-time-aligned-audio-video-tra" class="internal xref">Time-aligned Audio/Video Tracks with custom field values</a></p>
+                    <p id="section-toc.1-1.3.2.4.2.10.1"><a href="#section-3.4.10" class="auto internal xref">3.4.10</a>. <a href="#name-cmaf-tracks-with-inband-ini" class="internal xref">CMAF Tracks with inband init segments</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.11">
-                    <p id="section-toc.1-1.3.2.4.2.11.1"><a href="#section-3.4.11" class="auto internal xref">3.4.11</a>. <a href="#name-a-catalog-referencing-catal" class="internal xref">A catalog referencing catalogs for two different formats</a></p>
+                    <p id="section-toc.1-1.3.2.4.2.11.1"><a href="#section-3.4.11" class="auto internal xref">3.4.11</a>. <a href="#name-time-aligned-audio-video-tra" class="internal xref">Time-aligned Audio/Video Tracks with custom field values</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.12">
+                    <p id="section-toc.1-1.3.2.4.2.12.1"><a href="#section-3.4.12" class="auto internal xref">3.4.12</a>. <a href="#name-a-catalog-referencing-catal" class="internal xref">A catalog referencing catalogs for two different formats</a></p>
 </li>
                 </ul>
 </li>
@@ -1463,7 +1466,7 @@ value.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Format</td>
+              <td class="text-left" rowspan="1" colspan="1">Track format</td>
               <td class="text-left" rowspan="1" colspan="1">format</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="#format" class="auto internal xref">Section 3.2.11</a>
@@ -1772,8 +1775,8 @@ Within the catalog, track names MUST be unique per namespace.<a href="#section-3
 </div>
 <div id="format">
 <section id="section-3.2.11">
-          <h4 id="name-format">
-<a href="#section-3.2.11" class="section-number selfRef">3.2.11. </a><a href="#name-format" class="section-name selfRef">Format</a>
+          <h4 id="name-track-format">
+<a href="#section-3.2.11" class="section-number selfRef">3.2.11. </a><a href="#name-track-format" class="section-name selfRef">Track format</a>
           </h4>
 <p id="section-3.2.11-1">Location: TF    Required: Yes   Json Type: String<a href="#section-3.2.11-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.11-2">A string defining the format of the track. Format may describe the packaging,
@@ -2383,15 +2386,73 @@ LOC packaged audio.<a href="#section-3.4.8-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="cmaf-tracks-with-inband-init-segments">
+<div id="multi-track-format-example">
 <section id="section-3.4.9">
-          <h4 id="name-cmaf-tracks-with-inband-ini">
-<a href="#section-3.4.9" class="section-number selfRef">3.4.9. </a><a href="#name-cmaf-tracks-with-inband-ini" class="section-name selfRef">CMAF Tracks with inband init segments</a>
+          <h4 id="name-multi-track-format-example">
+<a href="#section-3.4.9" class="section-number selfRef">3.4.9. </a><a href="#name-multi-track-format-example" class="section-name selfRef">Multi-track-format example</a>
           </h4>
-<p id="section-3.4.9-1">This example shows catalog for a sports broadcast sending time-aligned audio and
-video tracks using CMAF packaging. Init segments are delivered as inband data.
-The data has been truncated for clarity.<a href="#section-3.4.9-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.9-1">This example shows catalog describing a broadcast with many
+different track formats. The format values are defined by the
+application specification which is referencing this catalog
+specification.<a href="#section-3.4.9-1" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-3.4.9-2">
+<pre>
+{
+  "version": 1,
+  "streamingFormat": 1,
+  "streamingFormatVersion": "0.2",
+  "commonTrackFields": {
+     "namespace": "output.example.com/event/12345"
+  },
+  "tracks":[
+    {
+      "name": "game-instructions",
+      "type": "datachannel",
+      "format": "CBOR-special"
+    },
+    {
+      "name": "media-timeline",
+      "type": "timeline",
+      "format": "csv"
+    },
+    {
+      "name": "hd",
+      "selectionParams": {"codec":"av01","width":1920,"height":1080,
+      "bitrate":5000000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "sd",
+      "selectionParams": {"codec":"av01","width":192,"height":144,
+      "bitrate":500000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "audio",
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+      "bitrate":32000},
+      "renderGroup":1,
+      "format": "loc"
+    }
+   ]
+}
+</pre><a href="#section-3.4.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="cmaf-tracks-with-inband-init-segments">
+<section id="section-3.4.10">
+          <h4 id="name-cmaf-tracks-with-inband-ini">
+<a href="#section-3.4.10" class="section-number selfRef">3.4.10. </a><a href="#name-cmaf-tracks-with-inband-ini" class="section-name selfRef">CMAF Tracks with inband init segments</a>
+          </h4>
+<p id="section-3.4.10-1">This example shows catalog for a sports broadcast sending time-aligned audio and
+video tracks using CMAF packaging. Init segments are delivered as inband data.
+The data has been truncated for clarity.<a href="#section-3.4.10-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-3.4.10-2">
 <pre>
 {
   "version": 1,
@@ -2417,19 +2478,19 @@ The data has been truncated for clarity.<a href="#section-3.4.9-1" class="pilcro
     }
    ]
 }
-</pre><a href="#section-3.4.9-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.4.10-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="time-aligned-audiovideo-tracks-with-custom-field-values">
-<section id="section-3.4.10">
+<section id="section-3.4.11">
           <h4 id="name-time-aligned-audio-video-tra">
-<a href="#section-3.4.10" class="section-number selfRef">3.4.10. </a><a href="#name-time-aligned-audio-video-tra" class="section-name selfRef">Time-aligned Audio/Video Tracks with custom field values</a>
+<a href="#section-3.4.11" class="section-number selfRef">3.4.11. </a><a href="#name-time-aligned-audio-video-tra" class="section-name selfRef">Time-aligned Audio/Video Tracks with custom field values</a>
           </h4>
-<p id="section-3.4.10-1">This example shows catalog for a media producer capable of sending LOC packaged,
+<p id="section-3.4.11-1">This example shows catalog for a media producer capable of sending LOC packaged,
 time-aligned audio and video tracks along with custom fields in each track
-description.<a href="#section-3.4.10-1" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-3.4.10-2">
+description.<a href="#section-3.4.11-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-3.4.11-2">
 <pre>
 {
   "version": 1,
@@ -2457,20 +2518,20 @@ description.<a href="#section-3.4.10-1" class="pilcrow">¶</a></p>
    ]
 }
 
-</pre><a href="#section-3.4.10-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.4.11-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="a-catalog-referencing-catalogs-for-two-different-formats">
-<section id="section-3.4.11">
+<section id="section-3.4.12">
           <h4 id="name-a-catalog-referencing-catal">
-<a href="#section-3.4.11" class="section-number selfRef">3.4.11. </a><a href="#name-a-catalog-referencing-catal" class="section-name selfRef">A catalog referencing catalogs for two different formats</a>
+<a href="#section-3.4.12" class="section-number selfRef">3.4.12. </a><a href="#name-a-catalog-referencing-catal" class="section-name selfRef">A catalog referencing catalogs for two different formats</a>
           </h4>
-<p id="section-3.4.11-1">This example shows the catalog for a media producer that is outputting two
+<p id="section-3.4.12-1">This example shows the catalog for a media producer that is outputting two
 streaming formats simultaneously under different namespaces. Note that each
 track name referenced points at another catalog object and that only the first
-catalog supports incremental delta updates.<a href="#section-3.4.11-1" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-3.4.11-2">
+catalog supports incremental delta updates.<a href="#section-3.4.12-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-3.4.12-2">
 <pre>
 {
   "version": 1,
@@ -2491,7 +2552,7 @@ catalog supports incremental delta updates.<a href="#section-3.4.11-1" class="pi
   ]
 }
 
-</pre><a href="#section-3.4.11-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.4.12-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>

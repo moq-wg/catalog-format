@@ -90,7 +90,7 @@ Table of Contents
        3.2.8.  Tracks object
        3.2.9.  Track namespace
        3.2.10. Track name
-       3.2.11. Format
+       3.2.11. Track format
        3.2.12. Track label
        3.2.13. Render group
        3.2.14. Alternate group
@@ -125,10 +125,11 @@ Table of Contents
        3.4.7.  CMAF Tracks with multiple qualities of audio and video
        3.4.8.  Mixed format example - CMAF and LOC packaging in the
                same catalog
-       3.4.9.  CMAF Tracks with inband init segments
-       3.4.10. Time-aligned Audio/Video Tracks with custom field
+       3.4.9.  Multi-track-format example
+       3.4.10. CMAF Tracks with inband init segments
+       3.4.11. Time-aligned Audio/Video Tracks with custom field
                values
-       3.4.11. A catalog referencing catalogs for two different
+       3.4.12. A catalog referencing catalogs for two different
                formats
    4.  Security Considerations
    5.  IANA Considerations
@@ -218,7 +219,7 @@ Table of Contents
    | Track name               | name                   | Section       |
    |                          |                        | 3.2.10        |
    +--------------------------+------------------------+---------------+
-   | Format                   | format                 | Section       |
+   | Track format             | format                 | Section       |
    |                          |                        | 3.2.11        |
    +--------------------------+------------------------+---------------+
    | Track label              | label                  | Section       |
@@ -401,7 +402,7 @@ Table of Contents
    [MoQTransport].  Within the catalog, track names MUST be unique per
    namespace.
 
-3.2.11.  Format
+3.2.11.  Track format
 
    Location: TF Required: Yes Json Type: String
 
@@ -890,7 +891,57 @@ Table of Contents
       ]
    }
 
-3.4.9.  CMAF Tracks with inband init segments
+3.4.9.  Multi-track-format example
+
+   This example shows catalog describing a broadcast with many different
+   track formats.  The format values are defined by the application
+   specification which is referencing this catalog specification.
+
+   {
+     "version": 1,
+     "streamingFormat": 1,
+     "streamingFormatVersion": "0.2",
+     "commonTrackFields": {
+        "namespace": "output.example.com/event/12345"
+     },
+     "tracks":[
+       {
+         "name": "game-instructions",
+         "type": "datachannel",
+         "format": "CBOR-special"
+       },
+       {
+         "name": "media-timeline",
+         "type": "timeline",
+         "format": "csv"
+       },
+       {
+         "name": "hd",
+         "selectionParams": {"codec":"av01","width":1920,"height":1080,
+         "bitrate":5000000,"framerate":30},
+         "altGroup":1,
+         "renderGroup":1,
+         "format": "cmaf"
+       },
+       {
+         "name": "sd",
+         "selectionParams": {"codec":"av01","width":192,"height":144,
+         "bitrate":500000,"framerate":30},
+         "altGroup":1,
+         "renderGroup":1,
+         "format": "cmaf"
+       },
+       {
+         "name": "audio",
+         "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+         "bitrate":32000},
+         "renderGroup":1,
+         "format": "loc"
+       }
+      ]
+   }
+
+3.4.10.  CMAF Tracks with inband init segments
 
    This example shows catalog for a sports broadcast sending time-
    aligned audio and video tracks using CMAF packaging.  Init segments
@@ -922,7 +973,7 @@ Table of Contents
       ]
    }
 
-3.4.10.  Time-aligned Audio/Video Tracks with custom field values
+3.4.11.  Time-aligned Audio/Video Tracks with custom field values
 
    This example shows catalog for a media producer capable of sending
    LOC packaged, time-aligned audio and video tracks along with custom
@@ -954,7 +1005,7 @@ Table of Contents
       ]
    }
 
-3.4.11.  A catalog referencing catalogs for two different formats
+3.4.12.  A catalog referencing catalogs for two different formats
 
    This example shows the catalog for a media producer that is
    outputting two streaming formats simultaneously under different
