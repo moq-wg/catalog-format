@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-23T00:33:22.741539+00:00",
+  "timestamp": "2024-07-25T00:33:13.351460+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -729,7 +729,7 @@
       "labels": [],
       "body": "I understand the goal of commonTrackFields is to reduce the file size by eliminating some duplication, but is it necessary? It makes decoding more difficult, as some languages don't have a way of merging JSON structs. I'm not sure how to implement it in Go/Rust off the top of my head. It also makes it more difficult to merge catalogs, as you may need to unset commonTrackFields.\r\n\r\nI don't think we should be worried about file size right now and there are many other (easy) techniques we could use instead, like gz compression. The JSON encoding should be the verbose, easy to parse, human readable encoding. We should eventually have an alternative binary encoding that can be converted 1:1 with the JSON encoding, utilizing lookup tables to avoid redundancy.",
       "createdAt": "2024-07-18T16:29:18Z",
-      "updatedAt": "2024-07-22T10:28:54Z",
+      "updatedAt": "2024-07-24T10:09:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -738,6 +738,13 @@
           "body": "Fair point. If others vote this opinion up, we can remove commonTrackFields. ",
           "createdAt": "2024-07-22T10:28:53Z",
           "updatedAt": "2024-07-22T10:28:53Z"
+        },
+        {
+          "author": "gwendalsimon",
+          "authorAssociation": "NONE",
+          "body": "I agree. \r\nFurthermore, it may also make catalog updates easier (no need to revise the CommonTrackFields if a new field invalidate some common fields)",
+          "createdAt": "2024-07-24T10:09:43Z",
+          "updatedAt": "2024-07-24T10:09:43Z"
         }
       ]
     },
@@ -841,7 +848,7 @@
       "labels": [],
       "body": "The current catalog assumes the initTrack uses the same namespace as the track. Should we also support initNamespace?",
       "createdAt": "2024-07-18T17:20:56Z",
-      "updatedAt": "2024-07-22T10:14:11Z",
+      "updatedAt": "2024-07-24T14:02:48Z",
       "closedAt": null,
       "comments": [
         {
@@ -850,6 +857,13 @@
           "body": "Two solutions here:\r\n1. As you propose, we add a new attribute called initNamesapce\r\n2. Or we can list the initTrack as its own track, in which case we can use the existing semantics to define its own namesapce. We can use the new 'type' atribute I propose in define it as an init track so that players don;t try to render it. here is what it might look like\r\n\r\n```\r\n{\r\n  \"version\": 1,\r\n  \"streamingFormat\": 1,\r\n  \"streamingFormatVersion\": \"0.2\",\r\n  \"supportsDeltaUpdates\": true,\r\n  \"commonTrackFields\": {\r\n     \"namespace\": \"sports.example.com/games/08-08-23/12345\",\r\n     \"packaging\": \"cmaf\",\r\n     \"renderGroup\":1\r\n  },\r\n  \"tracks\": [\r\n    {\r\n      \"name\": \"init_video_4k\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_video_1080\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_video_720\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/video\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"init_audio_ec3\",\r\n      \"namespace\" : \"all_your_inits_in_one_place/sports/audio\",\r\n      \"type\" : \"init\"\r\n    },\r\n    {\r\n      \"name\": \"video_4k\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640033\",\"mimeType\":\"video/mp4\",\r\n      \"width\":3840,\"height\":2160,\"framerate\":30,\"bitrate\":14931538},\r\n      \"initTrack\":\"init_video_4k\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"video_1080\",\r\n      \"selectionParams\":{\"codec\":\"avc1.640028\",\"mimeType\":\"video/mp4\",\r\n      \"width\":1920,\"height\":1080,\"framerate\":30,\"bitrate\":9914554},\r\n      \"initTrack\":\"init_video_1080\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"video_720\",\r\n      \"selectionParams\":{\"codec\":\"avc1.64001f\",\"mimeType\":\"video/mp4\",\r\n      \"width\":1280,\"height\":720,\"framerate\":30,\"bitrate\":4952892},\r\n      \"initTrack\":\"init_video_720\",\r\n      \"altGroup\": 1\r\n    },\r\n    {\r\n      \"name\": \"audio_aac\",\r\n      \"selectionParams\":{\"codec\":\"mp4a.40.5\",\"mimeType\":\"audio/mp4\",\r\n      \"samplerate\":48000,\"channelConfig\":\"2\",\"bitrate\":67071},\r\n      \"initTrack\":\"init_audio_aac\",\r\n      \"altGroup\": 2\r\n    },\r\n    {\r\n      \"name\": \"audio_ec3\",\r\n      \"selectionParms\":{\"codec\":\"ec-3\",\"mimeType\":\"audio/mp4\",\r\n      \"samplerate\":48000,\"channelConfig\":\"F801\",\"bitrate\":256000},\r\n      \"initTrack\":\"init_audio_ec3\",\r\n      \"altGroup\": 2\r\n    }\r\n   ]\r\n}\r\n\r\n```",
           "createdAt": "2024-07-22T10:14:10Z",
           "updatedAt": "2024-07-22T10:14:10Z"
+        },
+        {
+          "author": "gwendalsimon",
+          "authorAssociation": "NONE",
+          "body": "I like the 'type' attribute for init tracks.",
+          "createdAt": "2024-07-24T14:02:46Z",
+          "updatedAt": "2024-07-24T14:02:46Z"
         }
       ]
     },
@@ -1617,6 +1631,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 63,
+      "id": "PR_kwDOKMx0ks52VW1A",
+      "title": "Adding type attribute for tracks",
+      "url": "https://github.com/moq-wg/catalog-format/pull/63",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adds type attribute, along with new example and IANA entry. \r\n\r\nFixes #61 ",
+      "createdAt": "2024-07-24T12:13:26Z",
+      "updatedAt": "2024-07-24T12:13:26Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "c51f4d32e95bbad1063bfcf7d04643e43020b1f3",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "45ae98d02a5a8750f3ceb6f76eca90ffec62cbe9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 64,
+      "id": "PR_kwDOKMx0ks52VgvQ",
+      "title": "Change 'packaging' to 'format'",
+      "url": "https://github.com/moq-wg/catalog-format/pull/64",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Replaces the packaging track attribute with a new field called 'format'.\r\nThis field supports broader uses cases outside media.\r\nThe values for the format string are defined by the application specification which is referencing this catalog format. \r\n\r\nFixes #62 ",
+      "createdAt": "2024-07-24T12:35:02Z",
+      "updatedAt": "2024-07-24T12:58:18Z",
+      "baseRepository": "moq-wg/catalog-format",
+      "baseRefName": "main",
+      "baseRefOid": "c51f4d32e95bbad1063bfcf7d04643e43020b1f3",
+      "headRepository": "moq-wg/catalog-format",
+      "headRefName": "wilaw-patch-2",
+      "headRefOid": "28ea58b8fe968e320f4156d87f14f744774f6ca2",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
