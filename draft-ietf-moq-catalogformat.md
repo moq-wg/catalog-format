@@ -132,7 +132,6 @@ Table 1 provides an overview of all fields defined by this document.
 | Streaming format        | streamingFormat        | {{streamingformat}}       |
 | Streaming format version| streamingFormatVersion | {{streamingformatversion}}|
 | Supports delta updates  | supportsDeltaUpdates   | {{supportsdeltaupdates}}  |
-| Common Track Fields     | commonTrackFields      | {{commontrackfields}}     |
 | Tracks                  | tracks                 | {{tracks}}                |
 | Catalogs                | catalogs               | {{catalogs}}              |
 | Track namespace         | namespace              | {{tracknamespace}}        |
@@ -143,7 +142,6 @@ Table 1 provides an overview of all fields defined by this document.
 | Alternate group         | altGroup               | {{altgroup}}              |
 | Initialization data     | initData               | {{initdata}}              |
 | Initialization track    | initTrack              | {{inittrack}}             |
-| Selection parameters    | selectionParams        | {{selectionparameters}}   |
 | Dependencies            | depends                | {{dependencies}}          |
 | Temporal ID             | temporalId             | {{temporalid}}            |
 | Spatial ID              | spatialId              | {{spatialid}}             |
@@ -166,10 +164,9 @@ Table 2 defines the allowed locations for these fields within the document
 |:=========|:==============================================================|
 | R        | The Root of the JSON object                                   |
 | RC       | The Root or a Catalog object                                  |
-| TFC      | A Track object, Common Track Fields object or Catalog object. |
-| TF       | A Track object or a Common Track Fields object                |
+| TC       | A Track object or Catalog object.                             |
 | T        | Track object                                                  |
-| S        | Selection Parameters object.                                  |
+
 
 ## Catalog version {#catalogversion}
 Location: R    Required: Yes    Json Type: String
@@ -205,14 +202,6 @@ updates to the catalog will be independent. The default value is false. This
 field MUST be present if its value is true, but may be omitted if the value is
 false.
 
-### Common track fields {#commontrackfields}
-Location: R    Required: Optional    Json Type: Object
-
-An object holding a collection of Track Fields (objects with a location of TF
-or TFC in table 1) which are to be inherited by all tracks. A field defined at
-the Track object level always supercedes any value inherited from the Common
-Track Fields object.
-
 ### Tracks {#tracks}
 Location: R    Required: Optional    Json Type: Array
 
@@ -228,29 +217,29 @@ itself in the catalog array.
 
 ### Catalog object {#catalogobject}
 A catalog object is a collection of fields whose location is specified as 'RC'
-or 'TFC' in Table 2.
+or 'TC' in Table 2.
 
 ### Tracks object {#trackobject}
-A track object is a collection of fields whose location is specified as 'TFC',
-'TF' or 'T' in Table 2.
+A track object is a collection of fields whose location is specified as 'TC',
+or 'T' in Table 2.
 
 ### Track namespace {#tracknamespace}
-Location: TFC    Required: Optional    Json Type: String
+Location: TC    Required: Optional    Json Type: String
 
 The name space under which the track name is defined. See section 2.3 of
 {{MoQTransport}}. The track namespace is optional. If it is not declared within
-the Common Track Fields object or within a track, then each track MUST inherit
-the namespace of the catalog track. A namespace declared in a track object or
-catalog object overwrites any inherited name space.
+a track, then each track MUST inherit the namespace of the catalog track. A
+namespace declared in a track object or catalog object overwrites any
+inherited name space.
 
 ### Track name {#trackname}
-Location: TFC    Required: Yes   Json Type: String
+Location: TC    Required: Yes   Json Type: String
 
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
 Within the catalog, track names MUST be unique per namespace.
 
 ### Packaging {#packaging}
-Location: TF    Required: Yes   Json Type: String
+Location: T    Required: Yes   Json Type: String
 
 A string defining the type of payload encapsulation. Allowed values are strings
 as defined in Table 3.
@@ -263,14 +252,14 @@ Table 3: Allowed packaging values
 | LOC             | "loc"     | See RFC XXXX     |
 
 ### Track label {#tracklabel}
-Location: TF    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string defining a human-readable label for the track. Examples might be
 "Overhead camera view" or "Deutscher Kommentar". Note that the {{JSON}} spec
 requires UTF-8 support by decoders.
 
 ### Render group {#rendergroup}
-Location: TF    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 An integer specifying a group of tracks which are designed to be rendered
 together. Tracks with the same group number SHOULD be rendered simultaneously,
@@ -278,7 +267,7 @@ are usually time-aligned and are designed to accompany one another. A common
 example would be tying together audio and video tracks.
 
 ### Alternate group {#altgroup}
-Location: TF    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 An integer specifying a group of tracks which are alternate versions of
 one-another. Alternate tracks represent the same media content, but differ in
@@ -289,27 +278,17 @@ common example would be a set video tracks of the same content offered in
 alternate bitrates.
 
 ### Initialization data {#initdata}
-Location: TF    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string holding Base64 [BASE64] encoded initialization data for the track.
 
 ### Initialization track {#inittrack}
-Location: TF    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string specifying the track name of another track which holds initialization
 data for the current track. Initialization tracks MUST NOT be added to the
 tracks array {{tracks}}. They are referenced only via the initialization track
 field of the track which they initialize.
-
-### Selection parameters {#selectionparameters}
-Location: TF    Required: Optional   Json Type: Object
-
-An object holding a series of name/value pairs which a subscriber can use to
-select tracks for subscription. If present, the selection parameters object
-MUST NOT be empty. Any selection parameters declared at the root level are
-inherited by all tracks. A selection parameters object may exist at both the
-root and track level. Any declaration of a selection parameter at the track
-level overrides the inherited root value.
 
 ### Dependencies {#dependencies}
 Location: T    Required: Optional   Json Type: Array
@@ -333,7 +312,7 @@ A number identifying the spatial layer encoding of the track, starting with 0
 for the base layer, and increasing with higher fidelity.
 
 ### Codec {#codec}
-Location: S    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string defining the codec used to encode the track.
 For LOC packaged content, the string codec registrations are defined in Sect 3
@@ -341,39 +320,39 @@ and Section 4 of {{WEBCODECS-CODEC-REGISTRY}}. For CMAF packaged content, the
 string codec registrations are defined in XXX.
 
 ### Mimetype {#mimetype}
-Location: S    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string defining the mime type [MIME] of the track. This parameter is typically
 supplied with CMAF packaged content.
 
 ### Framerate {#framerate}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number defining the framerate of the track, expressed as frames per second.
 
 ### Bitrate {#bitrate}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number defining the bitrate of track, expressed in bits second.
 
 ### Width {#width}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number expressing the encoded width of the track content in pixels.
 
 ### Height {#height}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number expressing the encoded height of the video frames in pixels.
 
 ### Audio sample rate {#audiosamplerate}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 The number of audio frame samples per second. This property SHOULD only
 accompany audio codecs.
 
 ### Channel configuration {#channelconfiguration}
-Location: S    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string specifying the audio channel configuration. This property SHOULD only
 accompany audio codecs. A string is used in order to provide the flexibility to
@@ -382,17 +361,17 @@ Audio schemas.
 
 
 ### Display width {#displaywidth}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number expressing the intended display width of the track content in pixels.
 
 ### Display height {#displayheight}
-Location: S    Required: Optional   Json Type: Number
+Location: T    Required: Optional   Json Type: Number
 
 A number expressing the intended display height of the track content in pixels.
 
 ### Language {#language}
-Location: S    Required: Optional   Json Type: String
+Location: T    Required: Optional   Json Type: String
 
 A string defining the dominant language of the track. The string MUST be one of
 the standard Tags for Identifying Languages as defined by [LANG].
@@ -444,21 +423,27 @@ time-aligned audio and video tracks.
   "version": 1,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "commonTrackFields": {
-     "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
-     "renderGroup": 1
-  },
   "tracks": [
     {
       "name": "video",
-      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,
-      "height":1080,"framerate":30,"bitrate":1500000}
+      "namespace": "conference.example.com/conference123/alice",
+      "packaging": "loc",
+      "renderGroup": 1,
+      "codec":"av01.0.08M.10.0.110.09",
+      "width":1920,
+      "height":1080,
+      "framerate":30,
+      "bitrate":1500000
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
-      "bitrate":32000}
+      "namespace": "conference.example.com/conference123/alice",
+      "packaging": "loc",
+      "renderGroup": 1,
+      "codec":"opus",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":32000
     }
    ]
 }
@@ -483,33 +468,48 @@ supportsDeltaUpdates flag.
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "supportsDeltaUpdates": true,
-  "commonTrackFields": {
-     "renderGroup": 1,
-     "packaging": "loc"
-  },
   "tracks":[
     {
       "name": "hd",
-      "selectionParams": {"codec":"av01","width":1920,"height":1080,
-      "bitrate":5000000,"framerate":30},
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01",
+      "width":1920,
+      "height":1080,
+      "bitrate":5000000,
+      "framerate":30,
       "altGroup":1
     },
     {
       "name": "md",
-      "selectionParams": {"codec":"av01","width":720,"height":640,
-      "bitrate":3000000,"framerate":30},
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01",
+      "width":720,
+      "height":640,
+      "bitrate":3000000,
+      "framerate":30,
       "altGroup":1
     },
     {
       "name": "sd",
-      "selectionParams": {"codec":"av01","width":192,"height":144,
-      "bitrate":500000,"framerate":30},
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01",
+      "width":192,
+      "height":144,
+      "bitrate":500000,
+      "framerate":30,
       "altGroup":1
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
-      "bitrate":32000}
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"opus",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":32000
     }
    ]
 }
@@ -545,8 +545,6 @@ layers with a dependency relation as shown below:
 +----------+
 ~~~
 
-
-
 The corresponding catalog uses "depends" attribute to
 express the track relationships.
 
@@ -557,39 +555,65 @@ express the track relationships.
   "streamingFormatVersion": "0.2",
   "supportsDeltaUpdates": true,
   "commonTrackFields": {
-     "namespace": "conference.example.com/conference123/alice",
-     "renderGroup": 1,
-     "packaging": "loc"
+
   },
   "tracks":[
     {
       "name": "480p15",
-      "selectionParams": {"codec":"av01.0.01M.10.0.110.09","width":640,
-      "height":480,"bitrate":3000000,"framerate":15}
+      "namespace": "conference.example.com/conference123/alice",
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01.0.01M.10.0.110.09",
+      "width":640,
+      "height":480,
+      "bitrate":3000000,
+      "framerate":15
     },
     {
       "name": "480p30",
-      "selectionParams": {"codec":"av01.0.04M.10.0.110.09","width":640,
-      "height":480,"bitrate":3000000,"framerate":30},
+      "namespace": "conference.example.com/conference123/alice",
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01.0.04M.10.0.110.09",
+      "width":640,
+      "height":480,
+      "bitrate":3000000,
+      "framerate":30,
       "depends": ["480p15"]
     },
     {
       "name": "1080p15",
-      "selectionParams": {"codec":"av01.0.05M.10.0.110.09","width":1920,
-      "height":1080,"bitrate":3000000,"framerate":15},
+      "namespace": "conference.example.com/conference123/alice",
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01.0.05M.10.0.110.09",
+      "width":1920,
+      "height":1080,
+      "bitrate":3000000,
+      "framerate":15,
       "depends":["480p15"]
     },
-
     {
       "name": "1080p30",
-      "selectionParams": {"codec":"av01.0.08M.10.0.110.09","width":1920,
-      "height":1080,"bitrate":5000000,"framerate":30},
+      "namespace": "conference.example.com/conference123/alice",
+      "renderGroup": 1,
+      "packaging": "loc",
+      "codec":"av01.0.08M.10.0.110.09",
+      "width":1920,
+      "height":1080,
+      "bitrate":5000000,
+      "framerate":30,
       "depends": ["480p30", "1080p15"]
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
-      "bitrate":32000}
+      "namespace": "conference.example.com/conference123/alice",
+      "renderGroup": 1,
+      "packaging": "loc"
+      "codec":"opus",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":32000
     }
    ]
 }
@@ -607,13 +631,11 @@ established video conference.
         "path": "/tracks/-",
         "value": {
             "name": "slides",
-            "selectionParams": {
-                "codec": "av01.0.08M.10.0.110.09",
-                "width": 1920,
-                "height": 1080,
-                "framerate": 15,
-                "Bitrate": 750000
-            },
+            "codec": "av01.0.08M.10.0.110.09",
+            "width": 1920,
+            "height": 1080,
+            "framerate": 15,
+            "bitrate": 750000,
             "renderGroup": 1
         }
     }
@@ -659,44 +681,72 @@ tracks.
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
   "supportsDeltaUpdates": true,
-  "commonTrackFields": {
-     "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
-     "renderGroup":1
-  },
   "tracks": [
     {
       "name": "video_4k",
-      "selectionParams":{"codec":"avc1.640033","mimeType":"video/mp4",
-      "width":3840,"height":2160,"framerate":30,"bitrate":14931538},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"avc1.640033",
+      "mimeType":"video/mp4",
+      "width":3840,
+      "height":2160,
+      "framerate":30,
+      "bitrate":14931538,
       "initTrack":"init_video_4k",
       "altGroup": 1
     },
     {
       "name": "video_1080",
-      "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4",
-      "width":1920,"height":1080,"framerate":30,"bitrate":9914554},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"avc1.640028",
+      "mimeType":"video/mp4",
+      "width":1920,
+      "height":1080,
+      "framerate":30,
+      "bitrate":9914554,
       "initTrack":"init_video_1080",
       "altGroup": 1
     },
     {
       "name": "video_720",
-      "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4",
-      "width":1280,"height":720,"framerate":30,"bitrate":4952892},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"avc1.64001f",
+      "mimeType":"video/mp4",
+      "width":1280,
+      "height":720,
+      "framerate":30,
+      "bitrate":4952892,
       "initTrack":"init_video_720",
       "altGroup": 1
     },
     {
       "name": "audio_aac",
-      "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4",
-      "samplerate":48000,"channelConfig":"2","bitrate":67071},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"mp4a.40.5",
+      "mimeType":"audio/mp4",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":67071,
       "initTrack":"init_audio_aac",
       "altGroup": 2
     },
     {
       "name": "audio_ec3",
-      "selectionParms":{"codec":"ec-3","mimeType":"audio/mp4",
-      "samplerate":48000,"channelConfig":"F801","bitrate":256000},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"ec-3",
+      "mimeType":"audio/mp4",
+      "samplerate":48000,
+      "channelConfig":"F801",
+      "bitrate":256000,
       "initTrack":"init_audio_ec3",
       "altGroup": 2
     }
@@ -714,22 +764,28 @@ LOC packaged audio.
   "version": 1,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "commonTrackFields": {
-     "namespace": "output.example.com/event/12345",
-     "renderGroup":1
-  },
   "tracks": [
     {
       "name": "video0",
-      "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4",
-      "width":1280,"height":720,"framerate":30,"bitrate":4952892},
+      "namespace": "output.example.com/event/12345",
+      "renderGroup":1,
+      "codec":"avc1.64001f",
+      "mimeType":"video/mp4",
+      "width":1280,
+      "height":720,
+      "framerate":30,
+      "bitrate":4952892,
       "initTrack":"init_video_720",
       "packaging":"cmaf"
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
-      "bitrate":32000},
+      "namespace": "output.example.com/event/12345",
+      "renderGroup":1,
+      "codec":"opus",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":32000,
       "packaging": "loc"
     }
    ]
@@ -748,22 +804,30 @@ The data has been truncated for clarity.
   "version": 1,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "commonTrackFields": {
-     "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
-     "renderGroup":1
-  },
   "tracks": [
     {
       "name": "video_1080",
-      "selectionParams":{"codec":"avc1.640028","mimeType":"video/mp4",
-      "width":1920,"height":1080,"framerate":30,"bitrate":9914554},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"avc1.640028",
+      "mimeType":"video/mp4",
+      "width":1920,
+      "height":1080,
+      "framerate":30,
+      "bitrate":9914554,
       "initData":"AAAAGG...BAAAx"
     },
     {
       "name": "audio_aac",
-      "selectionParams":{"codec":"mp4a.40.5","mimeType":"audio/mp4",
-      "samplerate":48000,"channelConfig":"2","bitrate":67071},
+      "namespace": "sports.example.com/games/08-08-23/12345",
+      "packaging": "cmaf",
+      "renderGroup":1,
+      "codec":"mp4a.40.5",
+      "mimeType":"audio/mp4",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":67071,
       "initData":"AAAAGG...EAADE="
     }
    ]
@@ -781,24 +845,30 @@ description.
   "version": 1,
   "streamingFormat": 1,
   "streamingFormatVersion": "0.2",
-  "commonTrackFields": {
-     "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
-     "renderGroup": 1
-  },
   "tracks": [
     {
       "name": "video",
-      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,
-      "height":1080,"framerate":30,"bitrate":1500000},
+      "namespace": "conference.example.com/conference123/alice",
+      "packaging": "loc",
+      "renderGroup": 1,
+      "codec":"av01.0.08M.10.0.110.09",
+      "width":1920,
+      "height":1080,
+      "framerate":30,
+      "bitrate":1500000,
       "com.example-billing-code": 3201,
       "com.example-tier": "premium",
       "com.example-debug": "h349835bfkjfg82394d945034jsdfn349fns"
     },
     {
       "name": "audio",
-      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
-      "bitrate":32000}
+      "namespace": "conference.example.com/conference123/alice",
+      "packaging": "loc",
+      "renderGroup": 1,
+      "codec":"opus",
+      "samplerate":48000,
+      "channelConfig":"2",
+      "bitrate":32000
     }
    ]
 }
@@ -893,8 +963,15 @@ Location: RC<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
+Descriptive Name: Supports delta updates<br/>
+Field Name: supportsDeltaUpdates<br/>
+Required: opt<br/>
+Location: RC<br/>
+JSON Type: Boolean<br/>
+Specification: [MoQCatalog]<br/>
+
 Descriptive Name: Tracks<br/>
-Field Name: stracks<br/>
+Field Name: tracks<br/>
 Required: opt<br/>
 Location: R<br/>
 JSON Type: Array<br/>
@@ -910,7 +987,7 @@ Specification: [MoQCatalog]<br/>
 Descriptive Name: Track namespace<br/>
 Field Name: namespace<br/>
 Required: opt<br/>
-Location: RTC<br/>
+Location: TC<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
@@ -924,50 +1001,43 @@ Specification: [MoQCatalog]<br/>
 Descriptive Name: Packaging<br/>
 Field Name: packaging<br/>
 Required: yes<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Track label<br/>
 Field Name: label<br/>
 Required: opt<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Render group<br/>
 Field Name: renderGroup<br/>
 Required: opt<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Alternate group<br/>
 Field Name: altGroup<br/>
 Required: opt<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Initialization data<br/>
 Field Name: initData<br/>
 Required: opt<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Initialization track<br/>
 Field Name: initTrack<br/>
 Required: opt<br/>
-Location: RT<br/>
+Location: T<br/>
 JSON Type: String<br/>
-Specification: [MoQCatalog]<br/>
-
-Descriptive Name: Selection parameters<br/>
-Field Name: selectionParams<br/>
-Required: opt<br/>
-Location: RT<br/>
-JSON Type: Object<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Dependencies<br/>
@@ -994,77 +1064,77 @@ Specification: [MoQCatalog]<br/>
 Descriptive Name: Codec<br/>
 Field Name: codec<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: MIME type<br/>
 Field Name: mimeType<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Framerate<br/>
 Field Name: framerate<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Bitrate<br/>
 Field Name: bitrate<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Width<br/>
 Field Name: width<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Height<br/>
 Field Name: height<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Audio sample rate<br/>
 Field Name: samplerate<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Channel configuration<br/>
 Field Name: channelConfig<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Display width<br/>
 Field Name: displayWidth<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Display height<br/>
 Field Name: displayHeight<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: Number<br/>
 Specification: [MoQCatalog]<br/>
 
 Descriptive Name: Language<br/>
 Field Name: lang<br/>
 Required: opt<br/>
-Location: S<br/>
+Location: T<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
@@ -1079,13 +1149,9 @@ Any registration for a new Field name MUST provide the following information:
 the catalog:
   * 'R' - the field is located in the Root of the JSON object.
   * 'RC' - the field may be located in either the Root or a Catalog object.
-  * 'RTC' - the field may be located in either the Root, or a Track object
-  or a Catalog object.
   * 'TC' - the field may be located in either a Track object or a Catalog
   object.
-  * 'RT' - the field may be located in either the Root or a Track object.
   * 'T' - the field is located in a Track object.
-  * 'S' - the field is located in the Selection Parameters object.
 * JSON Type  - the JSON type of the field value, which must be one of
 String, Array, Number, Object or Boolean.
 * Specification - a URL to the specification which defines the usage of the
