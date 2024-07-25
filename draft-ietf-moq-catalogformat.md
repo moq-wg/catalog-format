@@ -282,10 +282,9 @@ Location: TF    Required: Optional   Json Type: Number
 
 An integer specifying a group of tracks which are alternate versions of
 one-another. Alternate tracks represent the same media content, but differ in
-their selection properties. Alternate tracks SHOULD have matching framerate
-{{framerate}} and media time sequences. A subscriber typically subscribes to
-one track from a set of tracks specifying the same alternate group number. A
-common example would be a set video tracks of the same content offered in
+their selection properties. A subscriber typically subscribes to one track
+from a set of tracks specifying the same alternate group number. A common
+example would be a set video tracks of the same content offered in
 alternate bitrates.
 
 ### Initialization data {#initdata}
