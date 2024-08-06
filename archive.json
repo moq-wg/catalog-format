@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-04T00:36:38.314878+00:00",
+  "timestamp": "2024-08-06T00:33:23.200806+00:00",
   "repo": "moq-wg/catalog-format",
   "labels": [
     {
@@ -929,6 +929,95 @@
       "updatedAt": "2024-07-22T10:03:18Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 67,
+      "id": "I_kwDOKMx0ks6R-3Hv",
+      "title": "Catalog track definition insufficient to communicate client selection criteria",
+      "url": "https://github.com/moq-wg/catalog-format/issues/67",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "wilaw"
+      ],
+      "labels": [],
+      "body": "The current CATALOG allows for an overly simplistic track definition\r\n\r\n> Track Descriptor {\r\n>   Track ID (i),\r\n>   Container Format (i),\r\n>   Container Init Payload (b)\r\n> }\r\n\r\nThese fields do not include sufficient semantics to communicate selection criteria present in modern streaming productions. Some examples would include:\r\n\r\n- language  - audio tracks in english, french german\r\n- accessibility options - video description, signing\r\n- captions\r\n- subtitles \r\n- codec - HEVC, AVC, VVC\r\n- resolution - 1080p, 2160p, \r\n- framerate - 30,60,24\r\n- spatial audio - 5.1, Dolby Atmos\r\n",
+      "createdAt": "2023-01-19T01:21:12Z",
+      "updatedAt": "2024-08-05T18:08:11Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "vasilvv",
+          "authorAssociation": "NONE",
+          "body": "That is by design.  All of those are available in the Container Init Payload, which in case of fMP4 would contain a MOOV atom.",
+          "createdAt": "2023-01-21T03:03:44Z",
+          "updatedAt": "2023-01-21T03:03:44Z"
+        },
+        {
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This assumes fMP4 as the only container format and supports a specific set of use-cases with specific set of constraints\r\n",
+          "createdAt": "2023-01-22T01:42:55Z",
+          "updatedAt": "2023-01-22T01:42:55Z"
+        },
+        {
+          "author": "vasilvv",
+          "authorAssociation": "NONE",
+          "body": "Indeed, if you are defining a format that is not fMP4, you would need to figure out how to specify all of those details for the newly defined format.",
+          "createdAt": "2023-01-22T17:13:48Z",
+          "updatedAt": "2023-01-22T17:13:48Z"
+        },
+        {
+          "author": "suhasHere",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's true ... but I am not seeing a reason why CATALOG message define any structure .. All it needs is \r\n\r\n```\r\nCATALOG Message {\r\n  WarpStreamid/TrackId\r\n [Container Type(8)],\r\n  Length(i),\r\n  Payload(...)...\r\n}\r\n``` \r\nplease note the catalog payload might be encrypted too and its contents is not useful for intermediaries .",
+          "createdAt": "2023-01-23T23:16:04Z",
+          "updatedAt": "2023-01-23T23:16:54Z"
+        },
+        {
+          "author": "kixelated",
+          "authorAssociation": "NONE",
+          "body": "> That's true ... but I am not seeing a reason why CATALOG message define any structure .. All it needs is\r\n> \r\n> ```\r\n> CATALOG Message {\r\n>   WarpStreamid/TrackId\r\n>  [Container Type(8)],\r\n>   Length(i),\r\n>   Payload(...)...\r\n> }\r\n> ```\r\n> \r\n> please note the catalog payload might be encrypted too and its contents is not useful for intermediaries .\r\n\r\nYep that's the idea, and is almost verbatim in the draft. The only difference is that a CATALOG message can have multiple tracks, but each `Track Descriptor` is exactly as you described.\r\n\r\nI like the idea of splitting each track descriptor into a separate message (#43 had the TRACK message) so tracks can be added/updated/removed independently. The CATALOG message with all tracks was a compromise.",
+          "createdAt": "2023-01-27T14:53:22Z",
+          "updatedAt": "2023-01-27T14:53:22Z"
+        },
+        {
+          "author": "kixelated",
+          "authorAssociation": "NONE",
+          "body": "> The current CATALOG allows for an overly simplistic track definition\r\n> \r\n> > Track Descriptor {\r\n> > Track ID (i),\r\n> > Container Format (i),\r\n> > Container Init Payload (b)\r\n> > }\r\n> \r\n> These fields do not include sufficient semantics to communicate selection criteria present in modern streaming productions. Some examples would include:\r\n> \r\n> * language  - audio tracks in english, french german\r\n> * accessibility options - video description, signing\r\n> * captions\r\n> * subtitles\r\n> * codec - HEVC, AVC, VVC\r\n> * resolution - 1080p, 2160p,\r\n> * framerate - 30,60,24\r\n> * spatial audio - 5.1, Dolby Atmos\r\n\r\nLike Victor mentioned, [he realized](https://github.com/kixelated/warp-draft/pull/43#issuecomment-1319023237) that most of this stuff was already in the fMP4 init segment (`trak` box) and it was redundant to include in the CATALOG. The relay shouldn't parse any of this information so it's nice to delegate it to an opaque \"container format\" blob that only the broadcaster/viewer will support.\r\n\r\nI think all of your examples are present in `trak` but there's a few things missing in fMP4 that might be useful, like peak bitrate, and we should discuss how to add those fields. Modify fMP4? Add a new track format? Add additional fields to the CATALOG message?\r\n\r\nI'd love to see us specify more track formats. A possible example would be \"HLS\", where the `Container Init Payload` would be a `EXT-X-STREAM-INF` string and the `Object Payload` would be a TS segment (including SPS/PPS). And possibly rename \"container\" to something else (\"track format\"?) so it's less confusing.",
+          "createdAt": "2023-01-27T16:02:20Z",
+          "updatedAt": "2023-01-27T16:03:47Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Label for Ted: Architectural",
+          "createdAt": "2023-01-28T00:17:59Z",
+          "updatedAt": "2023-01-28T00:17:59Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The resolution of this issue depends on two other issues - specifically [Relax the CATALOG definition to decouple the base protocol from the streaming format moq-wg/moq-transport#66](https://github.com/kixelated/warp-draft/issues/66) and [Move Catalog details to its own spec moq-wg/moq-transport#85](https://github.com/kixelated/warp-draft/issues/85). If either of these issues is adopted, then the track definition will be a function of the CATALOG description that may or may not reside in a separate spec. \r\n\r\nIf neither issue is adopted, then we need to address how to extend the the current WARP draft track definition. \r\n\r\n> here's a few things missing in fMP4 that might be useful, like peak bitrate, and we should discuss how to add those fields. Modify fMP4? Add a new track format? Add additional fields to the CATALOG message?\r\n\r\n@kixelated  - modifying fmp4 via ISO/MPEG will take a long time and is not a process we would want to follow for ad-hoc changes to selection criteria. The more flexible path for MoQ would be to extend the track format and/or CATALOG message fields to hold the new selection criteria. While we could hang new fields off of CATALOG, they would increase with application requirements. Consider for example a live VR game in which the client subscribes to streaming mp4 texture maps based on spatial location, velocity and degree-of-invisibility (i'm making that up to illustrate my point). We could add TRACK.location, TRACK.velocity and TRACK.invisibility.  This could take a year or so to push through IETF. Then we'd need to wait for relay providers  to pick up those changes and deploy support for them. That could take another year. That's a long delay before the game developer could use MoQ to stream their game in production. And that's just one application. What if there were ten different ones that all needed different fields in the CATALOG. After years of updates, we'd have 50 or more custom fields in TRACK catering to different applications. So a more flexible approach would be define a standardized key/value selection field for TRACK for carrying application-specific selection criteria not contained within the INIT object. For example TRACK.SELECTION = [{key:value}]. This could be used by all applications for custom selection and it would not require any spec updates. ",
+          "createdAt": "2023-02-27T20:21:00Z",
+          "updatedAt": "2023-02-27T20:21:00Z"
+        },
+        {
+          "author": "afrind",
+          "authorAssociation": "NONE",
+          "body": "Catalog track definitions are being moved out to https://github.com/wilaw/MoQ, so maybe we can close this?",
+          "createdAt": "2023-05-05T20:25:03Z",
+          "updatedAt": "2023-05-05T20:25:03Z"
+        },
+        {
+          "author": "afrind",
+          "authorAssociation": "NONE",
+          "body": "@wilaw do you have this issue captured in your repo and can you close this out?",
+          "createdAt": "2023-05-26T23:41:58Z",
+          "updatedAt": "2023-05-26T23:41:58Z"
+        }
+      ]
     }
   ],
   "pulls": [
