@@ -137,7 +137,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalogs                | catalogs               | {{catalogs}}              |
 | Track namespace         | namespace              | {{tracknamespace}}        |
 | Track name              | name                   | {{trackname}}             |
-| Packaging               | packaging              | {{packaging}}             |
+| Track format            | format                 | {{format}}                |
 | Track label             | label                  | {{tracklabel}}            |
 | Render group            | renderGroup            | {{rendergroup}}           |
 | Alternate group         | altGroup               | {{altgroup}}              |
@@ -249,18 +249,13 @@ Location: TFC    Required: Yes   Json Type: String
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
 Within the catalog, track names MUST be unique per namespace.
 
-### Packaging {#packaging}
+### Track format {#format}
 Location: TF    Required: Yes   Json Type: String
 
-A string defining the type of payload encapsulation. Allowed values are strings
-as defined in Table 3.
-
-Table 3: Allowed packaging values
-
-| Name            |   Value   |      Draft       |
-|:================|:==========|:=================|
-| CMAF            | "cmaf"    | See [CMAF]     |
-| LOC             | "loc"     | See RFC XXXX     |
+A string defining the format of the track. Format may describe the packaging,
+serialization or encapsulation of the track contents. The allowed values
+of this field are defined by the application format utilizing this catalog
+specification.
 
 ### Track label {#tracklabel}
 Location: TF    Required: Optional   Json Type: String
@@ -446,7 +441,7 @@ time-aligned audio and video tracks.
   "streamingFormatVersion": "0.2",
   "commonTrackFields": {
      "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
+     "format": "loc",
      "renderGroup": 1
   },
   "tracks": [
@@ -485,7 +480,7 @@ supportsDeltaUpdates flag.
   "supportsDeltaUpdates": true,
   "commonTrackFields": {
      "renderGroup": 1,
-     "packaging": "loc"
+     "format": "loc"
   },
   "tracks":[
     {
@@ -559,7 +554,7 @@ express the track relationships.
   "commonTrackFields": {
      "namespace": "conference.example.com/conference123/alice",
      "renderGroup": 1,
-     "packaging": "loc"
+     "format": "loc"
   },
   "tracks":[
     {
@@ -661,7 +656,7 @@ tracks.
   "supportsDeltaUpdates": true,
   "commonTrackFields": {
      "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
+     "format": "cmaf",
      "renderGroup":1
   },
   "tracks": [
@@ -724,13 +719,66 @@ LOC packaged audio.
       "selectionParams":{"codec":"avc1.64001f","mimeType":"video/mp4",
       "width":1280,"height":720,"framerate":30,"bitrate":4952892},
       "initTrack":"init_video_720",
-      "packaging":"cmaf"
+      "format":"cmaf"
     },
     {
       "name": "audio",
       "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
       "bitrate":32000},
-      "packaging": "loc"
+      "format": "loc"
+    }
+   ]
+}
+~~~
+
+### Multi-track-format example
+
+This example shows catalog describing a broadcast with many
+different track formats. The format values are defined by the
+application specification which is referencing this catalog
+specification.
+
+~~~json
+{
+  "version": 1,
+  "streamingFormat": 1,
+  "streamingFormatVersion": "0.2",
+  "commonTrackFields": {
+     "namespace": "output.example.com/event/12345"
+  },
+  "tracks":[
+    {
+      "name": "game-instructions",
+      "type": "datachannel",
+      "format": "CBOR-special"
+    },
+    {
+      "name": "media-timeline",
+      "type": "timeline",
+      "format": "csv"
+    },
+    {
+      "name": "hd",
+      "selectionParams": {"codec":"av01","width":1920,"height":1080,
+      "bitrate":5000000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "sd",
+      "selectionParams": {"codec":"av01","width":192,"height":144,
+      "bitrate":500000,"framerate":30},
+      "altGroup":1,
+      "renderGroup":1,
+      "format": "cmaf"
+    },
+    {
+      "name": "audio",
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+      "bitrate":32000},
+      "renderGroup":1,
+      "format": "loc"
     }
    ]
 }
@@ -750,7 +798,7 @@ The data has been truncated for clarity.
   "streamingFormatVersion": "0.2",
   "commonTrackFields": {
      "namespace": "sports.example.com/games/08-08-23/12345",
-     "packaging": "cmaf",
+     "format": "cmaf",
      "renderGroup":1
   },
   "tracks": [
@@ -783,7 +831,7 @@ description.
   "streamingFormatVersion": "0.2",
   "commonTrackFields": {
      "namespace": "conference.example.com/conference123/alice",
-     "packaging": "loc",
+     "format": "loc",
      "renderGroup": 1
   },
   "tracks": [
@@ -921,8 +969,8 @@ Location: TC<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
 
-Descriptive Name: Packaging<br/>
-Field Name: packaging<br/>
+Descriptive Name: Format<br/>
+Field Name: format<br/>
 Required: yes<br/>
 Location: RT<br/>
 JSON Type: String<br/>
