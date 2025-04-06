@@ -137,6 +137,7 @@ Table 1 provides an overview of all fields defined by this document.
 | Catalogs                | catalogs               | {{catalogs}}              |
 | Track namespace         | namespace              | {{tracknamespace}}        |
 | Track name              | name                   | {{trackname}}             |
+| Track type              | type                   | {{tracktype}}             |
 | Packaging               | packaging              | {{packaging}}             |
 | Track label             | label                  | {{tracklabel}}            |
 | Render group            | renderGroup            | {{rendergroup}}           |
@@ -248,6 +249,12 @@ Location: TFC    Required: Yes   Json Type: String
 
 A string defining the name of the track. See section 2.3 of {{MoQTransport}}.
 Within the catalog, track names MUST be unique per namespace.
+
+### Track type {#tracktype}
+Location: TFC    Required: Optional   Json Type: String
+
+A string defining the type of the track. The allowed values of this field
+are defined by whichever streaming format is utilizing this catalog format.
 
 ### Packaging {#packaging}
 Location: TF    Required: Yes   Json Type: String
@@ -770,6 +777,45 @@ The data has been truncated for clarity.
 }
 ~~~
 
+### Use of the track type value
+
+This example shows catalog for a media producer capable of sending LOC packaged,
+time-aligned audio and video tracks along with a custom timeline track. The
+producer decorates each track entry with a custom type.
+
+~~~json
+{
+  "version": 1,
+  "streamingFormat": 1,
+  "streamingFormatVersion": "0.2",
+  "commonTrackFields": {
+     "namespace": "conference.example.com/conference123/alice",
+     "packaging": "loc",
+     "renderGroup": 1
+  },
+  "tracks": [
+     {
+      "name": "live-timeline",
+      "type": "timeline",
+      "depends":["video","audio"]
+    },
+    {
+      "name": "video",
+      "type": "primary-video",
+      "selectionParams":{"codec":"av01.0.08M.10.0.110.09","width":1920,
+      "height":1080,"framerate":30,"bitrate":1500000}
+    },
+    {
+      "name": "audio",
+      "type": "primary-audio",
+      "selectionParams":{"codec":"opus","samplerate":48000,"channelConfig":"2",
+      "bitrate":32000}
+    }
+   ]
+}
+
+~~~
+
 ### Time-aligned Audio/Video Tracks with custom field values
 
 This example shows catalog for a media producer capable of sending LOC packaged,
@@ -917,6 +963,13 @@ Specification: [MoQCatalog]<br/>
 Descriptive Name: Track name<br/>
 Field Name: name<br/>
 Required: yes<br/>
+Location: TC<br/>
+JSON Type: String<br/>
+Specification: [MoQCatalog]<br/>
+
+Descriptive Name: Track type<br/>
+Field Name: type<br/>
+Required: opt<br/>
 Location: TC<br/>
 JSON Type: String<br/>
 Specification: [MoQCatalog]<br/>
